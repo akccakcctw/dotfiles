@@ -5,9 +5,10 @@
 ;= goto:eof
 ;= Add aliases below here
 e.=explorer .
+eHost=vim %SystemRoot%\system32\drivers\etc\hosts
 gs=git status
 gl=git log --oneline --all --graph --decorate  $*
-ll=ls -al
+ll=ls -l --color $*
 ls=ls --show-control-chars -F --color $*
 pwd=cd
 clear=cls
