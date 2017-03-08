@@ -16,4 +16,4 @@ history=cat %CMDER_ROOT%\config\.history
 unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
-sshCentOS=ssh root@192.168.42.220
+sshVMbox=ssh -t root@192.168.42.220 "cd /var/www/html/ ; bash"
