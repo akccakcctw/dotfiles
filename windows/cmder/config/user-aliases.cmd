@@ -6,6 +6,8 @@
 ;= Add aliases below here
 e.=explorer .
 eHost=vim %SystemRoot%\system32\drivers\etc\hosts
+rm=rm -i $*
+mv=mv -i $*
 gs=git status
 gl=git log --oneline --all --graph --decorate  $*
 ll=ls -l --color $*
