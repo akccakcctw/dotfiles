@@ -4,19 +4,19 @@ filetype off                  " required
 " vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-surround'
-Plugin 'Townk/vim-autoclose'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'lilydjwg/colorizer'
-Plugin 'jacoborus/tender' "colorscheme
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/emmet-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-surround'
+Plug 'Townk/vim-autoclose'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'Chiel92/vim-autoformat'
+Plug 'lilydjwg/colorizer'
+Plug 'jacoborus/tender' "colorscheme
 
 call plug#end()            " required
 "
