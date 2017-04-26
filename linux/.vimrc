@@ -1,11 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" vim-plug
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -20,18 +18,18 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'lilydjwg/colorizer'
 Plugin 'jacoborus/tender' "colorscheme
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+call plug#end()            " required
 "
 " Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
+" :PlugInstall      - Install plugins
+" :PlugUpdate       - Install or update plugins
+" :PlugClean[!]     - Remove unused directories (bang version will clean without prompt)
+" :PlugUpgrade      - Upgrade vim-plug itself
+" :PlugStatus       - Check the status of plugins
+" :PlugDiff         - Examine changes from the previous update and the pending changes
+" :PlugSnapshot[!] [output path] - Generate script for restoring the current snapshot of the plugins
+" 
+" see https://github.com/junegunn/vim-plug for more informations
 " Put your non-Plugin stuff after this line
 
 " tabs and spaces handling
