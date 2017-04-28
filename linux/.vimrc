@@ -17,6 +17,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Chiel92/vim-autoformat'
 Plug 'lilydjwg/colorizer'
 Plug 'jacoborus/tender' "colorscheme
+Plug 'altercation/vim-colors-solarized' "colorscheme
 
 call plug#end()            " required
 "
@@ -72,16 +73,15 @@ set bg=dark
 
 " use 256 colors when possible
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-	let &t_Co = 256
-	"colorscheme evening
-    colorscheme tender
+    let &t_Co = 256
+    "colorscheme tender
+    colorscheme solarized
 else
     colorscheme delek
 endif
 
 " colors for gvim
 if has('gui_running')
-    "colorscheme wombat
     colorscheme evening
 endif
 
@@ -177,4 +177,3 @@ let g:airline#extensions#whitespace#enabled = 0
 
 "enable tender airline theme
 let g:tender_airline = 1
-
