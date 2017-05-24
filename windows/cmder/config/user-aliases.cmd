@@ -1,9 +1,11 @@
 ;= @echo off
-;= rem Call DOSKEY and use this file as the macrofile
+;= :: Call DOSKEY and use this file as the macrofile
 ;= %SystemRoot%\system32\doskey /listsize=1000 /macrofile=%0%
-;= rem In batch mode, jump to the end of the file
+;= :: In batch mode, jump to the end of the file
 ;= goto:eof
 ;= Add aliases below here
+
+;= :: Shortcuts
 e.=explorer .
 eHost=vim %SystemRoot%\system32\drivers\etc\hosts
 rm=rm -i $*
@@ -20,8 +22,14 @@ vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 myip=nslookup myip.opendns.com. resolver1.opendns.com
 
-;= rem for Bash on Ubuntu on Windows
+;= :: Easier navigation
+..=cd ..
+...=cd ../..
+....=cd ../../..
+.....=cd ../../../..
+
+;= :: for Bash on Ubuntu on Windows
 bash=%windir%\system32\bash.exe -cur_console:p
 
-;= rem ssh
+;= :: ssh
 sshVMbox=ssh -t root@192.168.42.220 "cd /var/www/html/ ; bash"
