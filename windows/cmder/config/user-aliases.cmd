@@ -7,10 +7,10 @@
 
 ;= :: Shortcuts
 e.=explorer .
-eHost=vim %SystemRoot%\system32\drivers\etc\hosts
 rm=rm -i $*
 mv=mv -i $*
-gs=git status
+gst=git status
+gs=git show
 gl=git log --oneline --all --graph --decorate  $*
 ll=ls -l --color $*
 ls=ls --show-control-chars -F --color $*
@@ -21,6 +21,9 @@ unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 myip=nslookup myip.opendns.com. resolver1.opendns.com
+
+;= :: Edit host file
+eHost=vim %SystemRoot%\system32\drivers\etc\hosts
 
 ;= :: Easier navigation
 ..=cd ..
