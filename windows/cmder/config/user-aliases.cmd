@@ -12,6 +12,7 @@ mv=mv -i $*
 gst=git status
 gs=git show
 gl=git log --oneline --all --graph --decorate  $*
+gll=git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short $*
 ll=ls -l --color $*
 ls=ls --show-control-chars -F --color $*
 pwd=cd
