@@ -1,0 +1,35 @@
+{
+  "css.validate": false,
+  "editor.tabSize": 2,
+  "editor.renderIndentGuides": false,
+  "editor.snippetSuggestions": "top",
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
+  "files.eol": "\n",
+  "git.path": "C:\\cmder\\vendor\\git-for-windows\\mingw32\\bin\\git.exe",
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+  "vim.disableAnnoyingNeovimMessage": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vsicons.presets.jsonOfficial": false,
+  "window.zoomLevel": 0,
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.statusBar.visible": true
+}
