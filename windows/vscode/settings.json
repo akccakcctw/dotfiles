@@ -1,5 +1,7 @@
 {
   "css.validate": false,
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": false,
   "editor.tabSize": 2,
   "editor.renderIndentGuides": false,
   "editor.snippetSuggestions": "top",
@@ -12,19 +14,17 @@
     "javascriptreact",
     "vue"
   ],
+  "files.autoSave": "off",
   "files.eol": "\n",
+  "files.insertFinalNewline": true,
   "git.path": "C:\\cmder\\vendor\\git-for-windows\\mingw32\\bin\\git.exe",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "vim.disableAnnoyingNeovimMessage": true,
+  "vim.hlsearch": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": [ "j", "j" ],
+      "after": [ "<Esc>" ]
     }
   ],
   "vsicons.presets.jsonOfficial": false,
