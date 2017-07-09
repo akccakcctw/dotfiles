@@ -9,6 +9,7 @@
 e.=explorer .
 rm=rm -i $*
 mv=mv -i $*
+g=git $*
 gst=git status
 gs=git show
 gl=git log --oneline --all --graph --decorate  $*
