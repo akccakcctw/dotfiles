@@ -38,13 +38,14 @@ filetype plugin indent on    " required
 " =======================================================================
 " tabs and spaces handling
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set backspace=indent,eol,start
 
 " tab length exceptions on some file types
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " always show status bar
@@ -101,13 +102,16 @@ endif
 " Shortcut maps ------------------------
 
 let mapleader = ","
-map <silent> <leader>ee :tabe ~/.vimrc<CR> "edit .vimrc
-map <silent> <leader>/ <C-y>/ "toggle comment with emmet
+" edit .vimrc
+map <silent> <leader>ee :tabe ~/.vimrc<CR>
+" toggle comment with emmet
+map <silent> <leader>/ <C-y>/
+" open a new tab
 map <C-n> :tabnew<CR>
-"nmap tt :tabnew "open a new tab
+" escape ESC
+imap jj <Esc>
 
-
-" ============================================================================
+" ======================================
 " Plugins settings and mappings
 
 " NERDTree ----------------------------- 
@@ -116,7 +120,7 @@ map <C-n> :tabnew<CR>
 map <F2> :NERDTreeToggle<CR>
 " open nerdtree with the current file selected
 nmap ,t :NERDTreeFind<CR>
-" don;t show these file types
+" don't show these file types
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " Autoformat ---------------------------
@@ -124,10 +128,9 @@ nmap <F3> :Autoformat<CR>
 
 " Emmet --------------------------------
 
-"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " CtrlP --------------------------------
-
 
 let g:ctrlp_map = ',e'  " file finder mapping
 nmap ,g :CtrlPBufTag<CR> " tags (symbols) in current file finder mapping
@@ -209,4 +212,3 @@ if has('gui_running')
     "colorscheme wombat
     colorscheme evening
 endif
-
