@@ -18,7 +18,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "git.path": "C:\\cmder\\vendor\\git-for-windows\\mingw32\\bin\\git.exe",
-  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
   "vim.disableAnnoyingNeovimMessage": true,
   "vim.hlsearch": true,
   "vim.insertModeKeyBindings": [
