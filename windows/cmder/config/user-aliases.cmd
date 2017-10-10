@@ -38,3 +38,4 @@ bash=%windir%\system32\bash.exe -cur_console:p
 
 ;= :: ssh
 sshVMbox=ssh -t root@192.168.42.220 "cd /var/www/html/ ; bash"
+sshPTT=ssh bbsu@ptt.cc

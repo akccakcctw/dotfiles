@@ -19,3 +19,6 @@ alias lh='ls -lh --color=auto'
 alias py3='python3'
 alias rm='rm -i'
 alias mv='mv -i'
+
+# SSH
+alias sshPTT='ssh bbsu@ptt.cc'
