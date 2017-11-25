@@ -12,6 +12,7 @@ alias du='du -h'
 alias g='git'
 alias gl='git log --oneline --all --graph --decorate'
 alias gll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s    %Cblue\\ [%cn]" --decorate --date=short'
+alias gs='git show'
 
 # Utils
 alias l.='ls -d .* --color=auto'
