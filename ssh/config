@@ -1,0 +1,11 @@
+# - PTT
+Host      PTT
+Hostname  ptt.cc
+port      22
+User      bbsu
+
+# - PTT2
+Host      PTT2
+Hostname  ptt2.cc
+port      22
+User      bbsu
