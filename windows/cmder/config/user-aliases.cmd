@@ -5,17 +5,12 @@
 ;= goto:eof
 ;= Add aliases below here
 
-;= :: Shortcuts
+;= :: Aliases
 e.=explorer .
 rm=rm -i $*
 mv=mv -i $*
-g=git $*
-gst=git status
-gs=git show
-gl=git log --oneline --all --graph --decorate  $*
-gll=git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short $*
-ll=ls -l --color $*
-ls=ls --show-control-chars -F --color $*
+ls=ls --show-control-chars -F --group-directories-first --color $*
+ll=ls -l --group-directories-first --color $*
 pwd=cd
 clear=cls
 history=cat %CMDER_ROOT%\config\.history
@@ -24,16 +19,24 @@ vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 myip=nslookup myip.opendns.com. resolver1.opendns.com
 
+;= :: Git
+g=git $*
+gst=git status
+gs=git show
+gl=git log --oneline --all --graph --decorate  $*
+gll=git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short $*
+
 ;= :: Edit host file
 eHost=vim %SystemRoot%\system32\drivers\etc\hosts
 
 ;= :: Easier navigation
+~=cd %HOMEPATH%
 ..=cd ..
 ...=cd ../..
 ....=cd ../../..
 .....=cd ../../../..
 
-;= :: for Bash on Ubuntu on Windows
+;= :: for WSL (Windows Subsystem for Linux)
 bash=%windir%\system32\bash.exe -cur_console:p
 
 ;= :: ssh
