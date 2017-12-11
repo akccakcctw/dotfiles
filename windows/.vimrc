@@ -18,8 +18,11 @@ Plugin 'Townk/vim-autoclose'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'lilydjwg/colorizer'
 Plugin 'pangloss/vim-javascript'
+Plugin 'digitaltoad/vim-pug'
 Plugin 'Valloric/YoucompleteMe'
 Plugin 'SirVer/ultisnips'
+Plugin 'tpope/vim-fugitive'
+Plugin 'junegunn/gv.vim'
 Plugin 'honza/vim-snippets'
 
 call vundle#end()            " required
