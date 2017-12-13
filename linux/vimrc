@@ -1,0 +1,352 @@
+
+" ## General {{{
+set history=500
+set shell=$SHELL
+
+if !has('nvim')
+  set nocompatible
+  if &term =~ '^screen\|^tmux' && exists('$TMUX')
+    if &term =~ '256color'
+      set term=xtem-256color
+    else
+      set term=xterm
+    endif
+  endif
+  if &term =~ '256color'
+    set t_ut=
+  endif
+  if exists('$TMUX')
+    set t_8f=[38;2;%lu;%lu;%lum
+    set t_8b=[48;2;%lu;%lu;%lum
+  endif
+endif
+
+if has('nvim')
+  let g:python3_host_prog = '/usr/bin/python3'
+endif
+" }}}
+
+" ## Map leader {{{
+let mapleader = ','
+let maplocalleader = ','
+let g:mapleader = ','
+let g:maplocalleader = ','
+" }}}
+
+
+" ## Plugin manager (vim-plug) {{{
+call plug#begin('~/.vim/plugged')
+
+Plug 'Chiel92/vim-autoformat'
+Plug 'SirVer/ultisnips'
+Plug 'Townk/vim-autoclose'
+Plug 'altercation/vim-colors-solarized' "colorscheme
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'honza/vim-snippets'
+Plug 'jacoborus/tender' "colorscheme
+Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/gv.vim' " Git commit browser
+Plug 'junegunn/vim-easy-align'
+Plug 'lilydjwg/colorizer'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+call plug#end()            " required
+"
+" Brief help
+" :PlugInstall      - Install plugins
+" :PlugUpdate       - Install or update plugins
+" :PlugClean[!]     - Remove unused directories (bang version will clean without prompt)
+" :PlugUpgrade      - Upgrade vim-plug itself
+" :PlugStatus       - Check the status of plugins
+" :PlugDiff         - Examine changes from the previous update and the pending changes
+" :PlugSnapshot[!] [output path] - Generate script for restoring the current snapshot of the plugins
+"
+" see https://github.com/junegunn/vim-plug for more informations
+" =====
+" Plugins settings and mappings
+
+" --- NERDTree --- {{{
+noremap <F2> :NERDTreeToggle<CR> " toggle nerdtree display
+nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
+
+" don;t show these file types
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+" }}}
+
+" --- NERD Commenter --- {{{
+let g:NERDSpaceDelims = 1
+let g:NERDRemoveExtraSpaces = 1
+" }}}
+
+" --- editorconfig plugin --- {{{
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" }}}
+
+" --- Autoformap --- {{{
+nnoremap <M-F> :Autoformat<CR> " Alt+Shift+f
+" }}}
+
+" --- BufExplorer --- {{{
+let g:bufExplorerSortBy = 'name'
+let g:bufExplorerShowRelativePath = 1
+let g:bufExplorerShowNoname = 1
+" }}}
+
+" --- Emmet --- {{{
+let g:user_emmet_mode='in' " only enable in Input/Normal mode
+let g:user_emmet_install_global = 0 " enable just for HTML/CSS
+let g:user_emmet_leader_key='<C-y>'
+let g:user_emmet_expandabbr_key='<Tab>'
+autocmd filetype html,css EmmetInstall
+"autocmd filetype *html* inoremap <A-/> <C-y>/
+"autocmd filetype *html* vnoremap <A-/> <C-y>/
+" }}}
+
+" --- EasyAlign --- {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xnoremap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nnoremap ga <Plug>(EasyAlign)
+" }}}
+
+" --- CtrlP --- {{{
+" file finder mapping
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+" tags (symbols) in current file finder mapping
+nnoremap ,g :CtrlPBufTag<CR>
+" tags (symbols) in all files finder mapping
+nnoremap ,G :CtrlPBufTagAll<CR>
+" general code finder in all files mapping
+nnoremap ,f :CtrlPLine<CR>
+" recent files finder mapping
+nnoremap ,m :CtrlPMRUFiles<CR>
+" commands finder mapping
+nnoremap ,c :CtrlPCmdPalette<CR>
+" to be able to call CtrlP with default search text
+function! CtrlPWithSearchText(search_text, ctrlp_command_end)
+  execute ':CtrlP' . a:ctrlp_command_end
+  call feedkeys(a:search_text)
+endfunction
+" same as previous mappings, but calling with current word as default text
+nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
+nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
+nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
+nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
+" don't change working directory
+let g:ctrlp_working_path_mode = 0
+" ignore these files and folders on file finder
+set wildignore+=*/tmp/*,*.so*,*.swp,*.zip " MacOS/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe " Windows
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
+      \ 'file': '\v\.(pyc|pyo|exe|so|dll)$',
+      \ }
+" }}}
+
+" --- Airline --- {{{
+let g:airline_powerline_fonts = 0
+" set airline theme
+let g:airline_theme = 'tender'
+"let g:airline_theme = 'bubblegum'
+let g:airline#extensions#whitespace#enabled = 0
+
+"enable tender airline theme
+let g:tender_airline = 1
+" }}}
+" }}}
+
+" tabs and spaces handling
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+" tab length exceptions on some file types
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+
+" always show status bar
+set ls=2
+
+" incremental search
+set incsearch
+" highlighted search results
+set hlsearch
+
+" syntax highlight on
+syntax on
+
+" show line numbers
+set number
+
+
+" set encoding
+let $LANG="zh_TW.UTF-8"
+set langmenu=zh_tw.utf-8
+set encoding=utf-8
+set fileencoding=utf-8
+" reload gVim menu with UTF-8 encoding
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+
+" when scrolling, keep cursor 3 lines away from screen border
+set scrolloff=3
+
+" autocompletion of files and commands behaves like shell
+" (complete only the common part, list the options that match)
+set wildmode=list:longest
+
+" better backup, swap and undos storage
+set directory=~/.vim/dirs/tmp     " directory to place swap files in
+set backup                        " make backup files
+set backupdir=~/.vim/dirs/backups " where to put backup files
+set undofile                      " persistent undos - undo after you re-open the file
+set undodir=~/.vim/dirs/undos
+set viminfo+=n~/.vim/dirs/viminfo
+" store yankring history file there too
+let g:yankring_history_dir = '~/.vim/dirs/'
+
+" create needed directories if they don't exist
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, "p")
+endif
+if !isdirectory(&directory)
+  call mkdir(&directory, "p")
+endif
+if !isdirectory(&undodir)
+  call mkdir(&undodir, "p")
+endif
+
+
+" ## UI settings {{{
+set number
+set showmatch
+set scrolloff=3
+set timeout
+set ttimeoutlen=10
+set virtualedit=block
+set nolazyredraw
+set whichwrap+=<,>,[,]
+set nostartofline
+set autoread " auto read when a file is changed from the outside
+
+" --- let alt key can be mapped as <M-*> --- {{{
+set winaltkeys=no 
+for i in range(65,90) + range(97,122)
+  let c = nr2char(i)
+  exec "map \e".c." <M-".c.">"
+  exec "map! \e".c." <M-".c.">"
+endfor
+" }}}
+
+" --- sound on errors --- {{{
+set novisualbell
+set noerrorbells
+" }}}
+
+" --- tabs, spaces and indent handling --- {{{
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set ai " auto indent
+set wrap " wrap lines
+set backspace=indent,eol,start
+" }}}
+
+" --- search --- {{{
+set hlsearch " highlighted search results
+set incsearch " incremental search
+set magic
+set ignorecase
+set smartcase
+" }}}
+
+" --- folding --- {{{
+set foldenable
+set foldlevelstart=10
+set fdm=syntax
+" }}}
+
+" --- status bar  --- {{{
+set laststatus=2
+set cmdheight=1
+set showcmd
+set noshowmode
+set ruler
+" }}}
+
+" --- Colorscheme --- {{{
+syntax on
+set bg=dark
+
+" use 256 colors when possible
+if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
+  let &t_Co = 256
+  let g:solarized_termtrans = 1 " get rid of the grey background"
+  colorscheme solarized
+else
+  colorscheme delek
+endif
+
+if has('gui_running')
+  colorscheme evening
+endif
+" }}}
+
+" }}}
+
+" ## Fonts, Encoding {{{
+" set encoding
+set fileencoding=utf-8
+set encoding=utf-8
+
+" fileformats
+set fo+=Mm " for multi byte character
+set fo+=crql
+set fo-=t
+set ffs=unix,dos,mac
+" }}}
+
+
+" ## Key Mappings {{{
+
+nnoremap <silent> <leader>ee :tabe ~/.vimrc<CR> " edit .vimrc
+nnoremap <C-n> :tabnew<CR> " open a new tab
+
+" increase and decrease number under the cursor
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+" move text with CTRL+[jk]
+nnoremap <C-j> :m+<CR>:echo "move line down"<CR>
+nnoremap <C-k> :m-2<CR>:echo "move line up"<CR>
+vnoremap <C-j> :m'>+<CR>:echo "move block down"<CR>
+vnoremap <C-k> :m'<-2<CR>:echo "move block up"<CR>
+
+" avoid the escape key
+nnoremap <C-e> <ESC>
+inoremap <C-e> <ESC>
+vnoremap <C-e> <ESC>
+snoremap <C-e> <ESC>
+inoremap jj <ESC>
+
+" }}}
