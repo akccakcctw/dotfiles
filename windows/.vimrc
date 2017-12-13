@@ -9,27 +9,28 @@ let g:maplocalleader = ','
 " }}}
 
 " ## Plugin (Vundle) {{{
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
 call vundle#begin()
 
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'Townk/vim-autoclose'
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'honza/vim-snippets'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'junegunn/gv.vim' " Git commit browser
+Plugin 'junegunn/vim-easy-align'
+Plugin 'lilydjwg/colorizer' " colorize the color in the form #rgb...
+Plugin 'maksimr/vim-jsbeautify'
 Plugin 'mattn/emmet-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive' " Git wrapper
+Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'tpope/vim-surround'
-Plugin 'Townk/vim-autoclose'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'lilydjwg/colorizer'
-Plugin 'digitaltoad/vim-pug'
-" Plugin 'SirVer/ultisnips'
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/gv.vim'
-Plugin 'honza/vim-snippets'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -60,6 +61,10 @@ let g:NERDSpaceDelims = 1
 let g:NERDRemoveExtraSpaces = 1
 " }}}
 
+" --- editorconfig plugin --- {{{
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" }}}
+
 " --- Autoformat --- {{{
 nmap <F3> :Autoformat<CR>
 " }}}
@@ -71,48 +76,25 @@ let g:bufExplorerShowNoName = 1
 " }}}
 
 " --- Emmet --- {{{
-inoremap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+let g:user_emmet_mode='in' " only enable in input/normal mode
+let g:user_emmet_install_global = 0 " enable just for html/css
+let g:user_emmet_leader_key='<C-y>'
+let g:user_emmet_expandabbr_key='<Tab>'
+autocmd FileType html,css EmmetInstall
 " }}}
-
-" " --- CtrlP --- {{{
-" " file finder mapping
-" let g:ctrlp_map = '<C-p>'
-" " tags (symbols) in current file finder mapping
-" nmap ,g :CtrlPBufTag<CR>
-" " tags (symbols) in all files finder mapping
-" nmap ,G :CtrlPBufTagAll<CR>
-" " general code finder in all files mapping
-" nmap ,f :CtrlPLine<CR>
-" " recent files finder mapping
-" nmap ,m :CtrlPMRUFiles<CR>
-" " commands finder mapping
-" nmap ,c :CtrlPCmdPalette<CR>
-" " to be able to call CtrlP with default search text
-" function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-"     execute ':CtrlP' . a:ctrlp_command_end
-"     call feedkeys(a:search_text)
-" endfunction
-" " same as previous mappings, but calling with current word as default text
-" nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-" nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-" nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-" nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-" nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-" nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-" nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-" " don't change working directory
-" let g:ctrlp_working_path_mode = 0
-" " ignore these files and folders on file finder
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
-"   \ 'file': '\.pyc$\|\.pyo$',
-"   \ }
-" " }}}
 
 " --- Airline --- {{{
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
+" }}}
+
+" --- easy-align --- {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " }}}
 
 " }}}
@@ -171,7 +153,7 @@ set background=dark
 
 " use 256 colors if possible
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-	let &t_Co = 256
+  let &t_Co = 256
   colorscheme fisa
 else
   colorscheme delek
