@@ -1,4 +1,7 @@
-
+" =======================================
+"                   VIM
+" Author: Rex Tsou<akccakccwww@gmail.com>
+" =======================================
 " ## General {{{
 set history=500
 set shell=$SHELL
@@ -33,7 +36,6 @@ let g:mapleader = ','
 let g:maplocalleader = ','
 " }}}
 
-
 " ## Plugin manager (vim-plug) {{{
 call plug#begin('~/.vim/plugged')
 
@@ -52,6 +54,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
+Plug 'posva/vim-vue'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive' " Git wrapper
@@ -89,6 +92,10 @@ let g:NERDRemoveExtraSpaces = 1
 
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" }}}
+
+" --- *.vue file syntax --- {{{
+autocmd FileType vue syntax sync fromstart
 " }}}
 
 " --- Autoformap --- {{{
@@ -170,7 +177,13 @@ let g:tender_airline = 1
 " }}}
 " }}}
 
-" tabs and spaces handling
+" ## Wildmode {{{
+" autocompletion of files and commands behaves like shell
+" (complete only the common part, list the options that match)
+set wildmode=list:longest
+" }}}
+
+" ## Tabs and Spaces handling {{{
 set expandtab
 set tabstop=2
 set softtabstop=2
@@ -180,41 +193,9 @@ set shiftwidth=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" }}}
 
-
-" always show status bar
-set ls=2
-
-" incremental search
-set incsearch
-" highlighted search results
-set hlsearch
-
-" syntax highlight on
-syntax on
-
-" show line numbers
-set number
-
-
-" set encoding
-let $LANG="zh_TW.UTF-8"
-set langmenu=zh_tw.utf-8
-set encoding=utf-8
-set fileencoding=utf-8
-" reload gVim menu with UTF-8 encoding
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-
-" when scrolling, keep cursor 3 lines away from screen border
-set scrolloff=3
-
-" autocompletion of files and commands behaves like shell
-" (complete only the common part, list the options that match)
-set wildmode=list:longest
-
-" better backup, swap and undos storage
+" ## Better Backup, Swap and Undo storage {{{
 set directory=~/.vim/dirs/tmp     " directory to place swap files in
 set backup                        " make backup files
 set backupdir=~/.vim/dirs/backups " where to put backup files
@@ -234,12 +215,12 @@ endif
 if !isdirectory(&undodir)
   call mkdir(&undodir, "p")
 endif
-
+" }}}
 
 " ## UI settings {{{
 set number
 set showmatch
-set scrolloff=3
+set scrolloff=3 " when scrolling, keep cursor 3 lines away from screen border
 set timeout
 set ttimeoutlen=10
 set virtualedit=block
@@ -283,7 +264,7 @@ set smartcase
 " --- folding --- {{{
 set foldenable
 set foldlevelstart=10
-set fdm=syntax
+set foldmethod=syntax
 " }}}
 
 " --- status bar  --- {{{
@@ -318,6 +299,12 @@ endif
 " set encoding
 set fileencoding=utf-8
 set encoding=utf-8
+" let $LANG="zh_TW.UTF-8"
+" set langmenu=zh_tw.utf-8
+
+" reload gVim menu with UTF-8 encoding
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 " fileformats
 set fo+=Mm " for multi byte character
@@ -326,11 +313,20 @@ set fo-=t
 set ffs=unix,dos,mac
 " }}}
 
-
 " ## Key Mappings {{{
 
-nnoremap <silent> <leader>ee :tabe ~/.vimrc<CR> " edit .vimrc
-nnoremap <C-n> :tabnew<CR> " open a new tab
+" edit .vimrc
+nnoremap <silent> <leader>ee :tabe ~/.vimrc<CR>
+
+" open a new tab
+nnoremap <C-n> :tabnew<CR>
+
+" switch to next tab
+noremap <Leader>n :tabnext<CR>
+
+" toggle wrap
+noremap <M-z> :set wrap!<CR>
+
 
 " increase and decrease number under the cursor
 nnoremap + <C-a>
@@ -350,3 +346,5 @@ snoremap <C-e> <ESC>
 inoremap jj <ESC>
 
 " }}}
+" vim:fdm=marker:foldlevel=0
+
