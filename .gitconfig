@@ -1,3 +1,6 @@
+; [user]
+  ; email = username@email.com
+  ; name = username
 [core]
   autocrlf = false #for windows
   excludesfile = ~/.gitignore
@@ -37,3 +40,4 @@
   logoutputencoding = utf-8
 [i18n "commit"]
   encoding = utf-8
+
