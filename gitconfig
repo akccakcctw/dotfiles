@@ -3,8 +3,9 @@
   ; name = username
 [core]
   autocrlf = false #for windows
-  excludesfile = ~/.gitignore
   quotepath = false
+  excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
 [alias]
   cl = clone
   ci = commit
