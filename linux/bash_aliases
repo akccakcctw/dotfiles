@@ -14,12 +14,35 @@ alias gl='git log --oneline --all --graph --decorate'
 alias gll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s    %Cblue\\ [%cn]" --decorate --date=short'
 alias gs='git show'
 
+# List Directories
+alias ls='ls -h --color --group-directories-first'
+alias l='ls -F'
+alias ll='ls -lF'
+alias la='ls -lAF'
+alias lx='ls -lXB'
+alias lk='ls -lSr'
+alias lt='ls -lAFtr'
+alias lh='ls -lh'
+alias l.='ls -d .*'
+
+# grep
+if type "rg" &> /dev/null; then # ripgrep
+  alias gg='rg'
+else
+  alias gg='grep -R -n'
+fi
+
+# Vim
+alias vi='vim'
+alias v='vim'
+if type "nvim" &>/dev/null; then # neovim
+  alias v='nvim'
+fi
+
 # Utils
-alias l.='ls -d .* --color=auto'
-alias lh='ls -lh --color=auto'
-alias py3='python3'
 alias rm='rm -i'
 alias mv='mv -i'
 
 # SSH
 alias sshPTT='ssh bbsu@ptt.cc'
+
