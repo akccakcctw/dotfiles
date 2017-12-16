@@ -122,7 +122,7 @@ let g:user_emmet_mode='in' " only enable in Input/Normal mode
 let g:user_emmet_install_global = 0 " enable just for HTML/CSS
 let g:user_emmet_leader_key='<C-y>'
 let g:user_emmet_expandabbr_key='<Tab>'
-autocmd filetype html,css EmmetInstall
+autocmd filetype html,css,scss,pug EmmetInstall
 "autocmd filetype *html* inoremap <A-/> <C-y>/
 "autocmd filetype *html* vnoremap <A-/> <C-y>/
 " }}}
@@ -379,6 +379,18 @@ vnoremap <C-e> <ESC>
 snoremap <C-e> <ESC>
 inoremap jj <ESC>
 
+" }}}
+
+" --- Arrow-keys error signal workaround --- {{{
+" enter insert-mode, press <C-v> and then press arrow-keys to get the signals
+nnoremap <silent> <Esc>OA <Up>
+nnoremap <silent> <Esc>OB <Down>
+nnoremap <silent> <Esc>OC <Right>
+nnoremap <silent> <Esc>OD <Left>
+vnoremap <silent> <Esc>OA <Up>
+vnoremap <silent> <Esc>OB <Down>
+vnoremap <silent> <Esc>OC <Right>
+vnoremap <silent> <Esc>OD <Left>
 " }}}
 " vim:fdm=marker:foldlevel=0
 
