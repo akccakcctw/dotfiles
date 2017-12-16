@@ -51,8 +51,9 @@ Plug 'digitaltoad/vim-pug'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
-Plug 'jacoborus/tender' "colorscheme
+Plug 'jacoborus/tender' " colorscheme
 Plug 'jlanzarotta/bufexplorer'
+Plug 'joshdick/onedark.vim' " colorscheme
 Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
@@ -60,9 +61,11 @@ Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'tomasiser/vim-code-dark' " colorscheme
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -298,7 +301,9 @@ set bg=dark
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
   let &t_Co = 256
   let g:solarized_termtrans = 1 " get rid of the grey background"
-  colorscheme solarized
+  " colorscheme solarized
+  " colorscheme onedark
+  colorscheme codedark
 else
   colorscheme delek
 endif
