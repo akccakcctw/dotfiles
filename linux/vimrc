@@ -42,18 +42,23 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'Townk/vim-autoclose'
+Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized' "colorscheme
+Plug 'cakebaker/scss-syntax.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'digitaltoad/vim-pug'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'fatih/vim-go'
 Plug 'honza/vim-snippets'
 Plug 'jacoborus/tender' "colorscheme
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
+Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
+Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -78,7 +83,7 @@ call plug#end()            " required
 " Plugins settings and mappings
 
 " --- NERDTree --- {{{
-noremap <F2> :NERDTreeToggle<CR> " toggle nerdtree display
+noremap <F5> :NERDTreeToggle<CR> " toggle nerdtree display
 nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 
 " don;t show these file types
@@ -98,7 +103,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 autocmd FileType vue syntax sync fromstart
 " }}}
 
-" --- Autoformap --- {{{
+" --- Autoformat --- {{{
 nnoremap <M-F> :Autoformat<CR> " Alt+Shift+f
 " }}}
 
@@ -118,6 +123,10 @@ autocmd filetype html,css EmmetInstall
 "autocmd filetype *html* vnoremap <A-/> <C-y>/
 " }}}
 
+" --- Tagbar --- {{{
+nnoremap <F8> :Tagbar<CR>
+"  }}}
+"
 " --- EasyAlign --- {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xnoremap ga <Plug>(EasyAlign)
@@ -229,6 +238,11 @@ set whichwrap+=<,>,[,]
 set nostartofline
 set autoread " auto read when a file is changed from the outside
 
+" --- natural split opening --- {{{
+set splitbelow
+set splitright
+"  }}}
+
 " --- let alt key can be mapped as <M-*> --- {{{
 set winaltkeys=no 
 for i in range(65,90) + range(97,122)
@@ -324,19 +338,33 @@ nnoremap <C-n> :tabnew<CR>
 " switch to next tab
 noremap <Leader>n :tabnext<CR>
 
+" split window
+nnoremap <C-\> :vsp<CR>
+
+" split navigations
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-Left> <C-w>h
+nnoremap <C-Down> <C-w>j
+nnoremap <C-Up> <C-w>k
+nnoremap <C-Right> <C-w>l
+
 " toggle wrap
 noremap <M-z> :set wrap!<CR>
-
 
 " increase and decrease number under the cursor
 nnoremap + <C-a>
 nnoremap - <C-x>
 
 " move text with CTRL+[jk]
-nnoremap <C-j> :m+<CR>:echo "move line down"<CR>
-nnoremap <C-k> :m-2<CR>:echo "move line up"<CR>
-vnoremap <C-j> :m'>+<CR>:echo "move block down"<CR>
-vnoremap <C-k> :m'<-2<CR>:echo "move block up"<CR>
+nnoremap <M-j> :m+<CR>:echo "move line down"<CR>
+nnoremap <M-k> :m-2<CR>:echo "move line up"<CR>
+inoremap <M-j> <Esc>:m+<CR>:echo "move line down"<CR>gi
+inoremap <M-k> <Esc>:m-2<CR>:echo "move line up"<CR>gi
+vnoremap <M-j> :m'>+<CR>:echo "move block down"<CR>
+vnoremap <M-k> :m'<-2<CR>:echo "move block up"<CR>
 
 " avoid the escape key
 nnoremap <C-e> <ESC>
