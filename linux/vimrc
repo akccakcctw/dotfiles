@@ -42,6 +42,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'Townk/vim-autoclose'
+Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized' "colorscheme
 Plug 'cakebaker/scss-syntax.vim'
