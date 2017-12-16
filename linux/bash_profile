@@ -1,0 +1,11 @@
+#
+# ~/.bash_profile
+#
+
+# include user's private bin to PATH
+[[ -d ~/bin ]] && PATH=~/bin:$PATH
+
+# load shell dotfiles
+[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+
