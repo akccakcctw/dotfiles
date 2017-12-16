@@ -39,9 +39,14 @@ if type "nvim" &>/dev/null; then # neovim
   alias v='nvim'
 fi
 
+# Tmux
+alias tmux='tmux -2' # 256 color default
+
 # Utils
 alias rm='rm -i'
 alias mv='mv -i'
+alias http-server='python -m http.server'
+alias myip='curl ipinfo.io/ip'
 
 # SSH
 alias sshPTT='ssh bbsu@ptt.cc'
