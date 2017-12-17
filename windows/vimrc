@@ -182,14 +182,17 @@ source $VIMRUNTIME/menu.vim
 set ffs=unix,dos,mac
 " }}}
 
-" tab length exceptions on some file types
+" ## Tabs and Spaces {{{
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" }}}
 
+" ## wildmode {{{
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
 set wildmode=list:longest
+" }}}
 
 " ## backup, swap and undos storage {{{
 " set nobackup
@@ -216,7 +219,6 @@ if !isdirectory(&undodir)
   call mkdir(&undodir, "p")
 endif
 " }}}
-
 
 " ## Key Mappings {{{
 
@@ -248,3 +250,5 @@ let python_no_parameter_highlight = 1
 " }}}
 
 " }}}
+" vim:fdm=marker:foldlevel=0
+
