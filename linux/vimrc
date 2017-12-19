@@ -88,6 +88,7 @@ call plug#end()            " required
 
 " --- NERDTree --- {{{
 noremap <F5> :NERDTreeToggle<CR> " toggle nerdtree display
+nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 
 " don;t show these file types
@@ -241,6 +242,7 @@ set nolazyredraw
 set whichwrap+=<,>,[,]
 set nostartofline
 set autoread " auto read when a file is changed from the outside
+set mouse=a
 
 " --- natural split opening --- {{{
 set splitbelow
@@ -312,6 +314,9 @@ if has('gui_running')
   colorscheme evening
 endif
 " }}}
+
+" customize folding highlight colors
+hi Folded ctermfg=30
 
 " }}}
 
