@@ -20,7 +20,7 @@ function deployFiles() {
 }
 
 function createSymlinks() {
-  ln -si -b "${SOURCE_DIR}/$(basename $1)" ~/.$(basename $1) # create symbolic links
+  ln -si "${SOURCE_DIR}/$(basename $1)" ~/.$(basename $1) # create symbolic links
 }
 
 read -p "This may overwrite existing files in your HOME directory. Are you sure? (y/n) " -n 1
