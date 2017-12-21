@@ -39,27 +39,28 @@ let g:maplocalleader = ','
 " ## Plugin manager (vim-plug) {{{
 call plug#begin('~/.vim/plugged')
 
+" Plug 'Townk/vim-autoclose'
+" Plug 'altercation/vim-colors-solarized' "colorscheme
+" Plug 'joshdick/onedark.vim' " colorscheme
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
-Plug 'Townk/vim-autoclose'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug 'altercation/vim-colors-solarized' "colorscheme
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'digitaltoad/vim-pug'
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'honza/vim-snippets'
 Plug 'jacoborus/tender' " colorscheme
 Plug 'jlanzarotta/bufexplorer'
-Plug 'joshdick/onedark.vim' " colorscheme
 Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue'
@@ -134,7 +135,8 @@ nnoremap <F8> :Tagbar<CR>
 "
 " --- EasyAlign --- {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xnoremap ga <Plug>(EasyAlign)
+" xnoremap ga <Plug>(EasyAlign) " not working in MacOS
+xnoremap ga :EasyAligh<CR>
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nnoremap ga <Plug>(EasyAlign)
@@ -177,6 +179,13 @@ let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
       \ 'file': '\v\.(pyc|pyo|exe|so|dll)$',
       \ }
+" }}}
+
+" --- Indent-Guides --- {{{
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=black ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 " }}}
 
 " --- Airline --- {{{
@@ -283,8 +292,12 @@ set smartcase
 
 " --- folding --- {{{
 set foldenable
-set foldlevelstart=10
-set foldmethod=syntax
+" set foldlevelstart=10
+" set foldmethod=syntax " sometimes slow
+set foldlevelstart=3
+set foldmethod=indent
+" set folded highlight colors
+hi Folded ctermfg=59
 " }}}
 
 " --- status bar  --- {{{
@@ -397,5 +410,13 @@ vnoremap <silent> <Esc>OB <Down>
 vnoremap <silent> <Esc>OC <Right>
 vnoremap <silent> <Esc>OD <Left>
 " }}}
+
+" --- Copy-Paste to clipboard for MacOS --- {{{
+" https://robots.thoughtbot.com/how-to-copy-and-paste-with-tmux-on-mac-os-x
+if has('macunix')
+  set clipboard=unnamed
+endif
+" }}}
+
 " vim:fdm=marker:foldlevel=0
 
