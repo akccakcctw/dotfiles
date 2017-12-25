@@ -189,6 +189,7 @@ let g:ctrlp_custom_ignore = {
 " --- Indent Guildes --- {{{
 let g:indent_guides_start_level = 2
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_default_mapping = 0 " (toggle IndentGuides with <Leader>ig)
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=black ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 " }}}
@@ -225,6 +226,7 @@ set smarttab
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType php setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " }}}
 
 " ## Better Backup, Swap and Undo storage {{{
@@ -294,7 +296,7 @@ set splitright
 "  }}}
 
 " --- let alt key can be mapped as <M-*> --- {{{
-" set winaltkeys=no 
+" set winaltkeys=no
 " for i in range(65,90) + range(97,122)
   " let c = nr2char(i)
   " exec "map \e".c." <M-".c.">"
