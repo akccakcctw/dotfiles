@@ -46,6 +46,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'Townk/vim-autoclose'
 " Plug 'altercation/vim-colors-solarized' "colorscheme
+" Plug 'ervandew/supertab',
 " Plug 'joshdick/onedark.vim' " colorscheme
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -123,6 +124,19 @@ nnoremap <Leader>FF :Autoformat<CR>
 let g:bufExplorerSortBy = 'name'
 let g:bufExplorerShowRelativePath = 1
 let g:bufExplorerShowNoname = 1
+" }}}
+
+" --- YouCompleteMe --- {{{
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+" }}}
+
+" --- UltiSnips --- {{{
+let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsJumpBackwardTribber = "<s-Tab>"
 " }}}
 
 " --- Emmet --- {{{
