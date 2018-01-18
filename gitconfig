@@ -12,6 +12,7 @@
   st = status -sb
   co = checkout
   ls = ls-files
+	d = difftool
 [color]
   ui = auto
 [color "branch"]
@@ -33,6 +34,10 @@
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
 [help]
   autocorrect = 1
 [gui]
