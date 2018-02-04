@@ -1,6 +1,6 @@
 # dotfiles
 
-My personal .files, tested and works well on my MacOS (MacBook Pro) and ArchLinux (Surface Pro 4)
+My personal .files, tested and works well on my macOS (MacBook Pro) and ArchLinux (Surface Pro 4)
 
 ## Prerequisites
 
