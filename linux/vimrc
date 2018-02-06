@@ -8,7 +8,7 @@ set shell=$SHELL
 set ttyfast
 
 if has('macunix')
-	set clipboard=unnamed " use the OS clipboard by default
+  set clipboard=unnamed " use the OS clipboard by default
 endif
 
 if !has('nvim')
@@ -58,6 +58,7 @@ Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.vim'
 Plug 'jacoborus/tender' " colorscheme
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/gv.vim' " Git commit browser
@@ -77,6 +78,8 @@ Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
+Plug 'codegram/vim-codereview' " GitHub PR Code Review
 
 call plug#end()            " required
 "
@@ -192,7 +195,7 @@ nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 " don't change working directory
 let g:ctrlp_working_path_mode = 0
 " ignore these files and folders on file finder
-set wildignore+=*/tmp/*,*.so*,*.swp,*.zip " MacOS/Linux
+set wildignore+=*/tmp/*,*.so*,*.swp,*.zip " macOS/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe " Windows
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
@@ -299,6 +302,9 @@ endif
 if has('gui_running')
   " colorscheme evening
   colorscheme codedark
+  set guifont=Consolas:h18 " for Windows
+  set guifont=monospace\ 18 " for Linux
+  set guifont=Monaco:h18 " for macOS
 endif
 
 hi Folded ctermfg=59
@@ -376,6 +382,7 @@ nnoremap <C-n> :tabnew<CR>
 
 " switch to next tab
 noremap <Leader>n :tabnext<CR>
+noremap <Leader>p :tabprevious<CR>
 
 " split window
 " horizontal, same as <C-w>v
@@ -422,11 +429,11 @@ inoremap jj <Esc>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 noremap <Leader>ss :call StripWhitespace()<CR>
 

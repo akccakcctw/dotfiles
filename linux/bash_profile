@@ -5,7 +5,7 @@
 # include user's private bin to PATH
 [[ -d ~/bin ]] && PATH=~/bin:$PATH
 
-# compatible with MacOS
+# compatible with macOS
 if [ $(uname -s) == Darwin ]; then
 	if brew list | grep coreutils > /dev/null; then
 		PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
@@ -16,7 +16,7 @@ if [ $(uname -s) == Darwin ]; then
 	if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
 		source "$(brew --prefix)/share/bash-completion/bash_completion";
 	elif [ -f /etc/bash_completion ]; then
-		source /etc/bash_completion; 
+		source /etc/bash_completion;
 	fi
 fi
 
