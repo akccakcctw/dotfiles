@@ -8,7 +8,7 @@ set shell=$SHELL
 set ttyfast
 
 if has('macunix')
-	set clipboard=unnamed " use the OS clipboard by default
+  set clipboard=unnamed " use the OS clipboard by default
 endif
 
 if !has('nvim')
@@ -302,9 +302,9 @@ endif
 if has('gui_running')
   " colorscheme evening
   colorscheme codedark
-	set guifont=Consolas:h18 " for Windows
-	set guifont=monospace\ 18 " for Linux
-	set guifont=Monaco:h18 " for macOS
+  set guifont=Consolas:h18 " for Windows
+  set guifont=monospace\ 18 " for Linux
+  set guifont=Monaco:h18 " for macOS
 endif
 
 hi Folded ctermfg=59
@@ -429,11 +429,11 @@ inoremap jj <Esc>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
 endfunction
 noremap <Leader>ss :call StripWhitespace()<CR>
 
