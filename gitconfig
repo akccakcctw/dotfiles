@@ -5,14 +5,14 @@
   autocrlf = false #for windows
   quotepath = false
   excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
+  attributesfile = ~/.gitattributes
 [alias]
   cl = clone
   ci = commit
   st = status -sb
   co = checkout
   ls = ls-files
-	d = difftool
+  d = difftool
 [color]
   ui = auto
 [color "branch"]
@@ -35,9 +35,9 @@
   newNormal = green bold
   newHighlight = green bold 22
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
 [help]
   autocorrect = 1
 [gui]
