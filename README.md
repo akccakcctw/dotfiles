@@ -2,12 +2,14 @@
 
 My personal .files, tested and works well on my macOS (MacBook Pro) and ArchLinux (Surface Pro 4)
 
+
 ## Prerequisites
 
 - Vim version 8.0+, with python supports
 - vim-plug, the plugin manager for Vim
-	+ follow official README [here](https://github.com/junegunn/vim-plug)
+  + follow official README [here](https://github.com/junegunn/vim-plug)
 - Git, if you want to keep syncing with new updates
+
 
 ## Clone and Update
 
@@ -28,4 +30,55 @@ Execute `deploy.sh` (you'd better read it first).
 ```sh
 . deploy.sh
 ```
+
+
+## Features
+
+### Vim
+
+mapping leader key to `,`.
+
+- tabs
+  + open a new tab: `<C-n>`
+  + switch to next tab: `<Leader>n`
+- split window
+  + split horizontal: `<C-\>`
+  + split window navigations: `<C-Left>`, `<C-Down>`, `<C-Up>`, `<C-Right>`
+  + switch between vertical/horizontal split: `<Leader>E`, `<Leader>I`
+- no highlight search result: `<Leader>/`
+- toggle wrap: `<F2>`
+- increase/decrease number under the cursour: `+`, `-`
+- move text line up/down: `<C-j>`, `<C-k>`
+- avoid the escape key: `<C-e>`, `jj`
+- save a file as root: `<Leader>WW`
+- strip trailing whitespace: `<Leader>ss`
+- edit .vimrc: `<leader>ee`
+
+
+#### Vim Plugins
+
+- Autoformat
+  + `<Leader>FF`
+- CtrlP
+- EasyAlign
+- EditorConfig
+- Emmet
+  + enabled in html, css, scss, pug files
+  + expand: `<C-y>,`
+  + wrap: select then `<C-y>,`
+  + next edit position: `<C-y>n`
+  + previous edit position: `<C-y>N`
+  + select current tag: `<C-y>d`
+  + delete tag: `<C-y>k`
+  + merge multiple lines: `<C-y>m`
+- NERDTree
+  + NERDTreeToggle: `<F5>` or `<C-b>`
+- NERDCommenter
+  + `<Leader>c<Space>`
+- Tagbar
+  + toggle tagbar: `<F8>`
+- UltiSnips
+- YouCompleteMe
+
+just see linux/vimrc for more details.
 
