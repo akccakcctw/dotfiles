@@ -1,3 +1,10 @@
+# - Sample
+# Host      <HOST>
+# Hostname  <HOSTNAME>
+# port      <PORT>
+# User      <USER>
+# identityfile ~/.ssh/id_rsa
+
 # - PTT
 Host      PTT
 Hostname  ptt.cc
