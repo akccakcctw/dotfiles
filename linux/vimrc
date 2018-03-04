@@ -80,6 +80,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
+Plug 'vim-syntastic/syntastic' " syntax checking
 
 call plug#end()            " required
 "
@@ -109,6 +110,17 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 let g:NERDSpaceDelims = 1
 let g:NERDRemoveExtraSpaces = 1
 " }}}
+
+" --- Syntastic --- {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"  }}}
 
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
