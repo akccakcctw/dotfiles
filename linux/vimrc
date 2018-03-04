@@ -282,6 +282,7 @@ set backspace=indent,eol,start
 set wrap " wrap lines
 set mouse=a
 set cursorline " highlight current line
+set updatetime=100
 
 " --- Colorscheme --- {{{
 syntax on
