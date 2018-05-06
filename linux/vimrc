@@ -82,6 +82,7 @@ Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'vim-syntastic/syntastic' " syntax checking
 Plug 'Yggdroot/indentLine'
+Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()            " required
 "
@@ -401,7 +402,7 @@ set ffs=unix,dos,mac
 nnoremap <silent> <leader>ee :tabe ~/.vimrc<CR>
 
 " open a new tab
-nnoremap <C-n> :tabnew<CR>
+" nnoremap <C-n> :tabnew<CR>
 
 " switch to next tab
 noremap <Leader>n :tabnext<CR>
