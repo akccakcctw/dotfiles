@@ -81,6 +81,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'vim-syntastic/syntastic' " syntax checking
+Plug 'Yggdroot/indentLine'
 
 call plug#end()            " required
 "
@@ -232,6 +233,12 @@ let g:airline#extensions#whitespace#enabled = 0
 "enable tender airline theme
 let g:tender_airline = 1
 " }}}
+
+" --- IndentLine --- {{{
+let g:indentLine_char = '¦'
+" let g:indentLine_enabled = 0
+" }}}
+
 " }}}
 
 " ## Wildmode {{{
