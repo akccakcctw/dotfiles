@@ -313,6 +313,13 @@ set mouse=a
 set cursorline " highlight current line
 set updatetime=100
 
+" support mouse resize split inside tmux
+if has('mouse_sgr')
+  set ttymouse=sgr
+else
+  set ttymouse=xterm2
+endif
+
 " --- Colorscheme --- {{{
 syntax on
 set bg=dark
