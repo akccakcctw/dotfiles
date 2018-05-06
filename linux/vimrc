@@ -83,6 +83,7 @@ Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'vim-syntastic/syntastic' " syntax checking
 Plug 'Yggdroot/indentLine'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'jremmen/vim-ripgrep'
 
 call plug#end()            " required
 "
@@ -242,6 +243,10 @@ let g:indentLine_char = '¦'
 
 " --- vim-markdown --- {{{
 let g:vim_markdown_conceal = 0
+" }}}
+
+" --- vim-ripgrep --- {{{
+let g:rg_highlight = 'ture'
 " }}}
 
 " }}}
