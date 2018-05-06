@@ -239,6 +239,10 @@ let g:indentLine_char = '¦'
 " let g:indentLine_enabled = 0
 " }}}
 
+" --- vim-markdown --- {{{
+let g:vim_markdown_conceal = 0
+" }}}
+
 " }}}
 
 " ## Wildmode {{{
