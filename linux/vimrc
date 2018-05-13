@@ -48,6 +48,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'altercation/vim-colors-solarized' "colorscheme
 " Plug 'ervandew/supertab',
 " Plug 'joshdick/onedark.vim' " colorscheme
+" Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
@@ -65,7 +66,6 @@ Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
-Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
@@ -137,6 +137,11 @@ autocmd FileType vue syntax sync fromstart
 " --- Autoformat --- {{{
 " (,FF)
 nnoremap <Leader>FF :Autoformat<CR>
+
+" only format the selected part (use node.js package "js-beautify")
+autocmd Filetype html,vue vnoremap <Leader>FF :'<,'>!js-beautify --type html --editorconfig<CR>
+autocmd Filetype css,scss vnoremap <Leader>FF :'<,'>!js-beautify --type css --editorconfig<CR>
+autocmd Filetype javascript vnoremap <Leader>FF :'<,'>!js-beautify --type js --editorconfig<CR>
 " }}}
 
 " --- BufExplorer --- {{{
