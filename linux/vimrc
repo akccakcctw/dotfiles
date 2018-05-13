@@ -84,6 +84,7 @@ Plug 'vim-syntastic/syntastic' " syntax checking
 Plug 'Yggdroot/indentLine'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jremmen/vim-ripgrep'
+Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 
 call plug#end()            " required
 "
@@ -247,6 +248,25 @@ let g:vim_markdown_conceal = 0
 
 " --- vim-ripgrep --- {{{
 let g:rg_highlight = 'ture'
+" }}}
+
+" --- vim-table-mode --- {{{
+function! s:isAtStartOfLine(mapping)
+	let text_before_cursor = getline('.')[0 : col('.')-1]
+	let mapping_pattern = '\V' . escape(a:mapping, '\')
+	let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+	return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+					\ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
+					\ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+					\ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
+					\ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+" For Markdown-compatible tables
+let g:table_mode_corner='|'
 " }}}
 
 " }}}
