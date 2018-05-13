@@ -52,7 +52,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug 'cakebaker/scss-syntax.vim'
+Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
@@ -66,11 +66,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
-Plug 'posva/vim-vue'
+Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tomasiser/vim-code-dark' " colorscheme
@@ -159,10 +159,10 @@ let g:UltiSnipsJumpBackwardTribber = "<s-Tab>"
 " }}}
 
 " --- Emmet --- {{{
-" let g:user_emmet_leader_key='<C-y>'
+let g:user_emmet_leader_key='<C-e>'
 " let g:user_emmet_mode='in' " only enable in Input/Normal mode
 let g:user_emmet_install_global = 0 " enable just for HTML/CSS
-autocmd filetype html,css,scss,pug EmmetInstall
+autocmd filetype html,css,scss,pug,vue,php EmmetInstall
 "autocmd filetype *html* inoremap <A-/> <C-y>/
 "autocmd filetype *html* vnoremap <A-/> <C-y>/
 " }}}
@@ -473,10 +473,10 @@ vnoremap <C-j> :m'>+<CR>:echo "move block down"<CR>
 vnoremap <C-k> :m'<-2<CR>:echo "move block up"<CR>
 
 " avoid the escape key
-nnoremap <C-e> <Esc>
-inoremap <C-e> <Esc>
-vnoremap <C-e> <Esc>
-snoremap <C-e> <Esc>
+" nnoremap <C-e> <Esc>
+" inoremap <C-e> <Esc>
+" vnoremap <C-e> <Esc>
+" snoremap <C-e> <Esc>
 inoremap jj <Esc>
 
 " }}}
