@@ -49,7 +49,7 @@ mapping leader key to `,`.
 - toggle wrap: `<F2>`
 - increase/decrease number under the cursour: `+`, `-`
 - move text line up/down: `<C-j>`, `<C-k>`
-- avoid the escape key: `<C-e>`, `jj`
+- avoid the escape key: `jj`
 - save a file as root: `<Leader>WW`
 - strip trailing whitespace: `<Leader>ss`
 - edit .vimrc: `<leader>ee`
@@ -60,17 +60,18 @@ mapping leader key to `,`.
 - Autoformat
   + `<Leader>FF`
 - CtrlP
+  + `<Leader>f` for CtrlPLine
 - EasyAlign
 - EditorConfig
 - Emmet
-  + enabled in html, css, scss, pug files
-  + expand: `<C-y>,`
-  + wrap: select then `<C-y>,`
-  + next edit position: `<C-y>n`
-  + previous edit position: `<C-y>N`
-  + select current tag: `<C-y>d`
-  + delete tag: `<C-y>k`
-  + merge multiple lines: `<C-y>m`
+  + enabled in html, css, scss, pug, vue, php files
+  + expand: `<C-e>,`
+  + wrap: select then `<C-e>,`
+  + next edit position: `<C-e>n`
+  + previous edit position: `<C-e>N`
+  + select current tag: `<C-e>d`
+  + delete tag: `<C-e>k`
+  + merge multiple lines: `<C-e>m`
 - NERDTree
   + NERDTreeToggle: `<F5>` or `<C-b>`
 - NERDCommenter
