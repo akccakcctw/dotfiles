@@ -3,6 +3,7 @@
 brew update
 
 brew install bash-completion
+brew install bat
 brew install binutils
 brew install brew-cask-completion
 brew install ccat
