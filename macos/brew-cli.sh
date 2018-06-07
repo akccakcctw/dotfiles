@@ -11,10 +11,6 @@ brew install cmake
 brew install coreutils
 brew install cscope
 brew install ctags
-brew install docker
-brew install docker-compose
-brew install docker-machine
-brew install docker-machine-driver-xhyve
 brew install findutils
 brew install git
 brew install gnu-sed
