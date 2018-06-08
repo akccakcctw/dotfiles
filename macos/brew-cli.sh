@@ -39,7 +39,6 @@ brew install tree
 brew install vim
 brew install wget
 brew install woff2
-brew install xhyve
 brew install xz
 brew install zsh
 
