@@ -74,8 +74,10 @@ mapping leader key to `,`.
   + merge multiple lines: `<C-e>m`
 - NERDTree
   + NERDTreeToggle: `<F5>` or `<C-b>`
-- NERDCommenter
-  + `<Leader>c<Space>`
+- tComment
+	+ toggle comment with `<Leader>cc` in normal mode
+	+ select then `<Leader>cc` for inline comment
+  + select then `<Leader>c<Space>` for block comment
 - Tagbar
   + toggle tagbar: `<F8>`
 - Vim-buffergator
