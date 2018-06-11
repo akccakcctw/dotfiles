@@ -61,7 +61,6 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jacoborus/tender' " colorscheme
-Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'lilydjwg/colorizer'
@@ -85,6 +84,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jremmen/vim-ripgrep'
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
+Plug 'jeetsukumaran/vim-buffergator'
 
 call plug#end()            " required
 "
@@ -142,12 +142,6 @@ nnoremap <Leader>FF :Autoformat<CR>
 autocmd Filetype html,vue vnoremap <Leader>FF :'<,'>!js-beautify --type html --editorconfig<CR>
 autocmd Filetype css,scss vnoremap <Leader>FF :'<,'>!js-beautify --type css --editorconfig<CR>
 autocmd Filetype javascript vnoremap <Leader>FF :'<,'>!js-beautify --type js --editorconfig<CR>
-" }}}
-
-" --- BufExplorer --- {{{
-let g:bufExplorerSortBy = 'name'
-let g:bufExplorerShowRelativePath = 1
-let g:bufExplorerShowNoname = 1
 " }}}
 
 " --- YouCompleteMe --- {{{
