@@ -78,8 +78,13 @@ mapping leader key to `,`.
   + `<Leader>c<Space>`
 - Tagbar
   + toggle tagbar: `<F8>`
+- Vim-buffergator
+	+ `<Leader>b` to open a window listing all buffers
+	+ `<C-v>` to edit the selected buffer in a new vertical split
+	+ `<C-s>` to edit the selected buffer in a new horizontal split
+	+ `<C-t>` to edit the selected buffer in a new tab
 - UltiSnips
 - YouCompleteMe
 
-just see linux/vimrc for more details.
+see [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
