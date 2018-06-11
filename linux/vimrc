@@ -70,7 +70,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tomasiser/vim-code-dark' " colorscheme
 Plug 'tpope/vim-fugitive' " Git wrapper
@@ -85,6 +84,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'jremmen/vim-ripgrep'
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'jeetsukumaran/vim-buffergator'
+Plug 'tomtom/tcomment_vim'
 
 call plug#end()            " required
 "
@@ -110,9 +110,10 @@ nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " }}}
 
-" --- NERD Commenter --- {{{
-let g:NERDSpaceDelims = 1
-let g:NERDRemoveExtraSpaces = 1
+" --- tcomment_vim --- {{{
+let g:tcomment_opleader1 = '<Leader>c'
+vnoremap <Leader>c<Space> :TCommentBlock<CR>
+nnoremap <Leader>c<Space> :TComment<CR>
 " }}}
 
 " --- Syntastic --- {{{
