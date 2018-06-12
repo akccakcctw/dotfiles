@@ -11,6 +11,11 @@ My personal .files, tested and works well on my macOS (MacBook Pro) and ArchLinu
 - Git, if you want to keep syncing with new updates
 
 
+## Optional
+
+- ctags (for tags generation)
+
+
 ## Clone and Update
 
 ```sh
@@ -22,6 +27,7 @@ git clone https://github.com/akccakcctw/dotfiles.git
 cd dotfiles
 git pull
 ```
+
 
 ## Deploy
 
@@ -85,6 +91,8 @@ mapping leader key to `,`.
 	+ `<C-v>` to edit the selected buffer in a new vertical split
 	+ `<C-s>` to edit the selected buffer in a new horizontal split
 	+ `<C-t>` to edit the selected buffer in a new tab
+- vim-tags
+	+ generate tags for the project (using ctags) `:TagGenerate!`
 - UltiSnips
 - YouCompleteMe
 

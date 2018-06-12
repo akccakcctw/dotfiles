@@ -85,6 +85,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tomtom/tcomment_vim'
+Plug 'szw/vim-tags'
 
 call plug#end()            " required
 "
