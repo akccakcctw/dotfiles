@@ -14,6 +14,7 @@ brew cask install karabiner-elements
 brew cask install vagrant
 brew cask install virtualbox
 brew cask install docker
+brew cask install snipaste
 # brew cask install visual-studio-code
 # brew cask install vlc
 # brew cask install xquartz
