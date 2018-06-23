@@ -18,6 +18,7 @@ brew cask install snipaste
 # brew cask install visual-studio-code
 # brew cask install vlc
 # brew cask install xquartz
+brew cask install keybase
 
 brew cask cleanup
 brew cask doctor
