@@ -240,6 +240,7 @@ let g:tender_airline = 1
 
 " --- IndentLine --- {{{
 let g:indentLine_char = '¦'
+let g:indentLine_color_term = 236
 " let g:indentLine_enabled = 0
 " }}}
 
