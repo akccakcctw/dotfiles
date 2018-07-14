@@ -13,6 +13,7 @@ brew install cscope
 brew install ctags
 brew install findutils
 brew install git
+brew install git-lfs
 brew install gnu-sed
 brew install gnupg
 brew install go
@@ -33,6 +34,7 @@ brew install python
 brew install python3
 brew install ripgrep
 brew install socat
+brew install tidy-html5
 brew install tldr
 brew install tmux
 brew install tree
