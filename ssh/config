@@ -3,6 +3,7 @@
 # Hostname  <HOSTNAME>
 # port      <PORT>
 # User      <USER>
+# PreferredAuthentications publickey
 # identityfile ~/.ssh/id_rsa
 
 # - PTT
