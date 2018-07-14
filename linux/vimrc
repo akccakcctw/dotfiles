@@ -79,6 +79,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'vim-syntastic/syntastic' " syntax checking
+Plug 'htacg/tidy-html5',
 Plug 'Yggdroot/indentLine'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jremmen/vim-ripgrep'
@@ -86,6 +87,8 @@ Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tomtom/tcomment_vim'
 Plug 'szw/vim-tags'
+Plug 'ryanoasis/vim-devicons'
+Plug 'wesQ3/vim-windowswap'
 
 call plug#end()            " required
 "
@@ -103,7 +106,6 @@ call plug#end()            " required
 " Plugins settings and mappings
 
 " --- NERDTree --- {{{
-noremap <F5> :NERDTreeToggle<CR> " toggle nerdtree display
 nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 
@@ -114,6 +116,7 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " --- tcomment_vim --- {{{
 let g:tcomment_opleader1 = '<Leader>c'
 vnoremap <Leader>c<Space> :TCommentBlock<CR>
+vnoremap <Leader>cc :TCommentMaybeInline<CR>
 nnoremap <Leader>c<Space> :TComment<CR>
 " }}}
 
@@ -126,6 +129,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_html_tidy_exec = '/usr/local/bin/tidy' " brew install tidy-html5
+let g:syntastic_html_tidy_ignore_errors = [ 'trimming empty' ]
+" let g:syntastic_mode_map = { 'passive_filetypes': ['html'] } " files not checked unless explicitly call :SyntasticCheck
 "  }}}
 
 " --- editorconfig plugin --- {{{
@@ -512,6 +518,9 @@ noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
 " vnoremap <silent> <Esc>OD <Left>
 
 " }}}
+
+" autoread while file change
+au FocusGained,BufEnter * :checktime
 
 " vim:fdm=marker:foldlevel=0
 
