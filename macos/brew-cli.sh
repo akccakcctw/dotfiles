@@ -11,13 +11,13 @@ brew install cmake
 brew install coreutils
 brew install cscope
 brew install ctags
-brew install findutils
+brew install findutils --with-default-names
 brew install git
 brew install git-lfs
-brew install gnu-sed
+brew install gnu-sed --with-default-names
 brew install gnupg
 brew install go
-brew install grep
+brew install grep --with-default-names
 brew install gzip
 brew install htop
 brew install hugo
