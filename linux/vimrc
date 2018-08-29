@@ -87,7 +87,7 @@ Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-syntastic/syntastic' " syntax checking
+Plug 'w0rp/ale' " syntax checking
 Plug 'wesQ3/vim-windowswap'
 
 call plug#end()            " required
@@ -120,18 +120,12 @@ vnoremap <Leader>cc :TCommentMaybeInline<CR>
 nnoremap <Leader>c<Space> :TComment<CR>
 " }}}
 
-" --- Syntastic --- {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_html_tidy_exec = '/usr/local/bin/tidy' " brew install tidy-html5
-let g:syntastic_html_tidy_ignore_errors = [ 'trimming empty' ]
-" let g:syntastic_mode_map = { 'passive_filetypes': ['html'] } " files not checked unless explicitly call :SyntasticCheck
+" --- Ale --- {{{
+let g:ale_fixers = {
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'javascript': ['eslint'],
+	\ }
+" let g:ale_fix_on_save = 1
 "  }}}
 
 " --- editorconfig plugin --- {{{
