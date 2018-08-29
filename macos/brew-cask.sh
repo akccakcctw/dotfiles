@@ -23,6 +23,7 @@ brew cask install font-sourcecodepro-nerd-font-mono
 brew cask install google-chrome
 brew cask install iterm2
 brew cask install karabiner-elements
+brew cask install postman
 brew cask install snipaste
 brew cask install virtualbox
 
