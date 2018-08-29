@@ -95,6 +95,7 @@ mapping leader key to `,`.
 	+ generate tags for the project (using ctags) `:TagGenerate!`
 - UltiSnips
 - YouCompleteMe
+- ALE
 
 see [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
