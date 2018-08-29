@@ -52,17 +52,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
+Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'honza/vim-snippets'
+Plug 'htacg/tidy-html5'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jacoborus/tender' " colorscheme
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/gv.vim' " Git commit browser
 Plug 'junegunn/vim-easy-align'
+Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
 Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
@@ -70,24 +77,17 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
+Plug 'szw/vim-tags'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasiser/vim-code-dark' " colorscheme
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'junkblocker/patchreview-vim' "GitHub PR Code Review
-Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'vim-syntastic/syntastic' " syntax checking
-Plug 'htacg/tidy-html5',
-Plug 'Yggdroot/indentLine'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'jremmen/vim-ripgrep'
-Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'tomtom/tcomment_vim'
-Plug 'szw/vim-tags'
-Plug 'ryanoasis/vim-devicons'
 Plug 'wesQ3/vim-windowswap'
 
 call plug#end()            " required
