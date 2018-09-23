@@ -45,7 +45,7 @@ Execute `deploy.sh` (you'd better read it first).
 mapping leader key to `,`.
 
 - tabs
-  + open a new tab: `<C-n>`
+  + ~~open a new tab: `<C-n>`~~
   + switch to next tab: `<Leader>n`
 - split window
   + split horizontal: `<C-\>`
@@ -63,13 +63,13 @@ mapping leader key to `,`.
 
 #### Vim Plugins
 
-- Autoformat
+- [Autoformat](https://github.com/Chiel92/vim-autoformat)
   + `<Leader>FF`
-- CtrlP
+- [CtrlP](https://github.com/ctrlpvim/ctrlp.vim)
   + `<Leader>f` for CtrlPLine
-- EasyAlign
-- EditorConfig
-- Emmet
+- [EasyAlign](https://github.com/junegunn/vim-easy-align)
+- [EditorConfig](https://github.com/editorconfig/editorconfig-vim)
+- [Emmet](https://github.com/mattn/emmet-vim)
   + enabled in html, css, scss, pug, vue, php files
   + expand: `<C-e>,`
   + wrap: select then `<C-e>,`
@@ -78,24 +78,25 @@ mapping leader key to `,`.
   + select current tag: `<C-e>d`
   + delete tag: `<C-e>k`
   + merge multiple lines: `<C-e>m`
-- NERDTree
+- [NERDTree](https://github.com/scrooloose/nerdtree)
   + NERDTreeToggle: `<F5>` or `<C-b>`
-- tComment
+- [tComment](https://github.com/tomtom/tcomment_vim)
 	+ toggle comment with `<Leader>cc` in normal mode
 	+ select then `<Leader>cc` for inline comment
   + select then `<Leader>c<Space>` for block comment
-- Tagbar
+- [Tagbar](https://github.com/majutsushi/tagbar)
   + toggle tagbar: `<F8>`
-- Vim-buffergator
+- [Vim-buffergator](https://github.com/jeetsukumaran/vim-buffergator)
 	+ `<Leader>b` to open a window listing all buffers
 	+ `<C-v>` to edit the selected buffer in a new vertical split
 	+ `<C-s>` to edit the selected buffer in a new horizontal split
 	+ `<C-t>` to edit the selected buffer in a new tab
-- vim-tags
+- [vim-tags](https://github.com/szw/vim-tags)
 	+ generate tags for the project (using ctags) `:TagGenerate!`
-- UltiSnips
-- YouCompleteMe
-- ALE
+- [UltiSnips](https://github.com/SirVer/ultisnips)
+- [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+- [ALE](https://github.com/w0rp/ale)
+- [WindowSwap](https://github.com/wesQ3/vim-windowswap)
 
 see [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
