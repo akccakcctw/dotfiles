@@ -505,19 +505,6 @@ noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
 
 " }}}
 
-" --- Arrow-keys error signal workaround --- {{{
-" enter insert-mode, press <C-v> and then press arrow-keys to get the signals
-" nnoremap <silent> <Esc>OA <Up>
-" nnoremap <silent> <Esc>OB <Down>
-" nnoremap <silent> <Esc>OC <Right>
-" nnoremap <silent> <Esc>OD <Left>
-" vnoremap <silent> <Esc>OA <Up>
-" vnoremap <silent> <Esc>OB <Down>
-" vnoremap <silent> <Esc>OC <Right>
-" vnoremap <silent> <Esc>OD <Left>
-
-" }}}
-
 " autoread while file change
 au FocusGained,BufEnter * :checktime
 
