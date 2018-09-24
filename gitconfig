@@ -53,4 +53,5 @@
   logoutputencoding = utf-8
 [i18n "commit"]
   encoding = utf-8
-
+[merge]
+  tool = vimdiff
