@@ -47,6 +47,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'Townk/vim-autoclose'
 " Plug 'altercation/vim-colors-solarized' "colorscheme
 " Plug 'ervandew/supertab',
+" Plug 'felixfbecker/php-language-server', { 'do': 'composer install && composer run-script parse-stubs' }
 " Plug 'joshdick/onedark.vim' " colorscheme
 " Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
@@ -54,6 +55,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'ctrlpvim/ctrlp.vim'
@@ -126,6 +128,25 @@ let g:ale_fixers = {
 	\ 'javascript': ['eslint'],
 	\ }
 " let g:ale_fix_on_save = 1
+" let g:ale_php_langserver_use_global = 1
+" let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
+
+"  }}}
+
+" --- LanguageClient-neovim --- {{{
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+	\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+	\ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
+	\ }
+let g:LanguageClient_autoStart = 1
+
+" nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <Leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
 "  }}}
 
 " --- editorconfig plugin --- {{{
