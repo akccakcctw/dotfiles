@@ -98,5 +98,25 @@ mapping leader key to `,`.
 - [ALE](https://github.com/w0rp/ale)
 - [WindowSwap](https://github.com/wesQ3/vim-windowswap)
 
-see [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
+#### Language Server
+
+[What is Language Server?](https://langserver.org/)
+
+- Client
+  + [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim)
+- Servers (install manually)
+  + JavaScript: [sourcegraph/javascript-typescript-langserver](https://github.com/sourcegraph/javascript-typescript-langserver)
+    ```
+    npm i -g javascript-typescript-langserver
+    ```
+  + PHP: [felixfbecker/php-language-server](https://github.com/felixfbecker/php-language-server)
+    ```
+    composer global require felixfbecker/language-server
+    ```
+  + Dockerfile: [rcjsuen/dockerfile-language-server-nodejs](https://github.com/rcjsuen/dockerfile-language-server-nodejs)
+    ```
+    npm i -g dockerfile-language-server-nodejs
+    ```
+
+read [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
