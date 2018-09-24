@@ -38,7 +38,7 @@ brew install tidy-html5
 brew install tldr
 brew install tmux
 brew install tree
-brew install vim
+brew install vim --with-override-system-vi --with-python3
 brew install wget
 brew install woff2
 brew install xz
