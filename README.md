@@ -117,6 +117,10 @@ mapping leader key to `,`.
     ```
     npm i -g dockerfile-language-server-nodejs
     ```
+  + Vue: [vuejs/vetur/server](https://github.com/vuejs/vetur/tree/master/server)
+    ```
+    npm i -g vue-language-server
+    ```
 
 read [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
