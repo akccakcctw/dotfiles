@@ -93,6 +93,8 @@ mapping leader key to `,`.
 	+ `<C-t>` to edit the selected buffer in a new tab
 - [vim-tags](https://github.com/szw/vim-tags)
 	+ generate tags for the project (using ctags) `:TagGenerate!`
+- [vim-table-mode](https://github.com/dhruvasagar/vim-table-mode)
+  + `<Leader>tm` to start it (or typing `:TableModeToggle`)
 - [UltiSnips](https://github.com/SirVer/ultisnips)
 - [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
 - [ALE](https://github.com/w0rp/ale)
