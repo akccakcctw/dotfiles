@@ -26,6 +26,9 @@ brew cask install karabiner-elements
 brew cask install postman
 brew cask install snipaste
 brew cask install virtualbox
+brew cask install quicklook-json
+brew cask install webpquicklook
+brew cask install qlcolorcode
 
 brew cask cleanup
 brew cask doctor
