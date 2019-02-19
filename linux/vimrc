@@ -459,7 +459,8 @@ set ffs=unix,dos,mac
 " ## Key Mappings {{{
 
 " edit .vimrc
-nnoremap <silent> <leader>ee :tabe ~/.vimrc<CR>
+nnoremap <silent> <leader>ee :tabe $MYVIMRC<CR>
+nnoremap <silent> <leader>so :source $MYVIMRC<CR>
 
 " open a new tab
 " nnoremap <C-n> :tabnew<CR>
