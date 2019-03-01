@@ -79,6 +79,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'szw/vim-tags'
@@ -140,6 +141,8 @@ set hidden
 let g:LanguageClient_serverCommands = {
 	\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
 	\ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
+	\ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
+	\ 'vue': ['/usr/local/bin/vls', '--stdio'],
 	\ }
 let g:LanguageClient_autoStart = 1
 
@@ -151,10 +154,6 @@ nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
 
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-" }}}
-
-" --- *.vue file syntax --- {{{
-autocmd FileType vue syntax sync fromstart
 " }}}
 
 " --- Autoformat --- {{{
@@ -270,6 +269,10 @@ let g:indentLine_color_term = 236
 let g:vim_markdown_conceal = 0
 " }}}
 
+" --- vim-vue --- {{{
+autocmd BufEnter *.vue syntax sync fromstart
+" }}}
+
 " --- vim-ripgrep --- {{{
 let g:rg_highlight = 'ture'
 " }}}
@@ -307,7 +310,6 @@ set wildmode=list:longest
 
 " ## Tabs, Spaces and Indent handling {{{
 
-set autoindent " auto indent
 " set expandtab " expand tab to be space
 set noexpandtab
 set tabstop=2 " make Tabs display as wide as 2 Spaces
@@ -356,6 +358,7 @@ set whichwrap+=<,>,[,]
 set nostartofline
 set autoread " auto read when a file is changed from the outside
 set backspace=indent,eol,start
+set autoindent
 set wrap " wrap lines
 set mouse=a
 set cursorline " highlight current line
@@ -442,8 +445,8 @@ set ruler
 " set encoding
 set fileencoding=utf-8
 set encoding=utf-8
-" let $LANG="zh_TW.UTF-8"
-" set langmenu=zh_tw.utf-8
+set langmenu=en_US.utf-8
+let $LANG='en_US.UTF-8'
 
 " reload gVim menu with UTF-8 encoding
 source $VIMRUNTIME/delmenu.vim
@@ -508,6 +511,10 @@ vnoremap <C-k> :m'<-2<CR>:echo "move block up"<CR>
 " snoremap <C-e> <Esc>
 inoremap jj <Esc>
 
+" fix syntax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
 " }}}
 
 " ## Functions {{{
@@ -531,4 +538,3 @@ noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
 au FocusGained,BufEnter * :checktime
 
 " vim:fdm=marker:foldlevel=0
-
