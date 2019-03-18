@@ -32,6 +32,7 @@ brew install openssh
 brew install p7zip
 brew install python
 brew install python3
+brew install rename
 brew install ripgrep
 brew install socat
 brew install tidy-html5
