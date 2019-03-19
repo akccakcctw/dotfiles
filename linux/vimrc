@@ -15,7 +15,7 @@ if !has('nvim')
   set nocompatible
   if &term =~ '^screen\|^tmux' && exists('$TMUX')
     if &term =~ '256color'
-      set term=xtem-256color
+      set term=xterm-256color
     else
       set term=xterm
     endif
@@ -125,10 +125,18 @@ nnoremap <Leader>c<Space> :TComment<CR>
 " }}}
 
 " --- Ale --- {{{
+" lint after 1000ms after changes are made both on insert mode and normal mode
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 1000
+
+" use nice symbols for errors and warnings
+let g:ale_sign_error = '✗ '
+let g:ale_sign_warning = '⚠ '
+
 let g:ale_fixers = {
-	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'javascript': ['eslint'],
-	\ }
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \ 'javascript': ['eslint'],
+  \ }
 " let g:ale_fix_on_save = 1
 " let g:ale_php_langserver_use_global = 1
 " let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
@@ -140,11 +148,12 @@ let g:ale_fixers = {
 set hidden
 
 let g:LanguageClient_serverCommands = {
-	\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-	\ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
-	\ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
-	\ 'vue': ['/usr/local/bin/vls', '--stdio'],
-	\ }
+  \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+  \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
+  \ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
+  \ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
+  \ 'vue': ['/usr/local/bin/vls', '--stdio'],
+  \ }
 let g:LanguageClient_autoStart = 1
 
 " nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_hover()<CR>
@@ -286,18 +295,18 @@ let g:rg_highlight = 'ture'
 
 " --- vim-table-mode --- {{{
 function! s:isAtStartOfLine(mapping)
-	let text_before_cursor = getline('.')[0 : col('.')-1]
-	let mapping_pattern = '\V' . escape(a:mapping, '\')
-	let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-	return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
 endfunction
 
 inoreabbrev <expr> <bar><bar>
-					\ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
-					\ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+          \ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
 inoreabbrev <expr> __
-					\ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
-					\ '<c-o>:silent! TableModeDisable<cr>' : '__'
+          \ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " For Markdown-compatible tables
 let g:table_mode_corner='|'
@@ -372,10 +381,12 @@ set cursorline " highlight current line
 set updatetime=100
 
 " support mouse resize split inside tmux
-if has('mouse_sgr')
-  set ttymouse=sgr
-else
-  set ttymouse=xterm2
+if !has('nvim')
+  if has('mouse_sgr')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
 endif
 
 " --- Colorscheme --- {{{
