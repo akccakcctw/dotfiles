@@ -12,6 +12,7 @@ brew install coreutils
 brew install cscope
 brew install ctags
 brew install findutils --with-default-names
+brew install fzf
 brew install git
 brew install git-lfs
 brew install gnu-sed --with-default-names
