@@ -36,6 +36,7 @@ brew install python
 brew install python3
 brew install rename
 brew install ripgrep
+brew install shellcheck
 brew install socat
 brew install tidy-html5
 brew install tldr
