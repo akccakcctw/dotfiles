@@ -30,7 +30,7 @@ if !has('nvim')
 endif
 
 if has('nvim')
-  let g:python3_host_prog = '/usr/bin/python3'
+  let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 " }}}
 
@@ -69,10 +69,13 @@ Plug 'htacg/tidy-html5'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jacoborus/tender' " colorscheme
 Plug 'jeetsukumaran/vim-buffergator'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/gv.vim' " Git commit browser
+" Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
+Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
 Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
@@ -80,7 +83,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'szw/vim-tags'
@@ -136,10 +138,14 @@ let g:ale_sign_warning = '⚠ '
 let g:ale_fixers = {
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ 'javascript': ['eslint'],
+	\ 'vue': ['eslint'],
   \ }
+let g:ale_linter_aliases = {
+	\ 'vue': ['javascript', 'html', 'scss'],
+	\ }
 " let g:ale_fix_on_save = 1
-" let g:ale_php_langserver_use_global = 1
-" let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
+let g:ale_php_langserver_use_global = 1
+let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
 
 "  }}}
 
@@ -209,6 +215,14 @@ autocmd filetype html,css,scss,pug,vue,php EmmetInstall
 nnoremap <F8> :Tagbar<CR>
 "  }}}
 
+" --- FZF --- {{{
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>F :Files<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>a :Rg<Space>
+" }}}
+
 " --- EasyAlign --- {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -223,15 +237,15 @@ let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 " tags (symbols) in current file finder mapping
-nnoremap ,g :CtrlPBufTag<CR>
+" nnoremap ,g :CtrlPBufTag<CR>
 " tags (symbols) in all files finder mapping
-nnoremap ,G :CtrlPBufTagAll<CR>
+" nnoremap ,G :CtrlPBufTagAll<CR>
 " general code finder in all files mapping
-nnoremap ,f :CtrlPLine<CR>
+" nnoremap ,f :CtrlPLine<CR>
 " recent files finder mapping
-nnoremap ,m :CtrlPMRUFiles<CR>
+" nnoremap ,m :CtrlPMRUFiles<CR>
 " commands finder mapping
-nnoremap ,c :CtrlPCmdPalette<CR>
+" nnoremap ,c :CtrlPCmdPalette<CR>
 " to be able to call CtrlP with default search text
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
   execute ':CtrlP' . a:ctrlp_command_end
@@ -290,7 +304,7 @@ autocmd BufEnter *.vue syntax sync fromstart
 " }}}
 
 " --- vim-ripgrep --- {{{
-let g:rg_highlight = 'ture'
+" let g:rg_highlight = 'true'
 " }}}
 
 " --- vim-table-mode --- {{{
@@ -364,6 +378,7 @@ endif
 
 " ## UI settings {{{
 set number
+set relativenumber
 set showmatch
 set scrolloff=3 " when scrolling, keep cursor 3 lines away from screen border
 set timeout
