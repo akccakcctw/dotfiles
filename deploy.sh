@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo 'Deploying...'
-cd "$(dirname "${BASH_SOURCE}")" # cd to directory of this script
+cd "$(dirname "${BASH_SOURCE[0]}")" # cd to directory of this script
 git pull origin master
 
-ORIG_DIR=linux
-SOURCE_DIR=~/.dotfiles
+ORIG_DIR="linux"
+SOURCE_DIR="${HOME}/.dotfiles"
 
-mkdir -p $SOURCE_DIR
+mkdir -p "${SOURCE_DIR}"
 
 function deployFiles() {
   rsync --exclude ".git/" \
@@ -16,23 +18,25 @@ function deployFiles() {
     --exclude "deploy.sh" \
     --exclude "README.md" \
     --exclude "LICENSE" \
-    -avh --no-perms ${ORIG_DIR}/* ${SOURCE_DIR}
+    -avh --no-perms ${ORIG_DIR}/* "${SOURCE_DIR}"
 }
 
 function createSymlinks() {
-  ln -si "${SOURCE_DIR}/$(basename $1)" ~/.$(basename $1) # create symbolic links
+  ln -si "${SOURCE_DIR}/$(basename "$1")" "${HOME}"/."$(basename "$1")" # create symbolic links
 }
 
-read -p "This may overwrite existing files in your HOME directory. Are you sure? (y/n) " -n 1
-echo ""
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+read -p -r "This may overwrite existing files in your HOME directory. Are you sure? (y/N) " -n 1
+echo ''
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
   deployFiles
-  for file in ${SOURCE_DIR}/*; do
-    createSymlinks ${file}
+  for file in "${SOURCE_DIR}"/*; do
+    createSymlinks "${file}"
   done
 fi
 
 unset deployFiles
-source ~/.bashrc
+unset createSymlinks
+
+source "${HOME}/.bashrc"
 echo 'success!'
 
