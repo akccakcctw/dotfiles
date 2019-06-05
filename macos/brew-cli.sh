@@ -23,6 +23,7 @@ brew install grep --with-default-names
 brew install gzip
 brew install htop
 brew install hugo
+brew install hashcat
 brew install imagemagick
 brew install imgcat
 brew install lynx
