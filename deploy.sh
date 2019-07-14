@@ -25,7 +25,7 @@ function createSymlinks() {
   ln -si "${SOURCE_DIR}/$(basename "$1")" "${HOME}"/."$(basename "$1")" # create symbolic links
 }
 
-read -p -r "This may overwrite existing files in your HOME directory. Are you sure? (y/N) " -n 1
+read -p "This may overwrite existing files in your HOME directory. Are you sure? (y/N) " -r -n 1
 echo ''
 if [[ ${REPLY} =~ ^[Yy]$ ]]; then
   deployFiles
