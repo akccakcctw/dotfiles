@@ -51,12 +51,12 @@ call plug#begin('~/.vim/plugged')
 " Plug 'joshdick/onedark.vim' " colorscheme
 " Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
-Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'SirVer/ultisnips'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'yardnsm/vim-import-cost', { 'do': 'npm install', 'on': 'ImportCost' }
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
 Plug 'ctrlpvim/ctrlp.vim'
@@ -70,8 +70,9 @@ Plug 'htacg/tidy-html5'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jacoborus/tender' " colorscheme
 Plug 'jeetsukumaran/vim-buffergator'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf'
+" Plug 'jremmen/vim-ripgrep'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
@@ -95,6 +96,18 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale' " syntax checking
 Plug 'wesQ3/vim-windowswap'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'gutenye/json5.vim', { 'for': 'json5' }
+
+if has('nvim')
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'roxma/nvim-yarp'
+	Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 call plug#end()            " required
 "
@@ -138,32 +151,42 @@ let g:ale_sign_warning = '⚠ '
 let g:ale_fixers = {
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ 'javascript': ['eslint'],
+	\ 'vue': ['eslint'],
   \ }
+let g:ale_linter_aliases = {
+	\ 'vue': ['javascript', 'html', 'scss'],
+	\ }
 " let g:ale_fix_on_save = 1
-" let g:ale_php_langserver_use_global = 1
-" let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
+let g:ale_php_langserver_use_global = 1
+let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
 
 "  }}}
 
 " --- LanguageClient-neovim --- {{{
 " Required for operations modifying multiple buffers like rename.
-set hidden
+" set hidden
 
-let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-  \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
-  \ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
-  \ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
-  \ 'vue': ['/usr/local/bin/vls', '--stdio'],
-  \ }
-let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_serverCommands = {
+"   \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"   \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
+"   \ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
+"   \ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
+"   \ 'vue': ['/usr/local/bin/vls', '--stdio'],
+"   \ }
+" let g:LanguageClient_autoStart = 1
 
 " nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Leader>ld :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <silent> <Leader>ld :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
 "  }}}
 
+" --- coc.nvim --- {{{
+nmap <silent> <Leader>ld <Plug>(coc-definition)
+nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> <Leader>lr <Plug>(coc-references)
+nmap <silent> <Leader>li <Plug>(coc-implementation)
+" }}}
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " }}}
@@ -176,7 +199,7 @@ let g:indentLine_concealcursor=""
 
 " --- Autoformat --- {{{
 " (,FF)
-nnoremap <Leader>FF :Autoformat<CR>
+" nnoremap <Leader>FF :Autoformat<CR>
 
 " only format the selected part (use node.js package "js-beautify")
 autocmd Filetype html,vue vnoremap <Leader>FF :'<,'>!js-beautify --type html --editorconfig<CR>
@@ -184,18 +207,59 @@ autocmd Filetype css,scss vnoremap <Leader>FF :'<,'>!js-beautify --type css --ed
 autocmd Filetype javascript vnoremap <Leader>FF :'<,'>!js-beautify --type js --editorconfig<CR>
 " }}}
 
+" --- deoplete.nvim --- {{{
+let g:deoplete#enable_at_startup = 1
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" function! s:my_cr_function() abort
+" 	return deoplete#cancel_popup() . "\<CR>"
+" endfunction
+
+" <Tab>: completion
+inoremap <silent><expr> <Tab>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<Tab>" :
+	\ deoplete#manual_complete()
+
+" <S-Tab>: completion back
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" <BS>: close popup and delete backword char
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+
+" neosnippet.vim
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" supertab
+smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_completed_snippet = 1
+let g:neosnippet#expand_word_boundry = 1
+" }}}
+
 " --- YouCompleteMe --- {{{
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 
 " --- UltiSnips --- {{{
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTribber = "<s-Tab>"
+" let g:UltiSnipsExpandTrigger = "<Tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+" let g:UltiSnipsJumpBackwardTribber = "<s-Tab>"
 " }}}
 
 " --- Emmet --- {{{
@@ -211,6 +275,14 @@ autocmd filetype html,css,scss,pug,vue,php EmmetInstall
 nnoremap <F8> :Tagbar<CR>
 "  }}}
 
+" --- FZF --- {{{
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>F :Files<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>a :Rg<Space>
+" }}}
+
 " --- EasyAlign --- {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -225,15 +297,15 @@ let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 " tags (symbols) in current file finder mapping
-nnoremap ,g :CtrlPBufTag<CR>
+" nnoremap ,g :CtrlPBufTag<CR>
 " tags (symbols) in all files finder mapping
-nnoremap ,G :CtrlPBufTagAll<CR>
+" nnoremap ,G :CtrlPBufTagAll<CR>
 " general code finder in all files mapping
-nnoremap ,f :CtrlPLine<CR>
+" nnoremap ,f :CtrlPLine<CR>
 " recent files finder mapping
-nnoremap ,m :CtrlPMRUFiles<CR>
+" nnoremap ,m :CtrlPMRUFiles<CR>
 " commands finder mapping
-nnoremap ,c :CtrlPCmdPalette<CR>
+" nnoremap ,c :CtrlPCmdPalette<CR>
 " to be able to call CtrlP with default search text
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
   execute ':CtrlP' . a:ctrlp_command_end
@@ -292,7 +364,7 @@ autocmd BufEnter *.vue syntax sync fromstart
 " }}}
 
 " --- vim-ripgrep --- {{{
-let g:rg_highlight = 'ture'
+let g:rg_highlight = 'true'
 " }}}
 
 " --- vim-table-mode --- {{{
@@ -342,6 +414,15 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType php setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " }}}
 
+" ## Better Backup, Swap and Undo storage {{{
+" set directory=~/.vim/dirs/tmp     " directory to place swap files in
+" set backup                        " make backup files
+" set backupdir=~/.vim/dirs/backups " where to put backup files
+" set undofile                      " persistent undos - undo after you re-open the file
+" set undodir=~/.vim/dirs/undos
+" set viminfo+=n~/.vim/dirs/viminfo
+" store yankring history file there too
+let g:yankring_history_dir = '~/.vim/dirs/'
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
@@ -357,6 +438,7 @@ endif
 
 " ## UI settings {{{
 set number
+set relativenumber
 set showmatch
 set scrolloff=3 " when scrolling, keep cursor 3 lines away from screen border
 set timeout
@@ -368,7 +450,7 @@ set nostartofline
 set autoread " auto read when a file is changed from the outside
 set backspace=indent,eol,start
 set autoindent
-set wrap " wrap lines
+set nowrap " wrap lines
 set mouse=a
 set cursorline " highlight current line
 set updatetime=100
@@ -473,8 +555,8 @@ set ffs=unix,dos,mac
 " ## Key Mappings {{{
 
 " edit .vimrc
-nnoremap <silent> <leader>ee :tabe $MYVIMRC<CR>
-nnoremap <silent> <leader>so :source $MYVIMRC<CR>
+nnoremap <silent> <Leader>ee :tabe $MYVIMRC<CR>
+nnoremap <silent> <Leader>so :source $MYVIMRC<CR>
 
 " open a new tab
 " nnoremap <C-n> :tabnew<CR>
@@ -525,6 +607,9 @@ inoremap jj <Esc>
 " fix syntax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
+" exit terminal mode
+tnoremap <Esc> <C-\><C-n>
 
 " }}}
 
