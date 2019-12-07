@@ -50,6 +50,5 @@ brew install xz
 brew install zsh
 
 brew cleanup --force
-brew prune
 brew doctor
 
