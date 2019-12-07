@@ -23,9 +23,13 @@ if !has('nvim')
   if &term =~ '256color'
     set t_ut=
   endif
-  if exists('$TMUX')
-    set t_8f=[38;2;%lu;%lu;%lum
-    set t_8b=[48;2;%lu;%lu;%lum
+  if has('termguicolors')
+		" set Vim-specific sequences for RGB colors (https://github.com/vim/vim/issues/993)
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+
+		" enable true colors
+		set termguicolors
   endif
 endif
 
