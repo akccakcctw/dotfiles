@@ -35,6 +35,7 @@ endif
 
 if has('nvim')
   let g:python3_host_prog = '/usr/local/bin/python3'
+	let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
 endif
 " }}}
 
