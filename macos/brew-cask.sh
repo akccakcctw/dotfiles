@@ -31,6 +31,7 @@ brew cask install squirrel
 brew cask install virtualbox
 brew cask install webpquicklook
 brew cask install macs-fan-control
+brew cask install rectangle
 
 brew cask cleanup
 brew cask doctor
