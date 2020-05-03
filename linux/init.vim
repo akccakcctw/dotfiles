@@ -160,8 +160,13 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " <Tab>: completion
 inoremap <silent><expr> <Tab>
 	\ pumvisible() ? "\<C-n>" :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
 	\ <SID>check_back_space() ? "\<Tab>" :
 	\ coc#refresh()
+inoremap <silent><expr> <C-k>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ "\<C-k>"
+let g:coc_snippet_next = '<tab>'
 " <S-Tab>: completion back
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
 " }}}
