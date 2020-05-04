@@ -49,22 +49,12 @@ let g:maplocalleader = ','
 " ## Plugin manager (vim-plug) {{{
 call plug#begin('~/.vim/plugged')
 
-" Plug 'Townk/vim-autoclose'
-" Plug 'altercation/vim-colors-solarized' "colorscheme
-" Plug 'ervandew/supertab',
-" Plug 'felixfbecker/php-language-server', { 'do': 'composer install && composer run-script parse-stubs' }
-" Plug 'joshdick/onedark.vim' " colorscheme
-" Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
-" Plug 'SirVer/ultisnips'
-" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'yardnsm/vim-import-cost', { 'do': 'npm install', 'on': 'ImportCost' }
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
@@ -72,10 +62,9 @@ Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'honza/vim-snippets'
 Plug 'htacg/tidy-html5'
-Plug 'iamcco/markdown-preview.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jacoborus/tender' " colorscheme
 Plug 'jeetsukumaran/vim-buffergator'
-" Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
@@ -90,7 +79,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'szw/vim-tags'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasiser/vim-code-dark' " colorscheme
@@ -99,20 +88,10 @@ Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale' " syntax checking
+Plug 'dense-analysis/ale' " check syntax with LSP support
 Plug 'wesQ3/vim-windowswap'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gutenye/json5.vim', { 'for': 'json5' }
-
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-	Plug 'Shougo/deoplete.nvim'
-	Plug 'roxma/nvim-yarp'
-	Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 call plug#end()            " required
 "
@@ -148,6 +127,7 @@ nnoremap <Leader>c<Space> :TComment<CR>
 " lint after 1000ms after changes are made both on insert mode and normal mode
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_delay = 1000
+" let g:ale_fix_on_save = 1
 
 " use nice symbols for errors and warnings
 let g:ale_sign_error = '✗ '
@@ -161,36 +141,34 @@ let g:ale_fixers = {
 let g:ale_linter_aliases = {
 	\ 'vue': ['javascript', 'html', 'scss'],
 	\ }
-" let g:ale_fix_on_save = 1
-let g:ale_php_langserver_use_global = 1
-let g:ale_php_langserver_executable = expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')
-
-"  }}}
-
-" --- LanguageClient-neovim --- {{{
-" Required for operations modifying multiple buffers like rename.
-" set hidden
-
-" let g:LanguageClient_serverCommands = {
-"   \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-"   \ 'typescript': ['/usr/local/bin/javascript-typescript-stdio'],
-"   \ 'php': ['php', expand('~/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php')],
-"   \ 'dockerfile': ['/usr/local/bin/docker-langserver', '--stdio'],
-"   \ 'vue': ['/usr/local/bin/vls', '--stdio'],
-"   \ }
-" let g:LanguageClient_autoStart = 1
-
-" nnoremap <silent> <Leader>lh :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-" nnoremap <silent> <Leader>ld :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
 "  }}}
 
 " --- coc.nvim --- {{{
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
 nmap <silent> <Leader>ld <Plug>(coc-definition)
 nmap <silent> <C-]> <Plug>(coc-definition)
 nmap <silent> <Leader>lr <Plug>(coc-references)
 nmap <silent> <Leader>li <Plug>(coc-implementation)
+" Symbol renaming
+nmap <Leader>rn <Plug>(coc-rename)
+" ctrl-space for auto-complete
+inoremap <silent><expr> <c-space> coc#refresh()
+" <Tab>: completion
+inoremap <silent><expr> <Tab>
+	\ pumvisible() ? "\<C-n>" :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	\ <SID>check_back_space() ? "\<Tab>" :
+	\ coc#refresh()
+inoremap <silent><expr> <C-k>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ "\<C-k>"
+let g:coc_snippet_next = '<tab>'
+" <S-Tab>: completion back
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
 " }}}
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -212,61 +190,6 @@ autocmd Filetype css,scss vnoremap <Leader>FF :'<,'>!js-beautify --type css --ed
 autocmd Filetype javascript vnoremap <Leader>FF :'<,'>!js-beautify --type js --editorconfig<CR>
 " }}}
 
-" --- deoplete.nvim --- {{{
-let g:deoplete#enable_at_startup = 1
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" function! s:my_cr_function() abort
-" 	return deoplete#cancel_popup() . "\<CR>"
-" endfunction
-
-" <Tab>: completion
-inoremap <silent><expr> <Tab>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<Tab>" :
-	\ deoplete#manual_complete()
-
-" <S-Tab>: completion back
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" <BS>: close popup and delete backword char
-inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-
-" <CR>: close popup and save indent
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-
-" neosnippet.vim
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" supertab
-smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#enable_completed_snippet = 1
-let g:neosnippet#expand_word_boundry = 1
-" }}}
-
-" --- YouCompleteMe --- {{{
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" }}}
-
-" --- UltiSnips --- {{{
-" let g:UltiSnipsExpandTrigger = "<Tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-" let g:UltiSnipsJumpBackwardTribber = "<s-Tab>"
-" }}}
-
 " --- Emmet --- {{{
 let g:user_emmet_leader_key='<C-e>'
 " let g:user_emmet_mode='in' " only enable in Input/Normal mode
@@ -278,7 +201,7 @@ autocmd filetype html,css,scss,pug,vue,php EmmetInstall
 
 " --- Tagbar --- {{{
 nnoremap <F8> :Tagbar<CR>
-"  }}}
+" }}}
 
 " --- FZF --- {{{
 nmap <Leader>f :GFiles<CR>
@@ -296,45 +219,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-" --- CtrlP --- {{{
-" file finder mapping
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-" tags (symbols) in current file finder mapping
-" nnoremap ,g :CtrlPBufTag<CR>
-" tags (symbols) in all files finder mapping
-" nnoremap ,G :CtrlPBufTagAll<CR>
-" general code finder in all files mapping
-" nnoremap ,f :CtrlPLine<CR>
-" recent files finder mapping
-" nnoremap ,m :CtrlPMRUFiles<CR>
-" commands finder mapping
-" nnoremap ,c :CtrlPCmdPalette<CR>
-" to be able to call CtrlP with default search text
-function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-  execute ':CtrlP' . a:ctrlp_command_end
-  call feedkeys(a:search_text)
-endfunction
-" same as previous mappings, but calling with current word as default text
-nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-" don't change working directory
-let g:ctrlp_working_path_mode = 0
-" ignore these files and folders on file finder
-set wildignore+=*/tmp/*,*.so*,*.swp,*.zip " macOS/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe " Windows
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
-      \ 'file': '\v\.(pyc|pyo|exe|so|dll)$',
-      \ }
-" }}}
-
 " --- Indent Guildes --- {{{
 let g:indent_guides_start_level = 2
 let g:indent_guides_auto_colors = 0
@@ -345,12 +229,10 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 
 " --- Airline --- {{{
 let g:airline_powerline_fonts = 0
-" set airline theme
 let g:airline_theme = 'tender'
-"let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
-"enable tender airline theme
+" enable tender airline theme
 let g:tender_airline = 1
 " }}}
 
@@ -368,10 +250,6 @@ let g:vim_markdown_conceal = 0
 autocmd BufEnter *.vue syntax sync fromstart
 " }}}
 
-" --- vim-ripgrep --- {{{
-let g:rg_highlight = 'true'
-" }}}
-
 " --- vim-table-mode --- {{{
 function! s:isAtStartOfLine(mapping)
   let text_before_cursor = getline('.')[0 : col('.')-1]
@@ -381,14 +259,14 @@ function! s:isAtStartOfLine(mapping)
 endfunction
 
 inoreabbrev <expr> <bar><bar>
-          \ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
-          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+  \ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
+  \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
 inoreabbrev <expr> __
-          \ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
-          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+  \ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
+  \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " For Markdown-compatible tables
-let g:table_mode_corner='|'
+let g:table_mode_corner = '|'
 " }}}
 
 " --- Colorizer --- {{{
@@ -477,15 +355,12 @@ set bg=dark
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
   let &t_Co = 256
   let g:solarized_termtrans = 1 " get rid of the grey background"
-  " colorscheme solarized
-  " colorscheme onedark
   colorscheme codedark
 else
   colorscheme delek
 endif
 
 if has('gui_running')
-  " colorscheme evening
   colorscheme codedark
   set guifont=Consolas:h18 " for Windows
   set guifont=monospace\ 18 " for Linux
@@ -603,10 +478,6 @@ vnoremap <C-j> :m'>+<CR>:echo "move block down"<CR>
 vnoremap <C-k> :m'<-2<CR>:echo "move block up"<CR>
 
 " avoid the escape key
-" nnoremap <C-e> <Esc>
-" inoremap <C-e> <Esc>
-" vnoremap <C-e> <Esc>
-" snoremap <C-e> <Esc>
 inoremap jj <Esc>
 
 " fix syntax highlighting
@@ -639,3 +510,4 @@ noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
 au FocusGained,BufEnter * :checktime
 
 " vim:fdm=marker:foldlevel=0
+
