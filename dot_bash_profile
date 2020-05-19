@@ -1,0 +1,30 @@
+#
+# ~/.bash_profile
+#
+
+# include user's private bin to PATH
+[[ -d ~/bin ]] && PATH=~/bin:$PATH
+
+# compatible with macOS
+if [ $(uname -s) == Darwin ]; then
+	if brew list | grep coreutils > /dev/null; then
+		PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+		eval `gdircolors -b $HOME/.dir_colors`
+	fi
+
+	# Add tab completion for many Bash commands
+	if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+		source "$(brew --prefix)/share/bash-completion/bash_completion";
+	elif [ -f /etc/bash_completion ]; then
+		source /etc/bash_completion;
+	fi
+fi
+
+# git autocomplete
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+# load shell dotfiles
+[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases

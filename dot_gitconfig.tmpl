@@ -1,0 +1,63 @@
+[user]
+  email = "{{ .email }}"
+  name = "{{ .name }}"
+[core]
+  quotepath = false
+  excludesfile = ~/.gitignore
+[alias]
+  br = branch
+  df = diff
+  ph = push
+  pl = pull
+  ci = commit
+  cl = clone
+  co = checkout
+  dt = difftool
+  ls = ls-files
+  st = status -sb
+  overview = log --all --oneline --no-merges
+  # REVIEW_BASE defaults to 'develop' in zshrc
+  # ref: https://blog.jez.io/cli-code-review/
+  files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+  stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+  review = !vim -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  # git reviewone foo.js bar.js
+  reviewone = !vim -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  conflicts = diff --name-only --diff-filter=U
+[color]
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold # line info
+  old = red # deletions
+  new = green # additions
+  whitespace = red 88
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[help]
+  autocorrect = 1
+[gui]
+  encoding = utf-8
+[i18n]
+  logoutputencoding = utf-8
+[i18n "commit"]
+  encoding = utf-8
+[merge]
+  tool = vimdiff
+
+# vim: set filetype=gitconfig:
