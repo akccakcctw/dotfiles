@@ -1,0 +1,36 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# load bash_profile
+[ -n "$PS1" ] && . ~/.bash_profile
+
+# exports
+export EDITOR='vim'
+
+# --- Node ---
+export NODE_REPL_HISTORY=~/.node_history
+export NODE_REPL_HISTORY_SIZE=1000
+export NODE_REPL_MODE='sloppy'
+
+# --- Python ---
+export PYTHONENCODING='UTF-8'
+
+# --- history ---
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+export HISTCONTROL='ignoreboth' # omit duplicates and commmands that begin with a space
+
+# --- language ---
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+# --- others ---
+export LESS_TERMCAP_md="${yellow}" # highlight section titles in manual pages
+export MANPAGER='less -X' # dont clean the screen after quitting the manual page
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

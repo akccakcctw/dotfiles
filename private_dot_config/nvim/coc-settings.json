@@ -1,0 +1,23 @@
+{
+	"languageserver": {
+		"intelephense": {
+			"command": "intelephense",
+			"filetypes": ["php"],
+			"args": ["--stdio"],
+			"initializationOptions": {
+				"storagePath": "/tmp/intelephense"
+			}
+		},
+		"dockerfile": {
+			"command": "docker-langserver",
+			"args": ["--stdio"],
+			"filetypes": ["dockerfile"]
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": ["~"]
+		}
+	}
+}
