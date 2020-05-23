@@ -24,6 +24,10 @@
   # git reviewone foo.js bar.js
   reviewone = !vim -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
   conflicts = diff --name-only --diff-filter=U
+[checkout]
+  defaultRemote = origin
+[branch]
+  autosetuprebase = always
 [color]
   ui = auto
 [color "branch"]
@@ -59,5 +63,8 @@
   encoding = utf-8
 [merge]
   tool = vimdiff
+[pager]
+  diff = "diff-so-fancy | less --tabs=2 -RFX"
+  show = "diff-so-fancy | less --tabs=2 -RFX"
 
 # vim: set filetype=gitconfig:
