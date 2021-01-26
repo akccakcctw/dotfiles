@@ -91,6 +91,7 @@ mapping leader key to `,`.
 - [patchreview-vim](https://github.com/junkblocker/patchreview-vim)
 - [typescript-vim](https://github.com/leafgarland/typescript-vim)
 - [colorizer](https://github.com/lilydjwg/colorizer)
+  + removed, it makes vim slow
 - [tagbar](https://github.com/majutsushi/tagbar)
   + toggle tagbar: `<F8>`
 - [emmet-vim](https://github.com/mattn/emmet-vim)
