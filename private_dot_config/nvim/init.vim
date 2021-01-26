@@ -79,7 +79,6 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
 Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
-Plug 'lilydjwg/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
 Plug 'nathanaelkane/vim-indent-guides'
@@ -100,6 +99,7 @@ Plug 'dense-analysis/ale' " check syntax with LSP support
 Plug 'wesQ3/vim-windowswap'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gutenye/json5.vim', { 'for': 'json5' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 call plug#end()            " required
 "
@@ -511,6 +511,8 @@ noremap <Leader>ss :call StripWhitespace()<CR>
 
 " Save a file as root (,WW)
 noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
+
+command EslintFix execute '!npx eslint % --fix'
 
 " }}}
 
