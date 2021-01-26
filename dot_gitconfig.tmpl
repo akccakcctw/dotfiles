@@ -63,8 +63,10 @@
   encoding = utf-8
 [merge]
   tool = vimdiff
+[pull]
+	ff = only # fast-foward only
 [pager]
-  diff = "diff-so-fancy | less --tabs=2 -RFX"
-  show = "diff-so-fancy | less --tabs=2 -RFX"
+  diff = "diff-so-fancy | less --tabs=2 -RX"
+  show = "diff-so-fancy | less --tabs=2 -RX"
 
 # vim: set filetype=gitconfig:
