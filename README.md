@@ -10,6 +10,7 @@ My personal .files with [chezmoi](https://www.chezmoi.io/), tested and works wel
 - vim-plug, the plugin manager for Vim
   + follow official README [here](https://github.com/junegunn/vim-plug)
 - Git, if you want to keep syncing with new updates
+- [oh-my-zsh](https://ohmyz.sh/)
 
 
 ## Optional
@@ -29,6 +30,15 @@ chezmoi update
 
 
 ## Features
+
+### Tmux
+
+#### Tmux Plugins
+
+- [tpm](https://github.com/tmux-plugins/tpm)
+- [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
+- [tmux-yank](https://github.com/tmux-plugins/tmux-yank)
+
 
 ### Vim
 
@@ -97,6 +107,7 @@ mapping leader key to `,`.
 - [vim-markdown](https://github.com/plasticboy/vim-markdown)
 - [vim-vue](https://github.com/posva/vim-vue)
 - [vim-devicons](https://github.com/ryanoasis/vim-devicons)
+  + choose a [Nerd Font compatible font](https://github.com/ryanoasis/nerd-fonts#font-installation) for your terminal to see fancy icons
 - [nerdtree](https://github.com/scrooloose/nerdtree)
   + NERDTreeToggle: `<C-b>`
 - [vim-tags](https://github.com/szw/vim-tags)
