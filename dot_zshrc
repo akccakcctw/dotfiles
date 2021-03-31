@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 # compatible with MacOS
 if [[ $(uname -s) == Darwin ]]; then
-	if brew list | grep coreutils > /dev/null; then
+	if brew list --formula | grep coreutils > /dev/null; then
 		PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 		eval `gdircolors -b $HOME/.dir_colors`
 	fi
