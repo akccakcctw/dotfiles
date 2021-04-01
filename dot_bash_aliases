@@ -15,29 +15,60 @@ alias gll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s    %Cb
 alias gs='git show'
 
 # List Directories
-alias ls='ls -h --color --group-directories-first'
-alias l='ls -F'
-alias ll='ls -lF'
-alias la='ls -lAF'
-alias lx='ls -lXB'
-alias lk='ls -lSr'
-alias lt='ls -lAFtr'
-alias lh='ls -lh'
-alias l.='ls -d .*'
+if (command -v exa &>/dev/null) ; then
+  alias ls='exa --group-directories-first'
+  alias l='ls -F'
+  alias ll='ls -glF'
+  alias la='ls -laF'
+  alias lx='ls -ls extension'
+  alias lk='ls -lrs size'
+  alias lt='ls -lars modified'
+  alias lh='ls -lh'
+  alias l.='ls -d .*'
+elif (command -v lsd &>/dev/null) ; then
+  alias ls='lsd --icon never --group-dirs first'
+  alias l='ls -F'
+  alias ll='ls -lF'
+  alias la='ls -lAF'
+  alias lk='ls -lSr'
+  alias lt='ls -lAFtr'
+  alias lh='ls -lh'
+  alias l.='ls -d .*'
+else
+  alias ls='ls -h --color --group-directories-first'
+  alias l='ls -F'
+  alias ll='ls -lF'
+  alias la='ls -lAF'
+  alias lx='ls -lXB'
+  alias lk='ls -lSr'
+  alias lt='ls -lAFtr'
+  alias lh='ls -lh'
+  alias l.='ls -d .*'
+fi
 
 # grep
-if type "rg" &> /dev/null; then # ripgrep
+if (command -v rg &>/dev/null) ; then # ripgrep
   alias gg='rg'
+elif (command -v ag &>/dev/null) ; then # ag
+  alias gg='ag'
 else
   alias gg='grep -R -n'
+fi
+
+# fuck
+if (command -v fuck &>/dev/null) ; then
+  alias fk='fuck'
 fi
 
 # Vim
 alias vi='vim'
 alias v='vim'
-if type "nvim" &>/dev/null; then # neovim
+if (command -v nvim &>/dev/null) ; then # neovim
   alias v='nvim'
 fi
+
+# Directory Stack
+alias dirs='dirs -v'
 
 # Tmux
 alias tmux='tmux -2' # 256 color default
