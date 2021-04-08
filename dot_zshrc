@@ -69,12 +69,77 @@ ZSH_THEME="akccakcctw"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-	zsh-completions
-  zsh-syntax-highlighting
 	z
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# --- plugins --- {{{
+if [[ -f /etc/arch-release ]]; then
+  package_list=(
+    fzf
+    diff-so-fancy
+    zsh-syntax-highlighting
+    zsh-completions
+  )
+  if ! pacman -Qq ${package_list[@]} > /dev/null 2>&1; then
+    echo "You're using Archlinux! Use pacman to manage the following nice tools:"
+    echo ${package_list[@]}
+    sudo pacman -S --needed ${package_list[@]}
+  fi
+fi
+
+# fzf {{{
+if [[ -x /usr/bin/fzf && -f /usr/share/fzf/key-bindings.zsh &&
+    -f /usr/share/fzf/completion.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+else
+  if ! [[ -f ~/.fzf.zsh ]] ; then
+    if ! [[ -f ~/.fzf/install ]] ; then
+      rm -rf ~/.fzf
+      git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    fi
+    ~/.fzf/install --all
+  fi
+  source ~/.fzf.zsh
+fi
+# }}}
+
+# zplug {{{
+if ! [[ -f "${HOME}/.zplug/init.zsh" ]]; then
+  curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+zstyle :zplug:tag depth 1
+source "${HOME}/.zplug/init.zsh"
+
+zplug "zplug/zplug"
+zplug "mafredri/zsh-async", use:async.zsh
+zplug "lukechilds/zsh-better-npm-completion", defer:2
+
+if [[ -f /etc/arch-release ]]; then
+  if [[ -d /usr/share/zsh/plugins/zsh-syntax-highlighting ]]; then
+    zplug "/usr/share/zsh/plugins/zsh-syntax-highlighting", from:local, defer:3
+  fi
+  if [[ -d /usr/share/zsh/plugins/zsh-autosuggestions ]]; then
+    zplug "/usr/share/zsh/plugins/zsh-autosuggestions", from:local, defer:2
+  fi
+else
+  zplug "zsh-users/zsh-completions", use:"*.plugin.zsh"
+  zplug "so-fancy/diff-so-fancy", as:command, use:diff-so-fancy
+  zplug "zsh-users/zsh-syntax-highlighting", use:"*.plugin.zsh", defer:3
+fi
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+if ! zplug check --verbose; then
+  zplug install
+fi
+
+zplug load
+# }}}
+
+# }}}
 
 # User configuration
 
@@ -93,89 +158,19 @@ export LANG=en_US.UTF-8
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
+# aliases {{{
 source ~/.bash_aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# }}}
+#
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
-
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-    if type __ltrim_colon_completions &>/dev/null; then
-      __ltrim_colon_completions "${words[cword]}"
-    fi
-  }
-  complete -o default -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+  source /etc/profile.d/vte.sh
 fi
-###-end-npm-completion-###
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
+
+# vim:fdm=marker:foldlevel=0
