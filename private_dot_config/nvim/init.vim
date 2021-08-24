@@ -80,7 +80,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
 Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
 Plug 'majutsushi/tagbar'
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php' ] }
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript' ] }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pangloss/vim-javascript'
 Plug 'plasticboy/vim-markdown'
@@ -100,6 +101,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gutenye/json5.vim', { 'for': 'json5' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
 call plug#end()            " required
 "
@@ -182,6 +184,17 @@ inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " }}}
 
+" --- nvim-treesitter --- {{{
+lua <<EOF
+-- require'nvim-treesitter.configs'.setup {
+--   ensure_installed = "maintained", -- one of "all", "maintained", or a list of languages
+--   highlight = {
+--     enable = true,
+--   },
+-- }
+EOF
+" }}}
+
 " --- vim-json --- {{{
 " Disable Plugin indentLine's conceal
 " https://github.com/elzr/vim-json/issues/23#issuecomment-40293049
@@ -202,7 +215,13 @@ autocmd Filetype javascript vnoremap <Leader>FF :'<,'>!js-beautify --type js --e
 let g:user_emmet_leader_key='<C-e>'
 " let g:user_emmet_mode='in' " only enable in Input/Normal mode
 let g:user_emmet_install_global = 0 " enable just for HTML/CSS
-autocmd filetype html,css,scss,pug,vue,php EmmetInstall
+let g:user_emmet_settings = {
+\ 'javascript': {
+\   'extends': 'jsx',
+\ },
+\}
+
+autocmd filetype html,css,scss,pug,vue,php,javascript EmmetInstall
 "autocmd filetype *html* inoremap <A-/> <C-y>/
 "autocmd filetype *html* vnoremap <A-/> <C-y>/
 " }}}
@@ -513,6 +532,7 @@ noremap <Leader>ss :call StripWhitespace()<CR>
 noremap <Leader>WW :w !sudo tee % > /dev/null<CR>
 
 command EslintFix execute '!npx eslint % --fix'
+command StylelintFix execute '!npx stylelint % --fix'
 
 " }}}
 
