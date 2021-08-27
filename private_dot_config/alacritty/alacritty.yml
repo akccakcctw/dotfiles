@@ -3,3 +3,6 @@ font:
   normal:
     family: 'SauceCodePro NF'
     style: Normal
+
+key_bindings:
+  - { key: F11, action: ToggleFullscreen }
