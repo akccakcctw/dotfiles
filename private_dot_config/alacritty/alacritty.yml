@@ -6,3 +6,21 @@ font:
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
+
+  # fix meta-<key> shortcuts for tmux
+  - { key: A, mods: Alt, chars: "\x1ba" }
+  - { key: O, mods: Alt, chars: "\x1bo" }
+  - { key: I, mods: Alt, chars: "\x1bi" }
+  - { key: E, mods: Alt, chars: "\x1be" }
+  - { key: H, mods: Alt, chars: "\x1bh" }
+  - { key: L, mods: Alt, chars: "\x1bl" }
+  - { key: Key1, mods: Alt, chars: "\x1b1" }
+  - { key: Key2, mods: Alt, chars: "\x1b2" }
+  - { key: Key3, mods: Alt, chars: "\x1b3" }
+  - { key: Key4, mods: Alt, chars: "\x1b4" }
+  - { key: Key5, mods: Alt, chars: "\x1b5" }
+  - { key: Key6, mods: Alt, chars: "\x1b6" }
+  - { key: Key7, mods: Alt, chars: "\x1b7" }
+  - { key: Key8, mods: Alt, chars: "\x1b8" }
+  - { key: Key9, mods: Alt, chars: "\x1b9" }
+
