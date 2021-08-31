@@ -1,8 +1,8 @@
 font:
   size: 16.0
   normal:
-    family: 'SauceCodePro NF'
-    style: Normal
+    family: 'SauceCodePro Nerd Font'
+    style: Regular
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
