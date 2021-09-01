@@ -7,6 +7,9 @@ font:
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
 
+  # fix macOS backspace behavior when IME is open
+  - { key: Back, action: ReceiveChar }
+
   # fix meta-<key> shortcuts for tmux
   - { key: A, mods: Alt, chars: "\x1ba" }
   - { key: O, mods: Alt, chars: "\x1bo" }
