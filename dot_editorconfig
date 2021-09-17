@@ -11,6 +11,8 @@ indent_style = tab
 indent_size = 2
 
 [*.{diff,md}]
+# double whitespace at end of line
+# denotes a line break in Markdown
 trim_trailing_whitespace = false
 
 [**.php]
@@ -24,3 +26,7 @@ indent_size = 2
 [**.yml]
 indent_style = space
 indent_size = 2
+
+[**.rs]
+indent_style = space
+indent_size = 4
