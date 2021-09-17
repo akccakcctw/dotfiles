@@ -28,3 +28,6 @@ fi
 # load shell dotfiles
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+
+# Rust
+. "$HOME/.cargo/env"
