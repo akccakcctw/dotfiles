@@ -11,3 +11,4 @@ fi
 
 # include user's private bin to BASH
 [[ -d ~/bin ]] && PATH=~bin:$PATH
+[[ -d ~/.local/bin ]] && PATH=~/.local/bin:$PATH

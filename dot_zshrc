@@ -117,6 +117,7 @@ source "${HOME}/.zplug/init.zsh"
 zplug "zplug/zplug"
 zplug "mafredri/zsh-async", use:async.zsh
 zplug "lukechilds/zsh-better-npm-completion", defer:2
+zplug "akccakcctw/zsh-better-pnpm-completion", defer:2
 
 if [[ -f /etc/arch-release ]]; then
   if [[ -d /usr/share/zsh/plugins/zsh-syntax-highlighting ]]; then
@@ -175,3 +176,14 @@ export PATH="/usr/local/opt/node@10/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
 # vim:fdm=marker:foldlevel=0
+
+eval $(thefuck --alias)
+
+# tabtab source for packages
+# uninstall by removing these lines
+# [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# pnpm
+export PNPM_HOME="${HOME}/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
