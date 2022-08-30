@@ -60,6 +60,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
+Plug 'amadeus/vim-mjml', { 'for': 'mjml' }
 Plug 'yardnsm/vim-import-cost', { 'do': 'npm install', 'on': 'ImportCost' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
 Plug 'codegram/vim-codereview' " GitHub PR Code Review
@@ -154,31 +155,45 @@ let g:ale_linter_aliases = {
 "  }}}
 
 " --- coc.nvim --- {{{
-function! s:check_back_space() abort
+function! CheckBackSpace() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+function! ShowDocumentation()
+	if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
+	else
+		call feedkeys('K', 'in')
+	endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nmap <silent> <Leader>ld <Plug>(coc-definition)
 nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> <Leader>ly <Plug>(coc-type-definition)
 nmap <silent> <Leader>lr <Plug>(coc-references)
 nmap <silent> <Leader>li <Plug>(coc-implementation)
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
 " Symbol renaming
 nmap <Leader>rn <Plug>(coc-rename)
-" ctrl-space for auto-complete
+" ctrl-space to trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 " <Tab>: completion
 inoremap <silent><expr> <Tab>
-	\ pumvisible() ? "\<C-n>" :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	\ <SID>check_back_space() ? "\<Tab>" :
+	\ coc#pum#visible() ? coc#pum#next(1):
+	\ CheckBackSpace() ? "\<Tab>" :
 	\ coc#refresh()
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <C-k>
-  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#pum#visible() ? coc#_select_confirm() :
   \ "\<C-k>"
 let g:coc_snippet_next = '<tab>'
 " <S-Tab>: completion back
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " }}}
 " --- editorconfig plugin --- {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
