@@ -57,18 +57,41 @@ let g:maplocalleader = ','
 " ## Plugin manager (vim-plug) {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'Chiel92/vim-autoformat'
-Plug 'Yggdroot/indentLine'
-Plug 'airblade/vim-gitgutter'
+" ### syntax
+Plug 'alker0/chezmoi.vim'
 Plug 'amadeus/vim-mjml', { 'for': 'mjml' }
-Plug 'yardnsm/vim-import-cost', { 'do': 'npm install', 'on': 'ImportCost' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': [ 'scss', 'sass' ]}
-Plug 'codegram/vim-codereview' " GitHub PR Code Review
-Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'gutenye/json5.vim', { 'for': 'json5' }
+Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
+Plug 'posva/vim-vue', { 'for': 'vue' }
+
+" ### treesitter
+Plug 'RRethy/nvim-treesitter-textsubjects'
+Plug 'danymat/neogen' " annotation generator (treesitter)
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+" ### LSP
+Plug 'dense-analysis/ale' " check syntax with LSP support
+Plug 'neoclide/coc.nvim', { 'commit': '9332d2ab1154dedc9dbcd3e1c873886abaf061a6' } " {'branch': 'release'}
+
+" ### git
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
+Plug 'tpope/vim-fugitive' " Git wrapper
+
+" ### uncategorized
+Plug 'Chiel92/vim-autoformat'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Yggdroot/indentLine'
+Plug 'codegram/vim-codereview' " GitHub PR Code Review
+Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown', 'txt' ] }
 Plug 'honza/vim-snippets'
 Plug 'htacg/tidy-html5'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -76,33 +99,23 @@ Plug 'jacoborus/tender' " colorscheme
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
 Plug 'junegunn/vim-easy-align'
 Plug 'junkblocker/patchreview-vim' " GitHub PR Code Review
-Plug 'leafgarland/typescript-vim', { 'for': 'ts' }
 Plug 'majutsushi/tagbar'
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript' ] }
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown'
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasiser/vim-code-dark' " colorscheme
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'dense-analysis/ale' " check syntax with LSP support
 Plug 'wesQ3/vim-windowswap'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'gutenye/json5.vim', { 'for': 'json5' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'yardnsm/vim-import-cost', { 'do': 'npm install', 'on': 'ImportCost' }
 
 call plug#end()            " required
 "
@@ -201,12 +214,165 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " --- nvim-treesitter --- {{{
 lua <<EOF
--- require'nvim-treesitter.configs'.setup {
---   ensure_installed = "maintained", -- one of "all", "maintained", or a list of languages
---   highlight = {
---     enable = true,
---   },
--- }
+require'nvim-treesitter.configs'.setup {
+	-- A list of parser names, or "all" (the five listed parsers should always be installed)
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "php", "vue" },
+
+	-- Install parsers synchronously (only applied to `ensure_installed`)
+	sync_install = false,
+
+	-- Automatically install missing parsers when entering buffer
+	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+	auto_install = true,
+
+	-- List of parsers to ignore installing (or "all")
+	ignore_install = {},
+
+	highlight = {
+		enable = true,
+
+		-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+		-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+		-- the name of the parser)
+		-- list of language that will be disabled
+		disable = {},
+
+		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+		-- Using this option may slow down your editor, and you may see some duplicate highlights.
+		-- Instead of true it can also be a list of languages
+		additional_vim_regex_highlighting = false,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = '<CR>',
+			scope_incremental = '<TAB>',
+			node_incremental = '<CR>',
+			node_decremental = '<S-TAB>',
+		},
+	},
+	tree_docs = {
+		enable = true,
+	},
+	textsubjects = {
+		enable = true,
+		prev_selection = ',', -- (Optional) keymap to select the previous selection
+		keymaps = {
+			['.'] = 'textsubjects-smart',
+			[';'] = 'textsubjects-container-outer',
+			-- ['i;'] = 'textsubjects-container-inner',
+			['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
+		},
+	},
+	textobjects = {
+		select = {
+			enable = true,
+
+			-- Automatically jump forward to textobj, similar to targets.vim
+			lookahead = true,
+
+			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				-- You can optionally set descriptions to the mappings (used in the desc parameter of
+				-- nvim_buf_set_keymap) which plugins like which-key display
+				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+				-- You can also use captures from other query groups like `locals.scm`
+				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+			},
+			-- You can choose the select mode (default is charwise 'v')
+			--
+			-- Can also be a function which gets passed a table with the keys
+			-- * query_string: eg '@function.inner'
+			-- * method: eg 'v' or 'o'
+			-- and should return the mode ('v', 'V', or '<c-v>') or a table
+			-- mapping query_strings to modes.
+			selection_modes = {
+				['@parameter.outer'] = 'v', -- charwise
+				['@function.outer'] = 'V', -- linewise
+				['@class.outer'] = '<c-v>', -- blockwise
+			},
+			-- If you set this to `true` (default is `false`) then any textobject is
+			-- extended to include preceding or succeeding whitespace. Succeeding
+			-- whitespace has priority in order to act similarly to eg the built-in
+			-- `ap`.
+			--
+			-- Can also be a function which gets passed a table with the keys
+			-- * query_string: eg '@function.inner'
+			-- * selection_mode: eg 'v'
+			-- and should return true of false
+			include_surrounding_whitespace = true,
+		},
+		move = {
+			enable = true,
+			set_jumps = true, -- whether to set jumps in the jumplist
+			goto_next_start = {
+				["]m"] = "@function.outer",
+				["]]"] = { query = "@class.outer", desc = "Next class start" },
+				--
+				-- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+				["]o"] = "@loop.*",
+				-- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+				--
+				-- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+				-- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+				["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+				["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+			},
+			goto_next_end = {
+				["]M"] = "@function.outer",
+				["]["] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[m"] = "@function.outer",
+				["[["] = "@class.outer",
+			},
+			goto_previous_end = {
+				["[M"] = "@function.outer",
+				["[]"] = "@class.outer",
+			},
+			-- Below will go to either the start or the end, whichever is closer.
+			-- Use if you want more granular movements
+			-- Make it even more gradual by adding multiple queries and regex.
+			goto_next = {
+				["]d"] = "@conditional.outer",
+			},
+			goto_previous = {
+				["[d"] = "@conditional.outer",
+			}
+		},
+	},
+}
+EOF
+" }}}
+
+" --- neogen --- {{{
+lua <<EOF
+require('neogen').setup {
+	enabled = true,
+	javascript = {
+		template = {
+			annotation_convention = 'jsdoc',
+		},
+	},
+	typescript = {
+		template = {
+			annotation_convention = 'tsdoc',
+		},
+	},
+	php = {
+		template = {
+			annotation_convention = 'phpdoc',
+		},
+	},
+}
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate({ type = 'func' })<CR>", opts)
+
 EOF
 " }}}
 
