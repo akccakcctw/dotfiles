@@ -19,5 +19,8 @@
 			"filetypes": ["sh"],
 			"ignoredRootPaths": ["~"]
 		}
-	}
+	},
+	"highlight.disableLanguages": [
+		"map"
+	]
 }

@@ -72,5 +72,11 @@
 [pager]
   diff = "diff-so-fancy | less --tabs=2 -RX"
   show = "diff-so-fancy | less --tabs=2 -RX"
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
 
 # vim: set filetype=gitconfig:
