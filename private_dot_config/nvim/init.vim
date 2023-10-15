@@ -231,7 +231,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
-	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "php", "vue" },
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
