@@ -74,6 +74,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 " ### treesitter
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'danymat/neogen' " annotation generator (treesitter)
+Plug 'numToStr/Comment.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -110,7 +111,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-tags'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasiser/vim-code-dark' " colorscheme
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -140,11 +140,26 @@ nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " }}}
 
-" --- tcomment_vim --- {{{
-let g:tcomment_opleader1 = '<Leader>c'
-vnoremap <Leader>c<Space> :TCommentBlock<CR>
-vnoremap <Leader>cc :TCommentMaybeInline<CR>
-nnoremap <Leader>c<Space> :TComment<CR>
+" --- Comment.nvim --- {{{
+lua <<EOF
+require('Comment').setup({
+	ignore = '^$',
+	toggler = {
+		line = '<Leader>cc',
+		block = '<Leader>c<Space>',
+	},
+	---LHS of operator-pending mappings in NORMAL and VISUAL mode
+	opleader = {
+		line = '<Leader>cc',
+		block = '<Leader>c<Space>',
+	},
+	extra = {
+		above = '<Leader>cO',
+		below = '<Leader>co',
+		eol = '<Leader>cA',
+	},
+})
+EOF
 " }}}
 
 " --- Ale --- {{{
