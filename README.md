@@ -1,6 +1,6 @@
 # dotfiles
 
-My personal .files with [chezmoi](https://www.chezmoi.io/), tested and works well on macOS (MacBook Pro) and ArchLinux (Surface Pro 4)
+My personal .files with [chezmoi](https://www.chezmoi.io/), tested and works well on macOS (MacBook Pro) and ArchLinux (Intel NUC 8i7HVK)
 
 
 ## Prerequisites
@@ -173,3 +173,7 @@ mapping leader key to `,`.
 
 read [linux/vimrc](https://github.com/akccakcctw/dotfiles/blob/master/linux/vimrc) for more details.
 
+
+#### nvim-treesitter
+
+https://github.com/nvim-treesitter/nvim-treesitter
