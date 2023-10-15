@@ -127,10 +127,10 @@ if [[ -f /etc/arch-release ]]; then
     zplug "/usr/share/zsh/plugins/zsh-autosuggestions", from:local, defer:2
   fi
 else
-  zplug "zsh-users/zsh-completions", use:"*.plugin.zsh"
   zplug "so-fancy/diff-so-fancy", as:command, use:diff-so-fancy
-  zplug "zsh-users/zsh-syntax-highlighting", use:"*.plugin.zsh", defer:3
   zplug "zsh-users/zsh-autosuggestions", defer:3
+  zplug "zsh-users/zsh-completions", use:"*.plugin.zsh"
+  zplug "zsh-users/zsh-syntax-highlighting", use:"*.plugin.zsh", defer:3
 fi
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
