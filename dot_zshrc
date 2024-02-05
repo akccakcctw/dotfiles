@@ -118,6 +118,7 @@ zplug "zplug/zplug"
 zplug "mafredri/zsh-async", use:async.zsh
 zplug "lukechilds/zsh-better-npm-completion", defer:2
 zplug "akccakcctw/zsh-better-pnpm-completion", defer:2
+zplug "kiurchv/asdf.plugin.zsh", defer:2
 
 if [[ -f /etc/arch-release ]]; then
   if [[ -d /usr/share/zsh/plugins/zsh-syntax-highlighting ]]; then
@@ -188,3 +189,4 @@ eval $(thefuck --alias)
 export PNPM_HOME="${HOME}/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
