@@ -75,6 +75,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'danymat/neogen' " annotation generator (treesitter)
 Plug 'numToStr/Comment.nvim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -86,6 +87,11 @@ Plug 'neoclide/coc.nvim', { 'commit': '9332d2ab1154dedc9dbcd3e1c873886abaf061a6'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim', { 'on': 'GV' } " Git commit browser
 Plug 'tpope/vim-fugitive' " Git wrapper
+
+" ### GPT
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
 
 " ### uncategorized
 Plug 'Chiel92/vim-autoformat'
@@ -140,9 +146,15 @@ nnoremap ,t :NERDTreeFind<CR> " open nerdtree with the current file selected
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " }}}
 
+
 " --- Comment.nvim --- {{{
+" JoosepAlviste/nvim-ts-context-commentstring
 lua <<EOF
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
 require('Comment').setup({
+	pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 	ignore = '^$',
 	toggler = {
 		line = '<Leader>cc',
