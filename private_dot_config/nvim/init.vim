@@ -34,17 +34,16 @@ if !has('nvim')
 		" enable true colors
 		set termguicolors
   endif
-endif
 
-if has('nvim')
   if has('macunix')
-    let g:python3_host_prog = '/usr/local/bin/python3'
+    let g:python3_host_prog = '/usr/bin/python3'
     let g:node_host_prog = '/usr/local/lib/node_modules/neovim/bin/cli.js'
   else
     let g:python3_host_prog = '/usr/bin/python3'
     let g:node_host_prog = '/usr/lib/node_modules/neovim/bin/cli.js'
   endif
 endif
+
 " }}}
 
 " ## Map leader {{{
