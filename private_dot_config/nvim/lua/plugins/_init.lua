@@ -1,0 +1,293 @@
+-- default "~/.local/share/nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local lazy_plugins = {
+	-- syntax
+	{
+		'alker0/chezmoi.vim',
+		lazy = false,
+		init = function()
+			vim.g['chezmoi#use_tmp_buffer'] = true
+		end,
+	},
+	{
+		'amadeus/vim-mjml',
+		ft = { 'mjml' },
+	},
+	{
+		'cakebaker/scss-syntax.vim',
+		ft = { 'scss', 'sass' },
+	},
+	{
+		'digitaltoad/vim-pug',
+		ft = { 'pug' },
+	},
+	{ 'editorconfig/editorconfig-vim' },
+	{ 'elzr/vim-json' },
+	{
+		'fatih/vim-go',
+		ft = { 'go' },
+	},
+	{
+		'gutenye/json5.vim',
+		ft = { 'json5' },
+	},
+	{
+		'leafgarland/typescript-vim',
+		ft = { 'ts' },
+	},
+	{ 'pangloss/vim-javascript' },
+	{
+		'plasticboy/vim-markdown',
+		config = function()
+			vim.g.vim_markdown_conceal = 0
+		end,
+	},
+	{
+		'posva/vim-vue',
+		ft = { 'vue' },
+		config = function()
+			vim.api.nvim_create_autocmd('BufEnter', {
+				pattern = '*.vue',
+				command = 'syntax sync fromstart'
+			})
+		end,
+	},
+
+	-- NERDTree
+	{
+		'preservim/nerdtree',
+		keys = {
+			{ '<C-b>', ':NERDTreeToggle<CR>' },
+			{ '<Leader>t', ':NERDTreeFind<CR>' }, -- open nerdtree with the current file selected
+		}
+	},
+	{ 'Xuyuanp/nerdtree-git-plugin' },
+
+	-- git
+	{
+		'airblade/vim-gitgutter',
+		event = 'BufWinEnter',
+	},
+	{
+		'junegunn/gv.vim', -- Git commit browser
+		event = 'BufWinEnter',
+	},
+	{
+		'tpope/vim-fugitive', -- Git wrapper
+		event = 'BufWinEnter',
+	},
+
+	-- treesitter
+	{
+		safe_require('plugins._treesitter'),
+	},
+	{
+		'danymat/neogen', -- annotation generator
+		lazy = false,
+		config = function()
+			require('neogen').setup {
+				enabled = true,
+				languages = {
+					javascript = {
+						template = {
+							annotation_convention = 'jsdoc',
+						},
+					},
+					typescript = {
+						template = {
+							annotation_convention = 'tsdoc',
+						},
+					},
+					php = {
+						template = {
+							annotation_convention = 'phpdoc',
+						},
+					},
+				}
+			}
+
+			local opts = { noremap = true, silent = true }
+			-- vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate({ type = 'func' })<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+		end,
+	},
+	{
+		'numToStr/Comment.nvim',
+		opts = {
+			-- pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+			ignore = '^$',
+			toggler = {
+				line = '<Leader>cc',
+				block = '<Leader>c<Space>',
+			},
+			---LHS of operator-pending mappings in NORMAL and VISUAL mode
+			opleader = {
+				line = '<Leader>cc',
+				block = '<Leader>c<Space>',
+			},
+			extra = {
+				above = '<Leader>cO',
+				below = '<Leader>co',
+				eol = '<Leader>cA',
+			},
+		},
+		lazy = false,
+	},
+	{ 'JoosepAlviste/nvim-ts-context-commentstring' },
+
+	-- LSP
+	{
+		safe_require('plugins._ale'),
+	},
+	-- deprecated: switch to mason
+	-- {
+	-- 	safe_require('plugins._coc'),
+	-- },
+	{
+		safe_require('plugins._mason'),
+	},
+
+	-- fuzzy finder for file search
+	{ 'nvim-lua/plenary.nvim' },
+	{ 'nvim-telescope/telescope.nvim' },
+
+	-- colorscheme
+	{ 'tomasiser/vim-code-dark'},
+	-- { 'jacoborus/tender'},
+
+	-- AI
+	{
+		'jackMort/ChatGPT.nvim',
+		event = 'VeryLazy',
+		config = function()
+			require('chatgpt').setup()
+		end,
+		dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim",
+		},
+	},
+	{
+		'dpayne/CodeGPT.nvim',
+		event = 'VeryLazy',
+		config = function()
+			require('codegpt.config')
+		end,
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'MunifTanjim/nui.nvim',
+		},
+	},
+
+	-- uncategorized
+	{ 'Chiel92/vim-autoformat' },
+	{ 'Yggdroot/indentLine' },
+	{ 'codegram/vim-codereview' }, -- GitHub PR Code Review
+	{ 'honza/vim-snippets' },
+	{ 'htacg/tidy-html5' },
+	{
+		'dhruvasagar/vim-table-mode',
+		ft = { 'markdown', 'txt' },
+		config = function()
+			vim.cmd [[
+				function! s:isAtStartOfLine(mapping)
+					let text_before_cursor = getline('.')[0 : col('.')-1]
+					let mapping_pattern = '\V' . escape(a:mapping, '\')
+					let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+					return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+				endfunction
+
+				inoreabbrev <expr> <bar><bar>
+					\ exists(':TableModeEnable') && <SID>isAtStartOfLine('\|\|') ?
+					\ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+				inoreabbrev <expr> __
+					\ exists(':TableModeDisable') && <SID>isAtStartOfLine('__') ?
+					\ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+				" For Markdown-compatible tables
+				let g:table_mode_corner = '|'
+			]]
+		end,
+	},
+	{
+		'iamcco/markdown-preview.nvim',
+		ft = { 'markdown' },
+		cmd = {
+			'MarkdownPreview',
+			'MarkdownPreviewToggle',
+			'MarkdownPreviewStop',
+		},
+		build = function() vim.fn['mkdp#util#install']() end,
+	},
+	{ 'jeetsukumaran/vim-buffergator' },
+	{
+		'junegunn/fzf',
+		name = 'fzf',
+		dir = '~/.fzf',
+		build = './install --all',
+		lazy = false,
+	},
+	{
+		'junegunn/fzf.vim',
+		cmd = { 'GFiles', 'Files' },
+		keys = {
+			{ '<Leader>f', ':GFiles<CR>' },
+			{ '<Leader>F', ':Files<CR>' },
+			{ '<Leader>l', ':BLines<CR>' },
+			{ '<Leader>L', ':Lines<CR>' },
+			{ '<Leader>a', ':Rg<Space>' },
+		},
+	},
+	{ 'junegunn/vim-easy-align' },
+	{ 'junkblocker/patchreview-vim' }, -- GitHub PR Code Review
+	{
+		'preservim/tagbar',
+		cmd = { 'TagbarToggle' },
+		keys = {
+			{ '<F8>', ':TagbarToggle' },
+		},
+	},
+	{
+		'mattn/emmet-vim',
+		ft = { 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript' },
+	},
+	{ 'maxmellon/vim-jsx-pretty' },
+	{ 'preservim/vim-indent-guides' },
+	{ 'szw/vim-tags' },
+	{ 'terryma/vim-multiple-cursors' },
+	{ 'tpope/vim-surround', lazy = false },
+	{
+		safe_require('plugins/_vim_airline'),
+	},
+	{ 'wesQ3/vim-windowswap' },
+	{
+		'yardnsm/vim-import-cost',
+		cmd = 'ImportCost',
+		build = 'npm install',
+	},
+	{
+		'folke/neodev.nvim', -- for neovim development
+		lazy = false,
+		opts = {},
+	},
+}
+
+require('lazy').setup(lazy_plugins, {
+	defaults = {
+		lazy = true,
+	},
+})
