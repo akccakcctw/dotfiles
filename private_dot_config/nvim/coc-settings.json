@@ -22,5 +22,7 @@
 	},
 	"highlight.disableLanguages": [
 		"map"
-	]
+	],
+	"tsserver.enable": false,
+	"volar.enable": true
 }
