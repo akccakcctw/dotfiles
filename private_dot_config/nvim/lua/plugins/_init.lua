@@ -13,6 +13,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local lazy_plugins = {
+	{
+		safe_require('plugins._nvim_tree'),
+	},
+
 	-- syntax
 	{
 		'alker0/chezmoi.vim',
@@ -64,16 +68,6 @@ local lazy_plugins = {
 			})
 		end,
 	},
-
-	-- NERDTree
-	{
-		'preservim/nerdtree',
-		keys = {
-			{ '<C-b>', ':NERDTreeToggle<CR>' },
-			{ '<Leader>t', ':NERDTreeFind<CR>' }, -- open nerdtree with the current file selected
-		}
-	},
-	{ 'Xuyuanp/nerdtree-git-plugin' },
 
 	-- git
 	{
@@ -165,7 +159,6 @@ local lazy_plugins = {
 
 	-- colorscheme
 	{ 'tomasiser/vim-code-dark'},
-	-- { 'jacoborus/tender'},
 
 	-- AI
 	{
