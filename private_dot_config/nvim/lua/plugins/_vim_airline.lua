@@ -4,7 +4,7 @@ local M = {
 	priority = 1000,
 	dependencies = {
 		-- 'vim-airline/vim-airline-themes',
-		'ryanoasis/vim-devicons',
+		-- 'ryanoasis/vim-devicons',
 		'jacoborus/tender',
 	},
 }
