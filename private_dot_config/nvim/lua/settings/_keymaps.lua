@@ -4,7 +4,7 @@ local keymap = vim.keymap
 
 -- edit init.lua
 keymap.set('n', '<Leader>ee', ':tabe $MYVIMRC<CR>', {silent = true})
-keymap.set('n', '<Leader>so', ':tabe $MYVIMRC<CR>', {silent = true})
+keymap.set('n', '<Leader>so', ':source $MYVIMRC<CR>', {silent = true})
 
 -- switch to next/previous tab
 keymap.set('n', '<Leader>n', ':tabnext<CR>')
