@@ -48,6 +48,9 @@ local M = {
 			filters = {
 				dotfiles = true,
 			},
+			update_focused_file = {
+				enable = true,
+			},
 			on_attach = on_attach,
 		})
 	end,
