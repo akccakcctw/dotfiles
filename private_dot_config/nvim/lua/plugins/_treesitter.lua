@@ -23,6 +23,10 @@ M.config = function()
 		-- List of parsers to ignore installing (or "all")
 		ignore_install = {},
 
+		indent = {
+			enable = true,
+		},
+
 		highlight = {
 			enable = true,
 
@@ -46,6 +50,7 @@ M.config = function()
 			-- Instead of true it can also be a list of languages
 			additional_vim_regex_highlighting = false,
 		},
+
 		incremental_selection = {
 			enable = true,
 			keymaps = {
@@ -55,9 +60,11 @@ M.config = function()
 				node_decremental = '<S-TAB>',
 			},
 		},
+
 		tree_docs = {
 			enable = true,
 		},
+
 		textsubjects = {
 			enable = true,
 			prev_selection = ',', -- (Optional) keymap to select the previous selection
@@ -68,6 +75,7 @@ M.config = function()
 				['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
 			},
 		},
+
 		textobjects = {
 			select = {
 				enable = true,
@@ -148,6 +156,7 @@ M.config = function()
 				}
 			},
 		},
+
 		refactor = {
 			highlight_current_scope = {
 				enable = true,
