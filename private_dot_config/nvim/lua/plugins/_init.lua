@@ -256,7 +256,7 @@ local lazy_plugins = {
 	},
 	{
 		'mattn/emmet-vim',
-		ft = { 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript' },
+		ft = { 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript', 'astro' },
 	},
 	{ 'maxmellon/vim-jsx-pretty' },
 	{ 'preservim/vim-indent-guides' },
