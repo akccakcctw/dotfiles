@@ -118,6 +118,12 @@ M.config = function()
 	lspconfig.cssls.setup({
 		on_attach = on_attach,
 	})
+	lspconfig.astro.setup({
+		on_attach = on_attach,
+	})
+	lspconfig.tailwindcss.setup({
+		on_attach = on_attach,
+	})
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
