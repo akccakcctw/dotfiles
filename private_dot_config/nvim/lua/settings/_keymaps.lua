@@ -65,7 +65,7 @@ keymap.set('n', '<Leader>WW', ':w !sudo tee % > /dev/null<CR>', {silent = true, 
 -- emmet-vim
 vim.g.user_emmet_leader_key = '<C-e>'
 -- vim.g.user_emmet_expandabbr_key = '<Leader>'
-vim.g.user_emmet_mode = 'in' -- only enable in Input/Normal mode
+-- vim.g.user_emmet_mode = 'in' -- only enable in Input/Normal mode
 vim.g.user_emmet_install_global = 0 -- enable just for HTML/CSS
 vim.g.user_emmet_settings = {
 	javascript = {
