@@ -58,16 +58,16 @@ local lazy_plugins = {
 			vim.g.vim_markdown_conceal = 0
 		end,
 	},
-	{
-		'posva/vim-vue',
-		ft = { 'vue' },
-		config = function()
-			vim.api.nvim_create_autocmd('BufEnter', {
-				pattern = '*.vue',
-				command = 'syntax sync fromstart'
-			})
-		end,
-	},
+	-- {
+	-- 	'posva/vim-vue',
+	-- 	ft = { 'vue' },
+	-- 	config = function()
+	-- 		vim.api.nvim_create_autocmd('BufEnter', {
+	-- 			pattern = '*.vue',
+	-- 			command = 'syntax sync fromstart'
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- git
 	{
