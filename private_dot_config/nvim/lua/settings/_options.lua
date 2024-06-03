@@ -155,7 +155,7 @@ opt.smarttab = true
 
 -- tab length exceptions on some file types
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"html", "htmldjango", "javascript", "php"},
+	pattern = {"html", "htmldjango", "javascript", "php", "vue"},
 	command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2"
 })
 
