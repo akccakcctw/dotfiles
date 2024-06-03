@@ -51,9 +51,11 @@
   newNormal = green bold
   newHighlight = green bold 22
 [diff]
-  tool = vimdiff
+  tool = nvim
 [difftool]
-  prompt = false
+  prompt = true
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [help]
   autocorrect = 1
 [gui]
@@ -66,17 +68,19 @@
   defaultBranch = main
 [merge]
   tool = vimdiff
+[mergetool "nvim"]
+  cmd = "nvim -f -c \"Gvdiffsplit!\" \"$MERGED\""
 [pull]
-	ff = only # fast-foward only
-	twohead = ort
+  ff = only # fast-foward only
+  twohead = ort
 [pager]
   diff = "diff-so-fancy | less --tabs=2 -RX"
   show = "diff-so-fancy | less --tabs=2 -RX"
 [credential "https://github.com"]
-	helper =
-	helper = !/usr/bin/gh auth git-credential
+  helper =
+  helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper =
-	helper = !/usr/bin/gh auth git-credential
+  helper =
+  helper = !/usr/bin/gh auth git-credential
 
 # vim: set filetype=gitconfig:
