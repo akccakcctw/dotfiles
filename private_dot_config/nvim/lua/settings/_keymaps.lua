@@ -73,7 +73,7 @@ vim.g.user_emmet_settings = {
 	},
 }
 vim.api.nvim_create_autocmd('filetype', {
-	pattern = { 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript' },
+	pattern = { 'html', 'css', 'scss', 'pug', 'vue', 'php', 'javascript', 'astro' },
 	command = 'EmmetInstall',
 })
 
@@ -85,3 +85,9 @@ vim.cmd [[
 	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=black ctermbg=black
 	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 ]]
+
+-- nvim-dap
+keymap.set('n', '<Leader>dh', ':DapToggleBreakpoint<CR>')
+keymap.set('n', '<Leader>dn', ':DapContinue<CR>')
+keymap.set('n', '<Leader>do', ':DapStepOver<CR>')
+keymap.set('n', '<Leader>dO', ':DapStepOut<CR>')
