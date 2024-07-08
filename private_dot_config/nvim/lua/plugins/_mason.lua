@@ -2,6 +2,16 @@ local M = {
 	'williamboman/mason.nvim', -- language server manager for neovim
 	lazy = false,
 	dependencies = {
+		{
+			'jay-babu/mason-nvim-dap.nvim',
+			dependencies = {
+				'rcarriga/nvim-dap-ui', -- provides UI for debugging
+				dependencies = {
+					'mfussenegger/nvim-dap',
+					'nvim-neotest/nvim-nio',
+				},
+			},
+		},
 		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig', -- attach client to neovim
 		-- ref: https://zhuanlan.zhihu.com/p/643033884
@@ -32,6 +42,61 @@ M.config = function()
 				package_uninstalled = "✗",
 			},
 			border = 'rounded',
+		},
+	})
+
+	-- dapui (provides UI for debugging)
+	require('dapui').setup()
+	local dap, dapui = require('dap'), require('dapui')
+	dap.listeners.before.attach.dapui_config = function()
+		dapui.open()
+	end
+	dap.listeners.before.launch.dapui_config = function()
+		dapui.open()
+	end
+	dap.listeners.before.event_terminated.dapui_config = function()
+		dapui.close()
+	end
+	dap.listeners.before.event_exited.dapui_config = function()
+		dapui.close()
+	end
+
+	require('mason-nvim-dap').setup({
+		automatic_installation = true,
+
+		-- Makes a best effort to setup the various debuggers with
+		-- reasonable debug configurations
+		automatic_setup = true,
+
+		-- You can provide additional configuration to the handlers,
+		-- see mason-nvim-dap README for more information
+		handlers = {
+			function(config)
+				require('mason-nvim-dap').default_setup(config)
+			end,
+			php = function(config)
+				config.configurations = {
+					{
+						type = 'php',
+						request = 'launch',
+						name = 'Listen for Xdebug',
+						port = 9003,
+						log = true,
+						program = "${file}",
+						pathMappings = {
+							['/var/www/kkday-member-ci'] = vim.fn.getcwd() .. '/',
+						},
+						hostname = '0.0.0.0',
+					}
+				}
+				require('mason-nvim-dap').default_setup(config) -- don't forget this!
+			end,
+		},
+		-- You'll need to check that you have the required things installed
+		-- online, please don't ask me how to install them :)
+		ensure_installed = {
+			-- Update this to ensure that you have the debuggers for the langs you want
+			-- 'delve',
 		},
 	})
 	require('mason-lspconfig').setup({
