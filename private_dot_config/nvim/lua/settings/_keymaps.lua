@@ -49,6 +49,11 @@ keymap.set('i', '<F12>', '<C-o>:syntax sync fromstart<CR>')
 -- exit terminal mode
 keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
+-- insert datetime (ISO8601/W3C format)
+-- @see https://vim.fandom.com/wiki/Insert_current_date_or_time#Using_strftime()
+keymap.set('n', '<F5>', ':put =strftime(\'%FT%T%z\')<CR>')
+keymap.set('i', '<F5>', '<C-R>=strftime(\'%FT%T%z\')<CR>')
+
 -- strip trailing whitespace (,ss)
 local function strip_whitespace()
 	local save_cursor = vim.fn.getpos(".")
