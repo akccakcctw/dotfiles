@@ -185,6 +185,13 @@ local lazy_plugins = {
 			'MunifTanjim/nui.nvim',
 		},
 	},
+	{
+		'supermaven-inc/supermaven-nvim',
+		event = 'VeryLazy',
+		config = function()
+			require('supermaven-nvim').setup({})
+		end,
+	},
 
 	-- uncategorized
 	{ 'Chiel92/vim-autoformat' },
