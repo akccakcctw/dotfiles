@@ -241,6 +241,7 @@ M.config = function()
 		},
 		sources = cmp.config.sources({
 			-- order is matter
+			{ name = 'supermaven' },
 			{ name = 'nvim_lsp' },
 			{ name = 'luasnip' },
 			{ name = 'buffer' },
