@@ -1,10 +1,13 @@
 [user]
   email = "{{ .email }}"
   name = "{{ .name }}"
+  signingkey = "{{ .signingkey }}"
 [core]
   quotepath = false
   excludesfile = ~/.gitignore
   editor = nvim
+[commit]
+  gpgsign = true
 [alias]
   br = branch
   df = diff
