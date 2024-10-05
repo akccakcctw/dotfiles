@@ -108,11 +108,19 @@ M.config = function()
 			'intelephense',
 			'lua_ls',
 			'rust_analyzer',
-			'tsserver',
-			-- 'volar',
+			'ts_ls',
 			'vuels',
 			'yamlls',
 		}
+	})
+	require('mason-lspconfig').setup_handlers({
+		-- workaround: rename "tsserver" to "ts_ls"
+		-- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
+		function(server_name) -- default handler (optional)
+			if server_name == "tsserver" then
+				server_name = "ts_ls"
+			end
+		end,
 	})
 
 	-- Set different settings for different languages' LSP
@@ -165,13 +173,10 @@ M.config = function()
 	lspconfig.vuels.setup({
 		on_attach = on_attach,
 	})
-	-- lspconfig.volar.setup({
-	-- 	on_attach = on_attach,
-	-- })
 	lspconfig.intelephense.setup({
 		on_attach = on_attach,
 	})
-	lspconfig.tsserver.setup({
+	lspconfig.ts_ls.setup({
 		on_attach = on_attach,
 	})
 	lspconfig.lua_ls.setup({
