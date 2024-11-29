@@ -175,17 +175,6 @@ local lazy_plugins = {
 		},
 	},
 	{
-		'dpayne/CodeGPT.nvim',
-		event = 'VeryLazy',
-		config = function()
-			require('codegpt.config')
-		end,
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-			'MunifTanjim/nui.nvim',
-		},
-	},
-	{
 		'supermaven-inc/supermaven-nvim',
 		event = 'VeryLazy',
 		config = function()
