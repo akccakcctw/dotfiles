@@ -99,29 +99,6 @@ M.config = function()
 			-- 'delve',
 		},
 	})
-	require('mason-lspconfig').setup({
-		ensure_installed = {
-			'bashls',
-			'cssls',
-			'emmet_ls',
-			'html',
-			'intelephense',
-			'lua_ls',
-			'rust_analyzer',
-			'ts_ls',
-			'vuels',
-			'yamlls',
-		}
-	})
-	require('mason-lspconfig').setup_handlers({
-		-- workaround: rename "tsserver" to "ts_ls"
-		-- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
-		function(server_name) -- default handler (optional)
-			if server_name == "tsserver" then
-				server_name = "ts_ls"
-			end
-		end,
-	})
 
 	-- Set different settings for different languages' LSP
 	-- LSP list: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -129,6 +106,7 @@ M.config = function()
 	--     - the settings table is sent to the LSP
 	--     - on_attach: a lua callback function to run after LSP atteches to a given buffer
 	local lspconfig = require('lspconfig')
+
 
 	-- Customized on_attach function
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -140,7 +118,7 @@ M.config = function()
 
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
-	local on_attach = function(client, bufnr)
+	local on_attach = function(_, bufnr)
 		-- Enable completion triggered by <c-x><c-o>
 		vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -162,37 +140,48 @@ M.config = function()
 		vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 		vim.keymap.set('n', '<space>f', function()
 			vim.lsp.buf.format({ async = true })
-		end, bufopts)
+		-- end, bufopts)
+		end, opts)
 	end
+
+	-- set lspconfig default options
+	lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
+		on_attach = on_attach,
+	})
 
 	-- Configure each language
 	-- How to add LSP for a specific language?
 	-- 1. use `:Mason` to install corresponding LSP
 	-- 2. add configuration below
+	-- for example:
+	-- lspconfig.bashls.setup({
+	-- 	on_attach = on_attach,
+	-- })
 
-	lspconfig.vuels.setup({
-		on_attach = on_attach,
+	require('mason-lspconfig').setup({
+		automatic_installation = true,
+		ensure_installed = {
+			'bashls',
+			'cssls',
+			'emmet_ls',
+			'html',
+			'intelephense',
+			'lua_ls',
+			'rust_analyzer',
+			'ts_ls',
+			'vuels',
+			'yamlls',
+		}
 	})
-	lspconfig.intelephense.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.ts_ls.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.lua_ls.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.bashls.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.cssls.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.astro.setup({
-		on_attach = on_attach,
-	})
-	lspconfig.tailwindcss.setup({
-		on_attach = on_attach,
+	require('mason-lspconfig').setup_handlers({
+		-- workaround: rename "tsserver" to "ts_ls"
+		-- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
+		function(server_name) -- default handler (optional)
+			if server_name == "tsserver" then
+				server_name = "ts_ls"
+			end
+			lspconfig[server_name].setup({})
+		end,
 	})
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -234,6 +223,8 @@ M.config = function()
 		}),
 		-- show icon with "lspkind-nvim"
 		formatting = {
+			fields = {'kind', 'abbr', 'menu'},
+			expandable_indicator = true,
 			format = require('lspkind').cmp_format({
 				mode = 'symbol',
 				with_text = true, -- do not show text alongside icons
