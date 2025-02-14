@@ -49,10 +49,24 @@ keymap.set('i', '<F12>', '<C-o>:syntax sync fromstart<CR>')
 -- exit terminal mode
 keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
--- insert datetime (ISO8601/W3C format)
--- @see https://vim.fandom.com/wiki/Insert_current_date_or_time#Using_strftime()
-keymap.set('n', '<F5>', ':put =strftime(\'%FT%T%z\')<CR>')
-keymap.set('i', '<F5>', '<C-R>=strftime(\'%FT%T%z\')<CR>')
+-- Function to insert current UTC+8 time
+local function insert_utc8_time()
+  local handle = io.popen("TZ='Asia/Taipei' date +'%Y-%m-%dT%H:%M:%S.000+08:00'")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    -- Insert the result at the current cursor position
+    vim.api.nvim_put({ result:sub(1, -2) }, 'c', true, true)
+  else
+    print("Error: Unable to execute date command.")
+  end
+end
+
+keymap.set('n', '<F5>', insert_utc8_time, { noremap = true, silent = true })
+keymap.set('i', '<F5>', function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-o>', true, false, true), 'n', true)
+  insert_utc8_time()
+end, { noremap = true, silent = true })
 
 -- strip trailing whitespace (,ss)
 local function strip_whitespace()
