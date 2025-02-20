@@ -145,10 +145,6 @@ local lazy_plugins = {
 	{
 		safe_require('plugins._ale'),
 	},
-	-- deprecated: switch to mason
-	-- {
-	-- 	safe_require('plugins._coc'),
-	-- },
 	{
 		safe_require('plugins._mason'),
 	},
@@ -352,7 +348,7 @@ local lazy_plugins = {
 	{ 'terryma/vim-multiple-cursors' },
 	{ 'tpope/vim-surround', lazy = false },
 	{
-		safe_require('plugins/_vim_airline'),
+		safe_require('plugins._vim_airline'),
 	},
 	{ 'wesQ3/vim-windowswap' },
 	{
