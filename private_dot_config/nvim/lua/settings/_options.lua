@@ -146,7 +146,9 @@ opt.fileformats:append('dos')
 opt.fileformats:append('mac')
 
 -- wildmode
-opt.wildmode = "list:longest" -- autocompletion of files and commands behaves like shell (complete only the common part, list the options that match)
+opt.wildmenu = true
+opt.wildmode = "longest:full,full"
+opt.wildoptions = "pum"
 
 -- Tabs, Spaces and Indent handling
 opt.expandtab = true -- expand tab to space
