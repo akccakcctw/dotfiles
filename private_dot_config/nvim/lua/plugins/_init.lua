@@ -170,25 +170,27 @@ local lazy_plugins = {
 			-- @see https://github.com/yetone/avante.nvim#default-setup-configuration
 			-- @see https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
 			mappings = {
-				ask = "<Leader>ua",
-				edit = "<Leader>ue",
-				refresh = "<Leader>ur",
-				focus = "<Leader>uf",
+				ask = "<Leader>ma",
+				edit = "<Leader>me",
+				refresh = "<Leader>mr",
+				focus = "<Leader>mf",
+				select_model = "<Leader>mm",
+
 				toggle = {
-					default = "<Leader>ut",
-					debug = "<Leader>ud",
-					hint = "<Leader>uh",
-					suggestion = "<Leader>us",
-					repomap = "<Leader>uR",
+					default = "<Leader>mt",
+					debug = "<Leader>md",
+					hint = "<Leader>mh",
+					suggestion = "<Leader>ms",
+					repomap = "<Leader>mR",
 				},
 				files = {
-					add_current = "<Leader>uc", -- Add current buffer to selected files
+					add_current = "<Leader>mc", -- Add current buffer to selected files
 				},
 			},
 			provider = "copilot", -- claude, openai, copilot, ...
 			copilot = {
 				endpoint = "https://api.githubcopilot.com",
-				model = "gpt-4o-2024-08-06",
+				model = "gpt-4o-2024-08-06", -- ["claude-3-5-sonnet-20241022"|"gpt-4o-2024-08-06"]
 				proxy = nil, -- [protocol://]host[:port] Use this proxy
 				allow_insecure = false, -- Allow insecure server connections
 				timeout = 30000, -- Timeout in milliseconds
