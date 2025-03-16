@@ -7,7 +7,7 @@ end
 
 -- general
 opt.history = 500
-opt.shell = os.getenv('SHELL')
+opt.shell = os.getenv('SHELL') or "/bin/sh"
 opt.ttyfast = true
 
 -- use the OS clipboard by default
@@ -87,7 +87,7 @@ opt.showmatch = true
 opt.scrolloff = 3 -- when scrolling, keep cursor 3 lines away from screen border
 opt.timeout = true
 opt.ttimeoutlen = 10
-opt.virtualedit = block
+opt.virtualedit = 'block'
 opt.lazyredraw = false -- When this option is set, the screen will not be redrawn while executing macros, registers and other commands that have not been typed.  Also, updating the window title is postponed.
 opt.whichwrap:append('<>[]')
 opt.startofline = false
@@ -141,7 +141,9 @@ vim.cmd([[source $VIMRUNTIME/menu.vim]])
 opt.formatoptions:append('Mm') -- for multi byte character
 opt.formatoptions:append('crql')
 opt.formatoptions:remove('t')
-opt.fileformats = { 'unix', 'dos', 'mac' }
+opt.fileformats:append('unix')
+opt.fileformats:append('dos')
+opt.fileformats:append('mac')
 
 -- wildmode
 opt.wildmode = "list:longest" -- autocompletion of files and commands behaves like shell (complete only the common part, list the options that match)
