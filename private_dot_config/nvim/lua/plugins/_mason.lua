@@ -170,9 +170,11 @@ M.config = function()
 			'rust_analyzer',
 			'ts_ls',
 			'vuels',
+			'volar',
 			'yamlls',
 		}
 	})
+
 	require('mason-lspconfig').setup_handlers({
 		-- workaround: rename "tsserver" to "ts_ls"
 		-- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
@@ -180,13 +182,34 @@ M.config = function()
 			if server_name == "tsserver" then
 				server_name = "ts_ls"
 			end
-			lspconfig[server_name].setup({})
+
+			if server_name == "ts_ls" then
+				lspconfig[server_name].setup({
+					filetypes = {
+						"javascript",
+						"typescript",
+						"vue",
+					},
+					cmd = { "typescript-language-server", "--stdio" },
+					init_options = {
+						plugins = {
+							{
+								name = "@vue/typescript-plugin",
+								location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+								languages = {"javascript", "typescript", "vue"},
+							},
+						}
+					},
+				})
+			else
+				lspconfig[server_name].setup({})
+			end
 		end,
 	})
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 	-- nvim-cmp
 	local cmp = require("cmp")
