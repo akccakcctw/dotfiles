@@ -1,4 +1,3 @@
-local opt = vim.opt
 local options = safe_require('libraries._set_options')
 
 if not options then
