@@ -170,14 +170,15 @@ local lazy_plugins = {
 			-- @see https://github.com/yetone/avante.nvim#default-setup-configuration
 			-- @see https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
 			mappings = {
-				ask = "<Leader>ma",
-				edit = "<Leader>me",
-				refresh = "<Leader>mr",
-				focus = "<Leader>mf",
-				select_model = "<Leader>mm",
+				ask = "<Leader>ma", -- show sidebar
+				edit = "<Leader>me", -- edit selected blocks
+				refresh = "<Leader>mr", -- refresh sidebar
+				focus = "<Leader>mf", -- switch sidebar focus
+				select_model = "<Leader>m?", -- select model command
+				select_history = "<Leader>mh", -- select history command
 
 				toggle = {
-					default = "<Leader>mt",
+					default = "<Leader>mt", -- toggle sidebar visibility
 					debug = "<Leader>md",
 					hint = "<Leader>mh",
 					suggestion = "<Leader>ms",
