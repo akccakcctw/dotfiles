@@ -29,45 +29,7 @@ local lazy_plugins = {
 		'amadeus/vim-mjml',
 		ft = { 'mjml' },
 	},
-	{
-		'cakebaker/scss-syntax.vim',
-		ft = { 'scss', 'sass' },
-	},
-	{
-		'digitaltoad/vim-pug',
-		ft = { 'pug' },
-	},
 	{ 'editorconfig/editorconfig-vim' },
-	{ 'elzr/vim-json' },
-	{
-		'fatih/vim-go',
-		ft = { 'go' },
-	},
-	{
-		'gutenye/json5.vim',
-		ft = { 'json5' },
-	},
-	{
-		'leafgarland/typescript-vim',
-		ft = { 'ts' },
-	},
-	{ 'pangloss/vim-javascript' },
-	{
-		'plasticboy/vim-markdown',
-		config = function()
-			vim.g.vim_markdown_conceal = 0
-		end,
-	},
-	-- {
-	-- 	'posva/vim-vue',
-	-- 	ft = { 'vue' },
-	-- 	config = function()
-	-- 		vim.api.nvim_create_autocmd('BufEnter', {
-	-- 			pattern = '*.vue',
-	-- 			command = 'syntax sync fromstart'
-	-- 		})
-	-- 	end,
-	-- },
 
 	-- git
 	{
