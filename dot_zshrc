@@ -77,14 +77,14 @@ source $ZSH/oh-my-zsh.sh
 # --- plugins --- {{{
 if [[ -f /etc/arch-release ]]; then
   package_list=(
-    diff-so-fancy
+    git-delta
     fzf
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
   )
   if ! pacman -Qq ${package_list[@]} > /dev/null 2>&1; then
-    echo "You're using Archlinux! Use pacman to manage the following nice tools:"
+    echo "You're using Archlinux! Use pacman to manage the following packages:"
     echo ${package_list[@]}
     sudo pacman -S --needed ${package_list[@]}
   fi
@@ -184,8 +184,6 @@ ssh-add -l > /dev/null || ssh-add
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 
-# vim:fdm=marker:foldlevel=0
-
 eval $(thefuck --alias)
 
 # tabtab source for packages
@@ -193,3 +191,6 @@ eval $(thefuck --alias)
 # [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+# vim:fdm=marker:foldlevel=0
+
