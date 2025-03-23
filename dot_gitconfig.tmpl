@@ -6,6 +6,7 @@
   quotepath = false
   excludesfile = ~/.gitignore
   editor = nvim
+  pager = delta # https://github.com/dandavison/delta
 [commit]
   gpgsign = true
 [alias]
@@ -38,22 +39,12 @@
   current = yellow reverse
   local = yellow
   remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold # line info
-  old = red # deletions
-  new = green # additions
-  whitespace = red 88
 [color "status"]
   added = yellow
   changed = green
   untracked = cyan
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
 [diff]
+  colorMoved = default
   tool = nvimdiff
 [difftool]
   prompt = true
@@ -71,14 +62,20 @@
   defaultBranch = main
 [merge]
   tool = nvimdiff
+  conflictstyle = diff3
 [mergetool "nvim"]
   cmd = "nvim -f -c \"Gvdiffsplit!\" \"$MERGED\""
 [pull]
-  ff = only # fast-foward only
+  ff = only # fast-forward only
   twohead = ort
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true # use n and N to move between diff sections
+  line-numbers = true
 [pager]
-  diff = "diff-so-fancy | less --tabs=2 -RX"
-  show = "diff-so-fancy | less --tabs=2 -RX"
+  diff = "delta | less --tabs=2 -RX"
+  show = "delta | less --tabs=2 -RX"
 [credential "https://github.com"]
   helper = !gh auth git-credential
 [credential "https://gist.github.com"]
