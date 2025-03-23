@@ -1,10 +1,10 @@
-# LC_COLLATE set to C to make ls sort by alphanumeric
 export LANG=en_US.UTF-8
-export LC_COLLATE=C
+export LC_COLLATE=C # LC_COLLATE set to C to make ls sort by alphanumeric
 
 export KEYTIMEOUT=1
 
-export VISUAL="nvim"
-export EDITOR="nvim"
+export VISUAL=nvim
+export EDITOR=nvim
+export GPG_TTY=$(tty)
 
 . "$HOME/.cargo/env"
