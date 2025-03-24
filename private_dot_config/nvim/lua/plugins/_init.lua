@@ -136,6 +136,7 @@ local lazy_plugins = {
 				edit = "<Leader>me", -- edit selected blocks
 				refresh = "<Leader>mr", -- refresh sidebar
 				focus = "<Leader>mf", -- switch sidebar focus
+				stop = "<Leader>mS",
 				select_model = "<Leader>m?", -- select model command
 				select_history = "<Leader>mh", -- select history command
 
