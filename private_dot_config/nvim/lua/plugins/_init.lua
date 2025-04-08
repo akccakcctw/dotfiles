@@ -149,6 +149,7 @@ local lazy_plugins = {
 				},
 				files = {
 					add_current = "<Leader>mc", -- Add current buffer to selected files
+					add_all_buffers = "<Leader>mB", -- Add all buffer files to selected files
 				},
 			},
 			provider = "copilot", -- claude, openai, copilot, ...
