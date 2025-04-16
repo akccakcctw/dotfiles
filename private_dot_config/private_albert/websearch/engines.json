@@ -1,0 +1,162 @@
+[
+    {
+        "fallback": true,
+        "iconPath": ":amazon",
+        "id": "2410f855",
+        "name": "Amazon",
+        "trigger": "ama",
+        "url": "http://www.amazon.com/s/?field-keywords=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":default",
+        "id": "f8413274",
+        "name": "DCS-sit",
+        "trigger": "dcs-sit",
+        "url": "https://be2.sit.kkday.com/v3/dcs"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":duckduckgo",
+        "id": "83b0126f",
+        "name": "DuckDuckGo",
+        "trigger": "dd",
+        "url": "https://duckduckgo.com/?q=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":github",
+        "id": "8ddc1b8a",
+        "name": "GitHub",
+        "trigger": "gh",
+        "url": "https://github.com/search?utf8=✓&q=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":google",
+        "id": "30c23420",
+        "name": "Google",
+        "trigger": "gg",
+        "url": "https://www.google.com/search?q=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":maps",
+        "id": "ba455498",
+        "name": "Google Maps",
+        "trigger": "maps",
+        "url": "https://www.google.com/maps/search/%s/"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":scholar",
+        "id": "29b5c284",
+        "name": "Google Scholar",
+        "trigger": "scholar",
+        "url": "https://scholar.google.com/scholar?q=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/3e299ab9.png",
+        "id": "3e299ab9",
+        "name": "JIRA",
+        "trigger": "JIRA",
+        "url": "https://kkday.atlassian.net/jira/software/c/projects/KB2CW/issues/KB2CW-%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "d166900e",
+        "name": "JIRA-releases",
+        "trigger": "JIRA-releases",
+        "url": "https://kkday.atlassian.net/projects/KB2CW?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "8dcd06c6",
+        "name": "KKday release plan",
+        "trigger": "release-plan",
+        "url": "https://kkday.atlassian.net/wiki/spaces/ORP/overview"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":wolfram",
+        "id": "45c69ff9",
+        "name": "Wolfram Alpha",
+        "trigger": "wa",
+        "url": "https://www.wolframalpha.com/input/?i=%s"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":youtube",
+        "id": "a3debdc8",
+        "name": "Youtube",
+        "trigger": "yt",
+        "url": "https://www.youtube.com/results?search_query=%s"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "2d4906e0",
+        "name": "grafana-production",
+        "trigger": "grafana-production",
+        "url": "https://grafana-federation.kkday.com/"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "672c77ff",
+        "name": "grafana-stage",
+        "trigger": "grafana-stage",
+        "url": "https://grafana-federation.stage.kkday.com/"
+    },
+    {
+        "fallback": true,
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/f3cc58e6.png",
+        "id": "f3cc58e6",
+        "name": "jenkins-production",
+        "trigger": "jenkins-production",
+        "url": "https://jenkins.kkday.com/"
+    },
+    {
+        "fallback": true,
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/e24aaeed.png",
+        "id": "e24aaeed",
+        "name": "jenkins-sit",
+        "trigger": "jenkins-sit",
+        "url": "https://jenkins.sit.kkday.com/"
+    },
+    {
+        "fallback": true,
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/f2768288.png",
+        "id": "f2768288",
+        "name": "jenkins-stage",
+        "trigger": "jenkins-stags",
+        "url": "https://jenkins.stage.kkday.com/"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":default",
+        "id": "e2d239a2",
+        "name": "kibana-production",
+        "trigger": "kibana-production",
+        "url": "https://kibana.kkday.com/app/discover"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":default",
+        "id": "7ddbd510",
+        "name": "kibana-sit",
+        "trigger": "kibana-sit",
+        "url": "https://kibana.sit.kkday.com/app/discover"
+    },
+    {
+        "fallback": true,
+        "iconPath": ":default",
+        "id": "c400198d",
+        "name": "kibana-stage",
+        "trigger": "kibana-stage",
+        "url": "https://kibana.stage.kkday.com/app/discover"
+    }
+]

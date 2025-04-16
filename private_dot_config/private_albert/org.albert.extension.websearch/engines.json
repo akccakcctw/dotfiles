@@ -1,0 +1,62 @@
+[
+    {
+        "iconPath": "/home/akccakcctw/.config/albert/org.albert.extension.websearch/{a452fb28-ccf9-4e4e-ae71-c50b04e63fb2}.",
+        "name": "KKday Asana",
+        "trigger": "asana",
+        "url": "https://app.asana.com/0/1202265406153387/list"
+    },
+    {
+        "iconPath": "/home/akccakcctw/.config/albert/org.albert.extension.websearch/{275918d1-cc43-4978-9a38-36ae210126da}.",
+        "name": "KKday Repo",
+        "trigger": "kk ",
+        "url": "https://github.com/kkday-it?q=%s&type=all&language=&sort="
+    },
+    {
+        "iconPath": ":google",
+        "name": "Google",
+        "trigger": "gg ",
+        "url": "https://www.google.com/search?q=%s"
+    },
+    {
+        "iconPath": ":youtube",
+        "name": "Youtube",
+        "trigger": "yt ",
+        "url": "https://www.youtube.com/results?search_query=%s"
+    },
+    {
+        "iconPath": ":amazon",
+        "name": "Amazon",
+        "trigger": "ama ",
+        "url": "http://www.amazon.com/s/?field-keywords=%s"
+    },
+    {
+        "iconPath": ":github",
+        "name": "GitHub",
+        "trigger": "gh ",
+        "url": "https://github.com/search?utf8=✓&q=%s"
+    },
+    {
+        "iconPath": ":wolfram",
+        "name": "Wolfram Alpha",
+        "trigger": "=",
+        "url": "https://www.wolframalpha.com/input/?i=%s"
+    },
+    {
+        "iconPath": ":duckduckgo",
+        "name": "DuckDuckGo",
+        "trigger": "dd ",
+        "url": "https://duckduckgo.com/?q=%s"
+    },
+    {
+        "iconPath": "/home/akccakcctw/.config/albert/org.albert.extension.websearch/{1b3b3d18-312a-4aa0-bbb9-ae88ea236fd1}.",
+        "name": "JIRA-pc",
+        "trigger": "jirapc ",
+        "url": "https://jira.kkday.net/browse/KKDAYWEB-%s"
+    },
+    {
+        "iconPath": "/home/akccakcctw/.config/albert/org.albert.extension.websearch/{81f099b0-f52a-4e93-bf9e-9b534adcc6a1}.",
+        "name": "JIRA-mobile",
+        "trigger": "jiram ",
+        "url": "https://jira.kkday.net/browse/KKDAYMW-%s"
+    }
+]
