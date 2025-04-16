@@ -11,7 +11,7 @@ alias du='du -h'
 # Git
 alias g='git'
 alias gl='git log --oneline --all --graph --decorate'
-alias gll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s    %Cblue\\ [%cn]" --decorate --date=short'
+alias gll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s    %Cblue\\ [%an]" --decorate --date=short'
 alias gs='git show'
 
 # List Directories
