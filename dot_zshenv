@@ -7,4 +7,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 export GPG_TTY=$(tty)
 
-. "$HOME/.cargo/env"
+export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available
+
+source ~/.zshenv.local
