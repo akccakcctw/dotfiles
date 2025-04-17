@@ -8,12 +8,28 @@
         "url": "http://www.amazon.com/s/?field-keywords=%s"
     },
     {
+        "fallback": false,
+        "iconPath": ":gpt",
+        "id": "a8dfb310",
+        "name": "Chat GPT",
+        "trigger": "gpt",
+        "url": "https://chat.openai.com/?q=%s"
+    },
+    {
         "fallback": true,
         "iconPath": ":default",
         "id": "f8413274",
         "name": "DCS-sit",
         "trigger": "dcs-sit",
         "url": "https://be2.sit.kkday.com/v3/dcs"
+    },
+    {
+        "fallback": false,
+        "iconPath": ":default",
+        "id": "0ec05804",
+        "name": "Confluence release plans",
+        "trigger": "release",
+        "url": "https://kkday.atlassian.net/wiki/spaces/ORP/overview"
     },
     {
         "fallback": true,
@@ -56,10 +72,18 @@
         "url": "https://scholar.google.com/scholar?q=%s"
     },
     {
+        "fallback": false,
+        "iconPath": ":google_translate",
+        "id": "471dd0e8",
+        "name": "Google Translate",
+        "trigger": "gt",
+        "url": "https://translate.google.com/?text=%s"
+    },
+    {
         "fallback": true,
         "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/3e299ab9.png",
         "id": "3e299ab9",
-        "name": "JIRA",
+        "name": "JIRA web (KB2CW)",
         "trigger": "JIRA",
         "url": "https://kkday.atlassian.net/jira/software/c/projects/KB2CW/issues/KB2CW-%s"
     },
