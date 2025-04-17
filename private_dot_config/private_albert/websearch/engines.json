@@ -16,20 +16,20 @@
         "url": "https://chat.openai.com/?q=%s"
     },
     {
+        "fallback": false,
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/confluence.svg",
+        "id": "0ec05804",
+        "name": "Confluence release plans",
+        "trigger": "release",
+        "url": "https://kkday.atlassian.net/wiki/spaces/ORP/overview"
+    },
+    {
         "fallback": true,
         "iconPath": ":default",
         "id": "f8413274",
         "name": "DCS-sit",
         "trigger": "dcs-sit",
         "url": "https://be2.sit.kkday.com/v3/dcs"
-    },
-    {
-        "fallback": false,
-        "iconPath": ":default",
-        "id": "0ec05804",
-        "name": "Confluence release plans",
-        "trigger": "release",
-        "url": "https://kkday.atlassian.net/wiki/spaces/ORP/overview"
     },
     {
         "fallback": true,
@@ -81,7 +81,7 @@
     },
     {
         "fallback": true,
-        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/3e299ab9.png",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/jira.svg",
         "id": "3e299ab9",
         "name": "JIRA web (KB2CW)",
         "trigger": "JIRA",
@@ -121,7 +121,7 @@
     },
     {
         "fallback": false,
-        "iconPath": ":default",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/grafana.svg",
         "id": "2d4906e0",
         "name": "grafana-production",
         "trigger": "grafana-production",
@@ -129,7 +129,7 @@
     },
     {
         "fallback": false,
-        "iconPath": ":default",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/grafana.svg",
         "id": "672c77ff",
         "name": "grafana-stage",
         "trigger": "grafana-stage",
@@ -137,7 +137,7 @@
     },
     {
         "fallback": true,
-        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/f3cc58e6.png",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/jenkins.svg",
         "id": "f3cc58e6",
         "name": "jenkins-production",
         "trigger": "jenkins-production",
@@ -145,7 +145,7 @@
     },
     {
         "fallback": true,
-        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/e24aaeed.png",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/jenkins.svg",
         "id": "e24aaeed",
         "name": "jenkins-sit",
         "trigger": "jenkins-sit",
@@ -153,7 +153,7 @@
     },
     {
         "fallback": true,
-        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/f2768288.png",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/jenkins.svg",
         "id": "f2768288",
         "name": "jenkins-stage",
         "trigger": "jenkins-stags",
@@ -161,7 +161,7 @@
     },
     {
         "fallback": true,
-        "iconPath": ":default",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/kibana.svg",
         "id": "e2d239a2",
         "name": "kibana-production",
         "trigger": "kibana-production",
@@ -169,7 +169,7 @@
     },
     {
         "fallback": true,
-        "iconPath": ":default",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/kibana.svg",
         "id": "7ddbd510",
         "name": "kibana-sit",
         "trigger": "kibana-sit",
@@ -177,7 +177,7 @@
     },
     {
         "fallback": true,
-        "iconPath": ":default",
+        "iconPath": "file:/home/akccakcctw/.local/share/albert/websearch/kibana.svg",
         "id": "c400198d",
         "name": "kibana-stage",
         "trigger": "kibana-stage",
