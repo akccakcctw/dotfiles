@@ -74,7 +74,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# --- plugins --- {{{
+# --- plugins --- {{ "{{{" }}
 if [[ -f /etc/arch-release ]]; then
   package_list=(
     git-delta
@@ -90,7 +90,7 @@ if [[ -f /etc/arch-release ]]; then
   fi
 fi
 
-# fzf {{{
+# fzf {{ "{{{" }}
 if [[ -x /usr/bin/fzf && -f /usr/share/fzf/key-bindings.zsh &&
     -f /usr/share/fzf/completion.zsh ]]; then
   source /usr/share/fzf/key-bindings.zsh
@@ -107,7 +107,7 @@ else
 fi
 # }}}
 
-# zplug {{{
+# zplug {{ "{{{" }}
 if ! [[ -f "${HOME}/.zplug/init.zsh" ]]; then
   curl -sL https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
@@ -162,17 +162,19 @@ export LANG=en_US.UTF-8
 #   export EDITOR='mvim'
 # fi
 
-# aliases {{{
+# aliases {{ "{{{" }}
 source ~/.bash_aliases
 # }}}
 
+{{- if eq .chezmoi.os "darwin" }}
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+{{- end }}
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh
 fi
 
-# ssh {{{
+# ssh {{ "{{{" }}
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
   eval `ssh-agent`
   ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
@@ -191,6 +193,17 @@ eval $(thefuck --alias)
 # [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+
+{{- if eq .chezmoi.os "linux" }}
+# pnpm
+export PNPM_HOME="/home/akccakcctw/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+{{- end }}
 
 # vim:fdm=marker:foldlevel=0
 

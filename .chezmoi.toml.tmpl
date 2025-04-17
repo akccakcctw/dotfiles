@@ -1,8 +1,10 @@
 {{- $email := promptString "email" -}}
 {{- $name := promptString "name" -}}
+{{- $signingkey := promptString "git signingkey" -}}
 [data]
   email = "{{ $email }}"
   name = "{{ $name }}"
+  signingkey = "{{ $signingkey }}"
   [data.user]
     email = "{{ $email }}"
     name = "{{ $name }}"
