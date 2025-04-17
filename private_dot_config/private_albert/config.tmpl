@@ -1,10 +1,20 @@
 [General]
 frontend=widgetsboxmodel
+{{ if eq .chezmoi.os "darwin" }}
+hotkey=Alt+A
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
 hotkey=Ctrl+Space
+{{ end }}
 prioritizePerfectMatch=true
 showTray=true
 telemetry=true
+{{ if eq .chezmoi.os "darwin" }}
+terminal=warp
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
 terminal=Tilix
+{{ end }}
 
 [albert]
 global_handler_enabled=true
@@ -27,7 +37,9 @@ enabled=true
 global_handler_enabled=true
 
 [chromium]
+{{ if eq .chezmoi.os "linux" }}
 bookmarks_path=/home/akccakcctw/.config/google-chrome/Default/Bookmarks, /home/akccakcctw/.config/google-chrome/Guest Profile/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 1/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 2/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 3/Bookmarks
+{{ end }}
 enabled=true
 
 [clipboard]
