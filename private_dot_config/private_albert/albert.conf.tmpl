@@ -1,17 +1,13 @@
 [General]
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 hotkey=Alt+A
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-hotkey=Ctrl+Space
-{{ end }}
-showTray=true
-{{ if eq .chezmoi.os "darwin" }}
 terminal=warp
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+hotkey=Ctrl+Space
 terminal=gnome-terminal --
-{{ end }}
+{{- end }}
+showTray=true
 
 [org.albert.extension.applications]
 enabled=true
