@@ -175,6 +175,7 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 # ssh {{ "{{{" }}
+# passphrase single time
 if [ ! -S ~/.ssh/ssh_auth_sock ]; then
   eval `ssh-agent`
   ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
@@ -194,16 +195,25 @@ eval $(thefuck --alias)
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
+# helpers {{ "{{{" }}
+# check zsh startup time
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+# }}}
 
-{{- if eq .chezmoi.os "linux" }}
 # pnpm
+{{- if eq .chezmoi.os "linux" }}
 export PNPM_HOME="/home/akccakcctw/.local/share/pnpm"
+{{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+export PNPM_HOME="/Users/zoushiqi/Library/pnpm"
+{{- end }}
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-{{- end }}
 
 # vim:fdm=marker:foldlevel=0
-
