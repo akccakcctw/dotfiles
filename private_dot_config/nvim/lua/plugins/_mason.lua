@@ -176,74 +176,66 @@ M.config = function()
 		}
 	})
 
-	require('mason-lspconfig').setup_handlers({
-		-- workaround: rename "tsserver" to "ts_ls"
-		-- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
-		function(server_name) -- default handler (optional)
-			if server_name == "tsserver" then
-				server_name = "ts_ls"
-			end
+	-- 自動設定已安裝的所有 LSP 伺服器
+	local servers = require("mason-lspconfig").get_installed_servers()
+	for _, server_name in ipairs(servers) do
+		if server_name == "tsserver" then
+			server_name = "ts_ls" -- 重命名 tsserver 為 ts_ls
+		end
 
-			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
-			if server_name == "lua_ls" then
-				lspconfig["lua_ls"].setup({
-					on_init = function(client)
-						if client.workspace_folders then
-							local path = client.workspace_folders[1].name
-							if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc')) then
-								return
-							end
+		if server_name == "lua_ls" then
+			lspconfig[server_name].setup({
+				on_init = function(client)
+					if client.workspace_folders then
+						local path = client.workspace_folders[1].name
+						if path ~= vim.fn.stdpath('config') and
+							 (vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc')) then
+							return
 						end
+					end
 
-						client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-							runtime = {
-								-- Tell the language server which version of Lua you're using
-								-- (most likely LuaJIT in the case of Neovim)
-								version = 'LuaJIT'
+					client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+						diagnostics = {
+							globals = { 'vim' }, -- 告訴 LSP 'vim' 是一個全域變數
+						},
+						runtime = {
+							version = 'LuaJIT',
+						},
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME,
 							},
-							-- Make the server aware of Neovim runtime files
-							workspace = {
-								checkThirdParty = false,
-								library = {
-									vim.env.VIMRUNTIME
-									-- Depending on the usage, you might want to add additional paths here.
-									-- "${3rd}/luv/library"
-									-- "${3rd}/busted/library",
-								}
-								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-								-- library = vim.api.nvim_get_runtime_file("", true)
-							}
-						})
-					end,
-					settings = {
-						Lua = {}
-					}
-				})
-			end
-
-			if server_name == "ts_ls" then
-				lspconfig[server_name].setup({
-					filetypes = {
-						"javascript",
-						"typescript",
-						"vue",
+						},
+					})
+				end,
+				settings = {
+					Lua = {},
+				},
+			})
+		elseif server_name == "ts_ls" then
+			lspconfig[server_name].setup({
+				filetypes = {
+					"javascript",
+					"typescript",
+					"vue",
+				},
+				cmd = { "typescript-language-server", "--stdio" },
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+							languages = { "javascript", "typescript", "vue" },
+						},
 					},
-					cmd = { "typescript-language-server", "--stdio" },
-					init_options = {
-						plugins = {
-							{
-								name = "@vue/typescript-plugin",
-								location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
-								languages = {"javascript", "typescript", "vue"},
-							},
-						}
-					},
-				})
-			else
-				lspconfig[server_name].setup({})
-			end
-		end,
-	})
+				},
+			})
+		else
+			-- 預設設定其他 LSP 伺服器
+			lspconfig[server_name].setup({})
+		end
+	end
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
