@@ -1,5 +1,5 @@
 local M = {
-	'williamboman/mason.nvim', -- language server manager for neovim
+	'mason-org/mason.nvim', -- language server manager for neovim
 	lazy = false,
 	dependencies = {
 		{
@@ -12,7 +12,7 @@ local M = {
 				},
 			},
 		},
-		'williamboman/mason-lspconfig.nvim',
+		'mason-org/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig', -- attach client to neovim
 		-- ref: https://zhuanlan.zhihu.com/p/643033884
 		{
@@ -159,9 +159,9 @@ M.config = function()
 	-- lspconfig.bashls.setup({
 	-- 	on_attach = on_attach,
 	-- })
+	-- @see: https://github.com/mason-org/mason-lspconfig.nvim/releases/tag/v2.0.0
 
 	require('mason-lspconfig').setup({
-		automatic_installation = true,
 		ensure_installed = {
 			'bashls',
 			'cssls',
@@ -171,71 +171,28 @@ M.config = function()
 			'lua_ls',
 			'rust_analyzer',
 			'ts_ls',
-			'volar',
+			-- 'volar', -- ses: https://github.com/neovim/nvim-lspconfig/issues/3705
 			'yamlls',
 		}
 	})
 
-	-- 自動設定已安裝的所有 LSP 伺服器
-	local servers = require("mason-lspconfig").get_installed_servers()
-	for _, server_name in ipairs(servers) do
-		if server_name == "tsserver" then
-			server_name = "ts_ls" -- 重命名 tsserver 為 ts_ls
-		end
+	local vue_typescript_plugin_path = vim.fn.stdpath('data') ..
+		'/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
 
-		if server_name == "lua_ls" then
-			lspconfig[server_name].setup({
-				on_init = function(client)
-					if client.workspace_folders then
-						local path = client.workspace_folders[1].name
-						if path ~= vim.fn.stdpath('config') and
-							 (vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc')) then
-							return
-						end
-					end
-
-					client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-						diagnostics = {
-							globals = { 'vim' }, -- 告訴 LSP 'vim' 是一個全域變數
-						},
-						runtime = {
-							version = 'LuaJIT',
-						},
-						workspace = {
-							checkThirdParty = false,
-							library = {
-								vim.env.VIMRUNTIME,
-							},
-						},
-					})
-				end,
-				settings = {
-					Lua = {},
+	lspconfig.ts_ls.setup({
+		filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue' },
+		cmd = { "typescript-language-server", "--stdio" },
+		init_options = {
+			plugins = {
+				{
+					name = '@vue/typescript-plugin',
+					location = vue_typescript_plugin_path,
+					languages = { 'vue' },
 				},
-			})
-		elseif server_name == "ts_ls" then
-			lspconfig[server_name].setup({
-				filetypes = {
-					"javascript",
-					"typescript",
-					"vue",
-				},
-				cmd = { "typescript-language-server", "--stdio" },
-				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
-							languages = { "javascript", "typescript", "vue" },
-						},
-					},
-				},
-			})
-		else
-			-- 預設設定其他 LSP 伺服器
-			lspconfig[server_name].setup({})
-		end
-	end
+			},
+		},
+		single_file_support = false,
+	})
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
