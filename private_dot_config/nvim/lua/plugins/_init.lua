@@ -133,6 +133,7 @@ local lazy_plugins = {
 			-- @see https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
 			mappings = {
 				ask = "<Leader>ma", -- show sidebar
+				new_ask = "<Leader>mn", -- create new ask
 				edit = "<Leader>me", -- edit selected blocks
 				refresh = "<Leader>mr", -- refresh sidebar
 				focus = "<Leader>mf", -- switch sidebar focus
