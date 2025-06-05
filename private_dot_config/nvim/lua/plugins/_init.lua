@@ -154,22 +154,26 @@ local lazy_plugins = {
 				},
 			},
 			provider = "copilot", -- claude, openai, copilot, ...
-			copilot = {
-				endpoint = "https://api.githubcopilot.com",
-				model = "gpt-4o", -- ["claude-3.5-sonnet"|"claude-3-5-sonnet-20241022"|"gpt-4o"|"gpt-4.1"|"gpt-4o-2024-08-06"], see: https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat#ai-models-for-copilot-chat
-				proxy = nil, -- [protocol://]host[:port] Use this proxy
-				allow_insecure = false, -- Allow insecure server connections
-				timeout = 30000, -- Timeout in milliseconds
-				temperature = 0,
-				max_tokens = 4096,
+			providers = {
+				copilot = {
+					endpoint = "https://api.githubcopilot.com",
+					model = "gpt-4o", -- ["claude-3.5-sonnet"|"claude-3-5-sonnet-20241022"|"gpt-4o"|"gpt-4.1"|"gpt-4o-2024-08-06"], see: https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat#ai-models-for-copilot-chat
+					proxy = nil, -- [protocol://]host[:port] Use this proxy
+					allow_insecure = false, -- Allow insecure server connections
+					timeout = 30000, -- Timeout in milliseconds
+					extra_request_body = {
+						temperature = 0,
+						max_tokens = 4096,
+					},
+				},
+				-- provider = "claude",
+				-- claude = {
+				-- 	endpoint = "https://api.anthropic.com",
+				-- 	model = "claude-3-5-sonnet-20241022",
+				-- 	temperature = 0,
+				-- 	max_tokens = 4096,
+				-- },
 			},
-			-- provider = "claude",
-			-- claude = {
-			-- 	endpoint = "https://api.anthropic.com",
-			-- 	model = "claude-3-5-sonnet-20241022",
-			-- 	temperature = 0,
-			-- 	max_tokens = 4096,
-			-- },
 			suggestion = {
 				debounce = 600,
 				throttle = 600,
@@ -239,6 +243,7 @@ local lazy_plugins = {
 	},
 
 	-- uncategorized
+	{ "nvim-tree/nvim-web-devicons", opts = {} },
 	{ 'Chiel92/vim-autoformat' },
 	{ 'Yggdroot/indentLine' },
 	{ 'codegram/vim-codereview' }, -- GitHub PR Code Review
