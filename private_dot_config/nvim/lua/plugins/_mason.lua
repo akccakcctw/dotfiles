@@ -107,18 +107,18 @@ M.config = function()
 	--     - on_attach: a lua callback function to run after LSP atteches to a given buffer
 	local lspconfig = require('lspconfig')
 
-
-	-- Customized on_attach function
-	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-	local opts = { noremap = true, silent = true }
-	vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-	vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
 	local on_attach = function(_, bufnr)
+
+		-- Customized on_attach function
+		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+		local opts = { noremap = true, silent = true, buffer = bufnr }
+		vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = false }) end, opts)
+		vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = false }) end, opts)
+		vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+		vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
 		-- Enable completion triggered by <c-x><c-o>
 		vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -171,13 +171,39 @@ M.config = function()
 			'lua_ls',
 			'rust_analyzer',
 			'ts_ls',
-			-- 'volar', -- ses: https://github.com/neovim/nvim-lspconfig/issues/3705
+			-- 'volar', -- see: https://github.com/neovim/nvim-lspconfig/issues/3705
 			'yamlls',
 		}
 	})
 
 	local vue_typescript_plugin_path = vim.fn.stdpath('data') ..
 		'/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
+
+	local runtime_path = vim.split(package.path, ';')
+	table.insert(runtime_path, "lua/?.lua")
+	table.insert(runtime_path, "lua/?/init.lua")
+
+	lspconfig.lua_ls.setup({
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+					path = runtime_path,
+				},
+				diagnostics = {
+					globals = { 'vim' },
+				},
+				workspace = {
+					library = {
+						vim.env.VIMRUNTIME,
+						vim.fn.expand("~/.config/nvim/lua"),
+					},
+					checkThirdParty = false,
+				},
+				telemetry = { enable = false },
+			},
+		},
+	})
 
 	lspconfig.ts_ls.setup({
 		filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue' },
