@@ -173,11 +173,8 @@ M.config = function()
 			'ts_ls',
 			-- 'volar', -- see: https://github.com/neovim/nvim-lspconfig/issues/3705
 			'yamlls',
-		}
+		},
 	})
-
-	local vue_typescript_plugin_path = vim.fn.stdpath('data') ..
-		'/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
 
 	local runtime_path = vim.split(package.path, ';')
 	table.insert(runtime_path, "lua/?.lua")
@@ -205,8 +202,17 @@ M.config = function()
 		},
 	})
 
+	local mason_packages_path = vim.fn.stdpath('data') .. '/mason/packages'
+	local vue_typescript_plugin_path = mason_packages_path .. '/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
+
 	lspconfig.ts_ls.setup({
-		filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue' },
+		filetypes = {
+			'javascript',
+			'typescript',
+			'javascriptreact',
+			'typescriptreact',
+			'vue',
+		},
 		cmd = { "typescript-language-server", "--stdio" },
 		init_options = {
 			plugins = {
