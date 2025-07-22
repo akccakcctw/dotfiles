@@ -157,7 +157,7 @@ local lazy_plugins = {
 			providers = {
 				copilot = {
 					endpoint = "https://api.githubcopilot.com",
-					model = "gpt-4o", -- ["claude-3.5-sonnet"|"claude-3-5-sonnet-20241022"|"gpt-4o"|"gpt-4.1"|"gpt-4o-2024-08-06"], see: https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat#ai-models-for-copilot-chat
+					model = "gpt-4.1", -- ["claude-3.5-sonnet"|"claude-3-5-sonnet-20241022"|"gpt-4o"|"gpt-4.1"|"gpt-4o-2024-08-06"], see: https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat#ai-models-for-copilot-chat
 					proxy = nil, -- [protocol://]host[:port] Use this proxy
 					allow_insecure = false, -- Allow insecure server connections
 					timeout = 30000, -- Timeout in milliseconds
@@ -214,6 +214,9 @@ local lazy_plugins = {
 				'MeanderingProgrammer/render-markdown.nvim',
 				opts = {
 					file_types = { "markdown", "Avante" },
+					latex = {
+						enabled = false,
+					},
 				},
 				ft = { "markdown", "Avante" },
 			},
