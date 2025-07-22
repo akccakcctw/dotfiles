@@ -107,6 +107,14 @@ M.config = function()
 	--     - on_attach: a lua callback function to run after LSP atteches to a given buffer
 	local lspconfig = require('lspconfig')
 
+	vim.keymap.set('n', 'K', function()
+		vim.lsp.buf.hover { border = 'rounded', max_height = 25, max_width = 120}
+	end)
+
+	-- vim.keymap.set('n', '<Leader>i', function()
+	-- 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({0}),{0})
+	-- end)
+
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
 	local on_attach = function(_, bufnr)
@@ -170,8 +178,8 @@ M.config = function()
 			'intelephense',
 			'lua_ls',
 			'rust_analyzer',
-			'ts_ls',
-			-- 'volar', -- see: https://github.com/neovim/nvim-lspconfig/issues/3705
+			'vtsls',
+			'vue_ls',
 			'yamlls',
 		},
 	})
@@ -202,28 +210,66 @@ M.config = function()
 		},
 	})
 
-	local mason_packages_path = vim.fn.stdpath('data') .. '/mason/packages'
-	local vue_typescript_plugin_path = mason_packages_path .. '/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
-
-	lspconfig.ts_ls.setup({
-		filetypes = {
-			'javascript',
-			'typescript',
-			'javascriptreact',
-			'typescriptreact',
-			'vue',
-		},
-		cmd = { "typescript-language-server", "--stdio" },
-		init_options = {
-			plugins = {
-				{
-					name = '@vue/typescript-plugin',
-					location = vue_typescript_plugin_path,
-					languages = { 'vue' },
+	local vue_language_server_path = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server'
+	local vue_plugin = {
+		name = '@vue/typescript-plugin',
+		location = vue_language_server_path,
+		languages = { 'vue' },
+		configNamespace = 'typescript',
+	}
+	local vtsls_config = {
+		settings = {
+			vtsls = {
+				tsserver = {
+					globalPlugins = {
+						vue_plugin,
+					},
 				},
 			},
 		},
-		single_file_support = false,
+		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+	}
+	local vue_ls_config = {
+		init_options = {
+			typescript = {
+				tsdk = vue_language_server_path .. '/node_modules/typescript/lib',
+				plugins = {
+					vue_plugin,
+				},
+			},
+		},
+		on_init = function(client)
+			client.handlers['tsserver/request'] = function(_, result, context)
+				local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+				if #clients == 0 then
+					vim.notify('Could not find `vtsls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
+					return
+				end
+				local ts_client = clients[1]
+
+				local param = unpack(result)
+				local id, command, payload = unpack(param)
+				ts_client:exec_cmd({
+					title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+					command = 'typescript.tsserverRequest',
+					arguments = {
+						command,
+						payload,
+					},
+				}, { bufnr = context.bufnr }, function(_, r)
+						local response_data = { { id, r.body } }
+						---@diagnostic disable-next-line: param-type-mismatch
+						client:notify('tsserver/response', response_data)
+					end)
+			end
+		end,
+	}
+
+	vim.lsp.config('vtsls', vtsls_config)
+	vim.lsp.config('vue_ls', vue_ls_config)
+	vim.lsp.enable({
+		'vtsls',
+		'vue_ls',
 	})
 
 	-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
