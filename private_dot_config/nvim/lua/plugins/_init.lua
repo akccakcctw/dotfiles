@@ -131,28 +131,6 @@ local lazy_plugins = {
 			-- add any opts here:
 			-- @see https://github.com/yetone/avante.nvim#default-setup-configuration
 			-- @see https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
-			mappings = {
-				ask = "<Leader>ma", -- show sidebar
-				new_ask = "<Leader>mn", -- create new ask
-				edit = "<Leader>me", -- edit selected blocks
-				refresh = "<Leader>mr", -- refresh sidebar
-				focus = "<Leader>mf", -- switch sidebar focus
-				stop = "<Leader>mS",
-				select_model = "<Leader>m?", -- select model command
-				select_history = "<Leader>mh", -- select history command
-
-				toggle = {
-					default = "<Leader>mt", -- toggle sidebar visibility
-					debug = "<Leader>md",
-					hint = "<Leader>mh",
-					suggestion = "<Leader>ms",
-					repomap = "<Leader>mR",
-				},
-				files = {
-					add_current = "<Leader>mc", -- Add current buffer to selected files
-					add_all_buffers = "<Leader>mB", -- Add all buffer files to selected files
-				},
-			},
 			provider = "copilot", -- claude, openai, copilot, ...
 			providers = {
 				copilot = {
@@ -302,7 +280,7 @@ local lazy_plugins = {
 			{ '<Leader>F', ':Files<CR>' },
 			{ '<Leader>l', ':BLines<CR>' },
 			{ '<Leader>L', ':Lines<CR>' },
-			{ '<Leader>a', ':Rg<Space>' },
+			{ '<Leader>r', ':Rg<Space>' },
 		},
 	},
 	{ 'junegunn/vim-easy-align' },
