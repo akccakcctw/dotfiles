@@ -105,7 +105,7 @@ M.config = function()
 	-- How to use setup({}): https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
 	--     - the settings table is sent to the LSP
 	--     - on_attach: a lua callback function to run after LSP atteches to a given buffer
-	local lspconfig = require('lspconfig')
+	local lspconfigUtil = require('lspconfig.util')
 
 	local opts = { noremap = true, silent = true }
 	vim.keymap.set('n', 'K', function()
@@ -141,7 +141,7 @@ M.config = function()
 	end
 
 	-- set lspconfig default options
-	lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
+	lspconfigUtil.default_config = vim.tbl_extend('force', lspconfigUtil.default_config, {
 		on_attach = on_attach,
 	})
 
@@ -150,7 +150,7 @@ M.config = function()
 	-- 1. use `:Mason` to install corresponding LSP
 	-- 2. add configuration below
 	-- for example:
-	-- lspconfig.bashls.setup({
+	-- vim.lsp.config('bashls', {
 	-- 	on_attach = on_attach,
 	-- })
 	-- @see: https://github.com/mason-org/mason-lspconfig.nvim/releases/tag/v2.0.0
@@ -174,7 +174,7 @@ M.config = function()
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 
-	lspconfig.lua_ls.setup({
+	vim.lsp.config('lua_ls', {
 		settings = {
 			Lua = {
 				runtime = {
