@@ -1,0 +1,30 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+# Albert on macOS uses ~/Library/Preferences/albert (Qt AppConfigLocation),
+# but chezmoi syncs ~/.config/albert. Symlink so the synced files are read.
+set -eu
+
+SRC="$HOME/.config/albert"
+DST="$HOME/Library/Preferences/albert"
+
+mkdir -p "$SRC"
+mkdir -p "$(dirname "$DST")"
+
+if [ -L "$DST" ]; then
+  current=$(readlink "$DST")
+  if [ "$current" = "$SRC" ]; then
+    exit 0
+  fi
+  echo "ERROR: $DST is a symlink to '$current', expected '$SRC'" >&2
+  exit 1
+fi
+
+if [ -e "$DST" ]; then
+  echo "ERROR: $DST exists and is not a symlink — manual migration needed" >&2
+  echo "       Move its contents into $SRC, remove $DST, then rerun chezmoi apply." >&2
+  exit 1
+fi
+
+ln -s "$SRC" "$DST"
+echo "Created symlink: $DST -> $SRC"
+{{- end -}}

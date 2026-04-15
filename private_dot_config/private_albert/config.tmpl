@@ -1,5 +1,5 @@
 [General]
-frontend=widgetsboxmodel
+frontend=widgetsboxmodel-ng
 {{- if eq .chezmoi.os "darwin" }}
 hotkey=Alt+A
 {{- end }}
@@ -21,7 +21,9 @@ global_handler_enabled=true
 
 [applications]
 enabled=true
+{{- if eq .chezmoi.os "linux" }}
 terminal=com.gexperts.tilix
+{{- end }}
 
 [arch_wiki]
 enabled=true
@@ -37,10 +39,11 @@ enabled=true
 global_handler_enabled=true
 
 [chromium]
-{{- if eq .chezmoi.os "linux" }}
-bookmarks_path=/home/akccakcctw/.config/google-chrome/Default/Bookmarks, /home/akccakcctw/.config/google-chrome/Guest Profile/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 1/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 2/Bookmarks, /home/akccakcctw/.config/google-chrome/Profile 3/Bookmarks
-{{- end }}
 enabled=true
+{{- if eq .chezmoi.os "linux" }}
+bookmarks_path={{ .chezmoi.homeDir }}/.config/google-chrome/Default/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Guest Profile/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 1/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 2/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 3/Bookmarks
+profile_path={{ .chezmoi.homeDir }}/.config/chromium/Default
+{{- end }}
 
 [clipboard]
 enabled=true
@@ -82,7 +85,6 @@ enabled=false
 
 [qmlboxmodel]
 displaySystemShadow=false
-windowPosition=@Point(899 288)
 
 [snippets]
 enabled=true
@@ -94,20 +96,51 @@ enabled=true
 enabled=true
 
 [widgetsboxmodel]
+action_item_padding=6
+action_item_selection_border_radius=11
+action_item_selection_border_width=0
 alwaysOnTop=true
 clearOnHide=false
 clientShadow=true
 darkTheme=Default System Palette
+disable_input_method=true
 displayIcons=true
 displayScrollbar=false
 followCursor=true
 hideOnFocusLoss=true
 historySearch=true
+input_border_radius=11
+input_font_size=20
+input_padding=5
 itemCount=5
 lightTheme=Default System Palette
 quitOnClose=false
+result_item_horizontal_spacing=6
+result_item_icon_size=39
+result_item_padding=6
+result_item_selection_border_radius=11
+result_item_selection_border_width=0
+result_item_subtext_font_size=10
+result_item_text_font_size=15
+result_item_vertical_spacing=2
 showCentered=true
 showFallbacksOnEmpty=true
 systemShadow=true
 theme=DarkOrange
-windowPosition=@Point(915 288)
+window_border_radius=18
+window_border_width=1
+window_padding=7
+window_shadow_offset=8
+window_shadow_size=80
+window_spacing=7
+
+[widgetsboxmodel-ng]
+alwaysOnTop=true
+clearOnHide=true
+displayScrollbar=false
+followCursor=true
+hideOnFocusLoss=true
+historySearch=true
+itemCount=5
+quitOnClose=false
+showCentered=true
