@@ -39,9 +39,11 @@ enabled=true
 global_handler_enabled=true
 
 [chromium]
-enabled=true
 {{- if eq .chezmoi.os "linux" }}
 bookmarks_path={{ .chezmoi.homeDir }}/.config/google-chrome/Default/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Guest Profile/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 1/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 2/Bookmarks, {{ .chezmoi.homeDir }}/.config/google-chrome/Profile 3/Bookmarks
+{{- end }}
+enabled=true
+{{- if eq .chezmoi.os "linux" }}
 profile_path={{ .chezmoi.homeDir }}/.config/chromium/Default
 {{- end }}
 
@@ -133,6 +135,7 @@ window_padding=7
 window_shadow_offset=8
 window_shadow_size=80
 window_spacing=7
+window_width=640
 
 [widgetsboxmodel-ng]
 alwaysOnTop=true

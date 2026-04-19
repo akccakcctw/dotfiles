@@ -31,3 +31,5 @@ fi
 
 # Rust
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
