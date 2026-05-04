@@ -1,0 +1,21 @@
+{{- $cmd := "" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $cmd = "brew install tree-sitter" -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   if eq .chezmoi.osRelease.id "arch" -}}
+{{-     $cmd = "sudo pacman -S --needed --noconfirm tree-sitter-cli" -}}
+{{-   end -}}
+{{- end -}}
+{{- if $cmd -}}
+#!/bin/sh
+# Required by nvim-treesitter `main` branch to compile non-bundled parsers.
+# See ~/.config/nvim/lua/plugins/_treesitter.lua for context.
+set -eu
+
+if command -v tree-sitter >/dev/null 2>&1; then
+  exit 0
+fi
+
+echo "Installing tree-sitter CLI for nvim-treesitter..."
+{{ $cmd }}
+{{- end -}}
