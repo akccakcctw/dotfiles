@@ -1,6 +1,6 @@
 {{- $cmd := "" -}}
 {{- if eq .chezmoi.os "darwin" -}}
-{{-   $cmd = "brew install tree-sitter" -}}
+{{-   $cmd = "brew install tree-sitter-cli" -}}
 {{- else if eq .chezmoi.os "linux" -}}
 {{-   if eq .chezmoi.osRelease.id "arch" -}}
 {{-     $cmd = "sudo pacman -S --needed --noconfirm tree-sitter-cli" -}}
