@@ -213,4 +213,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# mise (asdf replacement) — must run after PATH is finalized so shims sit in front.
+if command -v mise > /dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # vim:fdm=marker:foldlevel=0
