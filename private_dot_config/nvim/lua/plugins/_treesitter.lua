@@ -1,7 +1,7 @@
 -- nvim-treesitter `main` branch (the legacy `master` branch was archived in 2025).
 --
 -- REQUIRES the `tree-sitter` CLI on PATH (Arch: `pacman -S tree-sitter-cli`,
--- macOS: `brew install tree-sitter`). The `main` branch always compiles parsers
+-- macOS: `brew install tree-sitter-cli`). The `main` branch always compiles parsers
 -- locally — no pre-built fallback like the `master` branch had.
 --
 -- The `main` branch removed `require('nvim-treesitter.configs').setup{}`. Parsers
@@ -53,7 +53,7 @@ return {
 					vim.notify(
 						'[nvim-treesitter] `tree-sitter` CLI not found — non-bundled parsers will not be installed.\n' ..
 						'  Arch:  sudo pacman -S tree-sitter-cli\n' ..
-						'  macOS: brew install tree-sitter',
+						'  macOS: brew install tree-sitter-cli',
 						vim.log.levels.WARN
 					)
 				end)
