@@ -80,5 +80,9 @@
   helper = !gh auth git-credential
 [credential "https://gist.github.com"]
   helper = !gh auth git-credential
+[include]
+  # Per-machine/local-tool overrides land here so `git config --global` writes
+  # don't drift the chezmoi-managed file. ~/.gitconfig.local is not chezmoi-managed.
+  path = ~/.gitconfig.local
 
 # vim: set filetype=gitconfig:
