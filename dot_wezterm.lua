@@ -10,6 +10,7 @@ local is_mac = wezterm.target_triple:find 'darwin' ~= nil
 local MOD  = is_mac and 'CMD'       or 'CTRL|SHIFT'  -- 主修飾鍵（分割、關閉 pane）
 local MOD2 = is_mac and 'CMD|SHIFT' or 'CTRL|ALT'   -- 次修飾鍵（上下分割、Quick Select、分頁清單、pane 導覽）
 local LINK_MOD = is_mac and 'CMD' or 'CTRL'          -- 點擊開連結
+local RENAME_MOD = is_mac and 'CMD|SHIFT' or 'CTRL|SHIFT'  -- 分頁改名（Cmd/Ctrl + Shift + E）
 
 -- 找出 mise 執行檔（各平台安裝路徑不同）
 local function find_mise()
@@ -173,6 +174,22 @@ config.keys = {
   { key = 'u', mods = MOD2, action = wezterm.action.QuickSelect },
   -- 叫出分頁清單，按 / 可過濾/搜尋分頁（右鍵選單的 filter tab）
   { key = 't', mods = MOD2, action = wezterm.action.ShowTabNavigator },
+  -- 分頁改名：跳出輸入列，Enter 套用、Esc 取消、空字串則還原成自動標題
+  {
+    key = 'E',
+    mods = RENAME_MOD,
+    action = wezterm.action.PromptInputLine {
+      description = 'Enter new name for tab',
+      action = wezterm.action_callback(function(window, _pane, line)
+        if line == nil then return end          -- 按了 Esc
+        if line == '' then
+          window:active_tab():set_title ''       -- 清空 → 回到自動標題
+        else
+          window:active_tab():set_title(line)
+        end
+      end),
+    },
+  },
   -- 在 pane 之間移動焦點
   { key = 'LeftArrow',  mods = MOD2, action = wezterm.action.ActivatePaneDirection 'Left' },
   { key = 'RightArrow', mods = MOD2, action = wezterm.action.ActivatePaneDirection 'Right' },
