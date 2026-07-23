@@ -52,6 +52,7 @@ Keybindings differ per platform on purpose. On macOS `Cmd` is free for the GUI a
 | Close pane | `Cmd+W` | `Ctrl+Shift+W` |
 | Quick Select (copy URLs/paths/hashes) | `Cmd+Shift+U` | `Ctrl+Alt+U` (built-in `Ctrl+Shift+Space` also works) |
 | Tab navigator / filter tabs | `Cmd+Shift+T` | `Ctrl+Alt+T` |
+| Rename tab (empty input restores auto title) | `Cmd+Shift+E` | `Ctrl+Shift+E` |
 | Move focus between panes | `Cmd+Alt+Arrow` | `Ctrl+Alt+Arrow` |
 | Open link under cursor | `Cmd+Click` | `Ctrl+Click` |
 
