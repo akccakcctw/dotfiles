@@ -113,6 +113,7 @@ config.enable_scroll_bar = false
 config.audible_bell = 'Disabled'
 
 -- === 狀態列：在分頁列右側顯示當前目錄的 node 版本（由 mise 解析）===
+config.status_update_interval = 3000  -- 狀態列更新間隔（預設 1000ms），拉長以降低 idle CPU
 local node_cache = { cwd = nil, ver = nil }
 
 wezterm.on('update-status', function(window, pane)
