@@ -39,6 +39,27 @@ Use [tpm](https://github.com/tmux-plugins/tpm) to manage plugins:
 - [tmux-yank](https://github.com/tmux-plugins/tmux-yank)
 
 
+### WezTerm
+
+Cross-platform config (`dot_wezterm.lua`) — a single file that auto-detects the OS via `wezterm.target_triple`. Atom One Dark theme with a Warp-like look, plus a status bar showing the current directory's Node version (resolved by [mise](https://mise.jdx.dev/)).
+
+Keybindings differ per platform on purpose. On macOS `Cmd` is free for the GUI app, but on Linux plain `Ctrl` is reserved by the shell (`Ctrl+C`, `Ctrl+D`, `Ctrl+W`, …), so a direct `Cmd`→`Ctrl` swap would clobber core terminal keys. Linux therefore follows the `Ctrl+Shift` / `Ctrl+Alt` convention (and avoids `Super`, which desktop environments grab):
+
+| Action | macOS | Linux |
+| --- | --- | --- |
+| Split left/right | `Cmd+D` | `Ctrl+Shift+D` |
+| Split top/bottom | `Cmd+Shift+D` | `Ctrl+Alt+D` |
+| Close pane | `Cmd+W` | `Ctrl+Shift+W` |
+| Quick Select (copy URLs/paths/hashes) | `Cmd+Shift+U` | `Ctrl+Alt+U` (built-in `Ctrl+Shift+Space` also works) |
+| Tab navigator / filter tabs | `Cmd+Shift+T` | `Ctrl+Alt+T` |
+| Move focus between panes | `Cmd+Alt+Arrow` | `Ctrl+Alt+Arrow` |
+| Open link under cursor | `Cmd+Click` | `Ctrl+Click` |
+
+Other platform-specific bits handled in the same file: the mise binary path, `macos_window_background_blur` (macOS only), and font fallbacks (Nerd Font → DejaVu Sans Mono → monospace).
+
+Requires a [Nerd Font](https://www.nerdfonts.com/) (e.g. Hack Nerd Font) for the Node icon in the status bar.
+
+
 ### Vim
 
 mapping leader key to `,`.
