@@ -77,14 +77,23 @@ config.colors = {
 }
 
 -- === 外觀 ===
-config.font = wezterm.font_with_fallback {
-  'Hack Nerd Font',
+-- 字型 fallback 清單：由前往後找第一個「系統實際有安裝」的字型。
+-- 注意：font_with_fallback 對清單裡「每一個找不到的字型」都會噴警告（不是靜默略過），
+-- 所以要依平台只列該平台實際有的字型，才不會啟動時跳字型警告。
+-- macOS 慣用 Hack Nerd Font；Arch/Linux 這台裝的是 SauceCodePro Nerd Font。
+local font_family = is_mac and {
+  'Hack Nerd Font',    -- macOS
   'Hack',
   'JetBrains Mono',
-  'DejaVu Sans Mono',  -- Linux 常見
   'Menlo',             -- macOS 內建
   'monospace',
+} or {
+  'SauceCodePro Nerd Font',  -- Linux (nerd-fonts patched Source Code Pro)
+  'JetBrains Mono',
+  'DejaVu Sans Mono',        -- Linux 常見
+  'monospace',
 }
+config.font = wezterm.font_with_fallback(font_family)
 config.font_size = 13.0
 config.line_height = 1.1
 
@@ -99,7 +108,8 @@ config.window_padding = { left = 12, right = 12, top = 10, bottom = 8 }
 config.use_fancy_tab_bar = true
 -- 分頁列文字大小（fancy tab bar 專用，與終端機 font_size 分開）
 config.window_frame = {
-  font = wezterm.font { family = 'Hack Nerd Font', weight = 'Regular' },
+  -- 用 fallback 版避免在沒有 Hack Nerd Font 的平台（如 Linux）噴字型警告
+  font = wezterm.font_with_fallback(font_family, { weight = 'Regular' }),
   font_size = 14.0,
 }
 config.hide_tab_bar_if_only_one_tab = false
