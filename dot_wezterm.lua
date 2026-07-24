@@ -95,7 +95,8 @@ local font_family = is_mac and {
 }
 -- 主字型固定 Regular 字重；清單其餘項目作為 fallback
 config.font = wezterm.font_with_fallback(font_family, { weight = 'Regular' })
-config.font_size = 14.0
+-- 字級依平台區分：Linux 用 14、macOS 維持 13
+config.font_size = is_mac and 13.0 or 14.0
 config.line_height = 1.1
 
 config.window_background_opacity = 1.0
