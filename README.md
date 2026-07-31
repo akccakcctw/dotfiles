@@ -56,6 +56,8 @@ Keybindings differ per platform on purpose. On macOS `Cmd` is free for the GUI a
 | Move focus between panes | `Cmd+Alt+Arrow` | `Ctrl+Alt+Arrow` |
 | Open link under cursor | `Cmd+Click` | `Ctrl+Click` |
 
+Mouse wheel scrolling is rebound to 5 lines per notch (WezTerm's default is 3) via `SCROLL_LINES` — there is no built-in setting for scroll speed, so the wheel events are remapped to `ScrollByLine`. The binding sets `alt_screen = false` so full-screen programs (vim, less, lazygit) keep their own scroll handling.
+
 Other platform-specific bits handled in the same file: the mise binary path, `macos_window_background_blur` (macOS only), and font fallbacks (Nerd Font → DejaVu Sans Mono → monospace).
 
 Requires a [Nerd Font](https://www.nerdfonts.com/) (e.g. Hack Nerd Font) for the Node icon in the status bar.

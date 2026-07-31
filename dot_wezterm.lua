@@ -210,7 +210,22 @@ config.keys = {
 }
 
 -- === 滑鼠：修飾鍵+點擊開啟連結（macOS=Cmd，Linux=Ctrl）===
+local SCROLL_LINES = 5  -- 滾輪一格捲動的行數（WezTerm 預設 3）
+
 config.mouse_bindings = {
+  -- 加快滾輪捲動；alt_screen = false 讓 vim/less 等全螢幕程式維持原本行為
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'NONE',
+    alt_screen = false,
+    action = wezterm.action.ScrollByLine(-SCROLL_LINES),
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'NONE',
+    alt_screen = false,
+    action = wezterm.action.ScrollByLine(SCROLL_LINES),
+  },
   {
     event = { Up = { streak = 1, button = 'Left' } },
     mods = LINK_MOD,
