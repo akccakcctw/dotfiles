@@ -42,7 +42,7 @@ config.colors = {
   selection_bg = '#3e4451',
 
   scrollbar_thumb = '#3e4451',
-  split = '#181a1f',
+  split = '#3e4451',  -- pane 分隔線：要比背景亮才看得出邊線
 
   ansi = {
     '#282c34', -- black
@@ -106,6 +106,9 @@ end
 
 config.window_decorations = 'RESIZE'  -- 隱藏標題列、保留可調整大小
 config.window_padding = { left = 12, right = 12, top = 10, bottom = 8 }
+
+-- 非焦點 pane 調暗，搭配 colors.split 的邊線讓分割更好辨識
+config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.6 }
 
 config.use_fancy_tab_bar = true
 -- 分頁列文字大小（fancy tab bar 專用，與終端機 font_size 分開）
