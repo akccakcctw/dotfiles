@@ -107,6 +107,13 @@ end
 config.window_decorations = 'RESIZE'  -- 隱藏標題列、保留可調整大小
 config.window_padding = { left = 12, right = 12, top = 10, bottom = 8 }
 
+-- Wayland 下（GNOME + window_decorations='RESIZE'）WezTerm 會把視窗高度進位到整數行，
+-- 算出來比 compositor 給的 maximize 高度還大，最大化時底部就被螢幕邊緣切掉。
+-- 走 XWayland 的 X11 路徑會正確遵守 maximize 幾何；螢幕縮放是 1.0，所以不會變模糊。
+if not is_mac then
+  config.enable_wayland = false
+end
+
 -- 非焦點 pane 調暗，搭配 colors.split 的邊線讓分割更好辨識
 config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.6 }
 
