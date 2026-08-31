@@ -214,6 +214,13 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+{{- if eq .chezmoi.os "darwin" }}
+# Android SDK (kkday-android-member dev env)
+export ANDROID_HOME="/opt/homebrew/share/android-commandlinetools"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+{{- end }}
+
 # mise (asdf replacement) — must run after PATH is finalized so shims sit in front.
 if command -v mise > /dev/null 2>&1; then
   eval "$(mise activate zsh)"
