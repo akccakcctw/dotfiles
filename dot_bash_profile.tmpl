@@ -3,7 +3,8 @@
 #
 
 # include user's private bin to PATH
-[[ -d ~/bin ]] && PATH=~/bin:$PATH
+# 用 case 比對避免巢狀 login shell 重複前綴 PATH
+case ":$PATH:" in *:"$HOME/bin":*) ;; *) [ -d ~/bin ] && PATH="$HOME/bin:$PATH" ;; esac
 
 {{- if eq .chezmoi.os "darwin" }}
 if brew list | grep coreutils > /dev/null; then
@@ -29,6 +30,10 @@ fi
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
 # Rust
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# 本機專屬設定的逃生口（不進 repo）。第三方安裝器要塞 PATH/env 請寫這裡，
+# 否則 `chezmoi apply` 會把直接改在本檔的內容蓋掉。
+[ -f ~/.bash_profile.local ] && . ~/.bash_profile.local

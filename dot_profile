@@ -10,5 +10,11 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # include user's private bin to BASH
-[[ -d ~/bin ]] && PATH=~/bin:$PATH
-[[ -d ~/.local/bin ]] && PATH=~/.local/bin:$PATH
+# 用 case 比對避免巢狀 login shell 重複前綴 PATH
+case ":$PATH:" in *:"$HOME/bin":*) ;; *) [ -d ~/bin ] && PATH="$HOME/bin:$PATH" ;; esac
+# ~/.local/bin/env 自帶重複檢查
+[ -f ~/.local/bin/env ] && . ~/.local/bin/env
+
+# 本機專屬設定的逃生口（不進 repo）。第三方安裝器要塞 PATH/env 請寫這裡，
+# 否則 `chezmoi apply` 會把直接改在本檔的內容蓋掉。
+[ -f ~/.profile.local ] && . ~/.profile.local

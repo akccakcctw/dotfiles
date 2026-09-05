@@ -9,4 +9,5 @@ export GPG_TTY=$(tty)
 
 export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available
 
-source ~/.zshenv.local
+# 本機專屬設定的逃生口（不進 repo）
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local

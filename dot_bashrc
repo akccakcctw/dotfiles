@@ -35,4 +35,8 @@ export MANPAGER='less -X' # dont clean the screen after quitting the manual page
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# 本機專屬設定的逃生口（不進 repo）。第三方安裝器要塞 PATH/env 請寫這裡，
+# 否則 `chezmoi apply` 會把直接改在本檔的內容蓋掉。
+[ -f ~/.bashrc.local ] && . ~/.bashrc.local

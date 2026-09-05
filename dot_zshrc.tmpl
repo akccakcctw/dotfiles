@@ -227,3 +227,7 @@ if command -v mise > /dev/null 2>&1; then
 fi
 
 # vim:fdm=marker:foldlevel=0
+
+# 本機專屬設定的逃生口（不進 repo）。第三方安裝器要塞 PATH/env 請寫這裡，
+# 否則 `chezmoi apply` 會把直接改在本檔的內容蓋掉。
+[ -f ~/.zshrc.local ] && . ~/.zshrc.local
