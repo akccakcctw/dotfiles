@@ -1,6 +1,6 @@
-{{- $email := promptString "email" -}}
-{{- $name := promptString "name" -}}
-{{- $signingkey := promptString "git signingkey" -}}
+{{- $email := promptStringOnce . "email" "email" -}}
+{{- $name := promptStringOnce . "name" "name" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "git signingkey" -}}
 {{/* 這台機器要不要工作用設定（KKday host / alias 等） */}}
 {{- $work := promptBoolOnce . "work" "work machine" -}}
 [data]
