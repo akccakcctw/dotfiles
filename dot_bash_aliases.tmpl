@@ -75,3 +75,8 @@ alias curltime='curl -w "@${HOME}/.curl-format" -o /dev/null -s '
 
 # SSH
 alias sshPTT='ssh bbsu@ptt.cc'
+{{ if .work }}
+# KKday local development
+# https://sit-vibe-static.s3.ap-southeast-1.amazonaws.com/share/rex-tsou/20260603/2026-06-02-local-ssr-slow-investigation.html
+alias b2cdev='LOCAL_SSR_PROXY=http://172.17.0.1:9050 pnpm --filter=@kkday/b2c-web-main run dev'
+{{- end }}
