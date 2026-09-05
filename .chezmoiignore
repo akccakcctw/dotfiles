@@ -1,6 +1,9 @@
 README.md
 .config/nvim/lazy-lock.json
 
+# 本機專屬 ssh 設定，刻意不納管（公司/機密設定放這）
+.ssh/config.local
+
 {{ if ne .chezmoi.os "darwin" }}
 Library/**
 {{ end }}

@@ -1,7 +1,18 @@
-{{- if eq .chezmoi.os "darwin" }}
-Include /Users/rex.tsou/.colima/ssh_config
-Include /Users/rex.tsou/.config/tailscale/ssh_config
-{{- end }}
+{{- /*
+   ssh_config 是 first-match-wins，Include 必須放在最前面，
+   讓機器本地/工具產生的設定可以覆蓋下面的共用預設。
+*/ -}}
+{{- /* 工具自己產生的 config，存在才 include（跨 OS 通用） */ -}}
+{{- $includes := list -}}
+{{- range list ".colima/ssh_config" ".config/tailscale/ssh_config" ".ssh/vultr/ssh_config" -}}
+{{- if stat (joinPath $.chezmoi.homeDir .) -}}
+{{- $includes = mustAppend $includes (printf "Include ~/%s" .) -}}
+{{- end -}}
+{{- end -}}
+{{ range $includes }}{{ . }}
+{{ end }}
+# 本機專屬、不進 repo 的設定放這裡（對齊 .zshenv.local / .gitconfig.local 慣例）
+Include ~/.ssh/config.local
 
 # - Sample
 # Host      <HOST>
