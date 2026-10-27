@@ -135,9 +135,26 @@ config.scrollback_lines = 10000
 config.enable_scroll_bar = false
 config.audible_bell = 'Disabled'
 
--- === 狀態列：在分頁列右側顯示當前目錄的 node 版本（由 mise 解析）===
-config.status_update_interval = 3000  -- 狀態列更新間隔（預設 1000ms），拉長以降低 idle CPU
+-- === 狀態列：在分頁列右側顯示當前目錄的 node 版本（由 mise 解析）與現在時刻 ===
+config.status_update_interval = 1000  -- 時間要顯示到秒，所以每秒更新；node 版本仍靠快取避免每秒開 mise
 local node_cache = { cwd = nil, ver = nil }
+local json_decode = (wezterm.serde and wezterm.serde.json_decode) or wezterm.json_parse
+
+-- 前景是 herdr 時，WezTerm 看到的 cwd 是 herdr 啟動的目錄，不是裡面那一格的目錄；
+-- 改問 herdr 目前聚焦的 pane 在哪裡
+local function herdr_focused_cwd(herdr_bin)
+  local ok, success, stdout = pcall(wezterm.run_child_process, { herdr_bin, 'api', 'snapshot' })
+  if not (ok and success and stdout) then return nil end
+  local ok_json, data = pcall(json_decode, stdout)
+  local snap = ok_json and data and data.result and data.result.snapshot
+  if not snap then return nil end
+  for _, p in ipairs(snap.panes or {}) do
+    if p.pane_id == snap.focused_pane_id then
+      return p.foreground_cwd or p.cwd
+    end
+  end
+  return nil
+end
 
 wezterm.on('update-status', function(window, pane)
   -- 取得當前工作目錄（pane 關閉瞬間可能抓不到，用 pcall 保護避免噴錯）
@@ -150,6 +167,11 @@ wezterm.on('update-status', function(window, pane)
     else
       cwd = tostring(cwd_uri):gsub('^file://[^/]*', '')  -- 舊版回傳字串
     end
+  end
+
+  local ok_fg, fg = pcall(function() return pane:get_foreground_process_name() end)
+  if ok_fg and fg and fg:match('/herdr$') then
+    cwd = herdr_focused_cwd(fg) or cwd
   end
 
   -- 依 cwd 查 node 版本，同一目錄用快取避免每秒開子行程
@@ -172,14 +194,14 @@ wezterm.on('update-status', function(window, pane)
     end
   end
 
+  local items = {}
   if ver and ver ~= '' then
-    window:set_right_status(wezterm.format {
-      { Foreground = { Color = '#98c379' } },  -- One Dark 綠
-      { Text = ' \u{e718} ' .. ver .. '  ' },
-    })
-  else
-    window:set_right_status ''
+    table.insert(items, { Foreground = { Color = '#98c379' } })  -- One Dark 綠
+    table.insert(items, { Text = ' \u{e718} ' .. ver .. '  ' })
   end
+  table.insert(items, { Foreground = { Color = '#abb2bf' } })    -- One Dark 前景灰
+  table.insert(items, { Text = wezterm.strftime '%H:%M:%S' .. '  ' })
+  window:set_right_status(wezterm.format(items))
 end)
 
 -- === 快捷鍵（依平台自動切換修飾鍵）===
