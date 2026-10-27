@@ -156,6 +156,21 @@ local function herdr_focused_cwd(herdr_bin)
   return nil
 end
 
+-- herdr 跑起來時 WezTerm 回報的前景行程仍是 zsh，所以沿著行程樹往下找 herdr
+local function find_herdr(pane)
+  local ok, info = pcall(function() return pane:get_foreground_process_info() end)
+  if not (ok and info) then return nil end
+  local function walk(p)
+    if p.executable and p.executable:match('/herdr$') then return p.executable end
+    for _, child in pairs(p.children or {}) do
+      local found = walk(child)
+      if found then return found end
+    end
+    return nil
+  end
+  return walk(info)
+end
+
 wezterm.on('update-status', function(window, pane)
   -- 取得當前工作目錄（pane 關閉瞬間可能抓不到，用 pcall 保護避免噴錯）
   local ok_cwd, cwd_uri = pcall(function() return pane:get_current_working_dir() end)
@@ -169,9 +184,9 @@ wezterm.on('update-status', function(window, pane)
     end
   end
 
-  local ok_fg, fg = pcall(function() return pane:get_foreground_process_name() end)
-  if ok_fg and fg and fg:match('/herdr$') then
-    cwd = herdr_focused_cwd(fg) or cwd
+  local herdr_bin = find_herdr(pane)
+  if herdr_bin then
+    cwd = herdr_focused_cwd(herdr_bin) or cwd
   end
 
   -- 依 cwd 查 node 版本，同一目錄用快取避免每秒開子行程
