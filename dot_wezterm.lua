@@ -135,7 +135,7 @@ config.scrollback_lines = 10000
 config.enable_scroll_bar = false
 config.audible_bell = 'Disabled'
 
--- === 狀態列：在分頁列右側顯示當前目錄的 node 版本（由 mise 解析）與現在時刻 ===
+-- === 狀態列：在分頁列右側顯示當前目錄的 node 版本（由 mise 解析）、記憶體使用量與現在時刻 ===
 config.status_update_interval = 1000  -- 時間要顯示到秒，所以每秒更新；node 版本仍靠快取避免每秒開 mise
 local node_cache = { cwd = nil, ver = nil }
 local json_decode = (wezterm.serde and wezterm.serde.json_decode) or wezterm.json_parse
@@ -169,6 +169,38 @@ local function find_herdr(pane)
     return nil
   end
   return walk(info)
+end
+
+-- 記憶體使用量：macOS 用 vm_stat（公式同活動監視器），Linux 讀 /proc/meminfo；快取 5 秒
+local mem_cache = { at = 0, text = nil, pct = nil }
+local function mem_usage()
+  local now = os.time()
+  if mem_cache.text and now - mem_cache.at < 5 then return mem_cache.text end
+  local used, total
+  if is_mac then
+    local ok, success, out = pcall(wezterm.run_child_process, { '/usr/bin/vm_stat' })
+    local ok2, success2, mem = pcall(wezterm.run_child_process, { '/usr/sbin/sysctl', '-n', 'hw.memsize' })
+    if ok and success and ok2 and success2 then
+      local page = tonumber(out:match 'page size of (%d+)') or 16384
+      local function n(label) return tonumber(out:match(label .. ':%s+(%d+)')) or 0 end
+      used = (n 'Anonymous pages' - n 'Pages purgeable' + n 'Pages wired down'
+              + n 'Pages occupied by compressor') * page
+      total = tonumber((mem:gsub('%s+', '')))
+    end
+  else
+    local f = io.open('/proc/meminfo', 'r')
+    if f then
+      local s = f:read '*a'; f:close()
+      total = (tonumber(s:match 'MemTotal:%s+(%d+)') or 0) * 1024
+      used = total - (tonumber(s:match 'MemAvailable:%s+(%d+)') or 0) * 1024
+    end
+  end
+  if used and total and total > 0 then
+    mem_cache.text = string.format('%.1f/%.0fG', used / 2^30, total / 2^30)
+    mem_cache.pct = used / total
+  end
+  mem_cache.at = now
+  return mem_cache.text
 end
 
 wezterm.on('update-status', function(window, pane)
@@ -213,6 +245,13 @@ wezterm.on('update-status', function(window, pane)
   if ver and ver ~= '' then
     table.insert(items, { Foreground = { Color = '#98c379' } })  -- One Dark 綠
     table.insert(items, { Text = ' \u{e718} ' .. ver .. '  ' })
+  end
+  local mem = mem_usage()
+  if mem then
+    -- 超過 85% 轉紅，其餘用 One Dark 藍
+    local color = (mem_cache.pct or 0) > 0.85 and '#e06c75' or '#61afef'
+    table.insert(items, { Foreground = { Color = color } })
+    table.insert(items, { Text = '\u{f035b} ' .. mem .. '  ' })  -- nf-md-memory
   end
   table.insert(items, { Foreground = { Color = '#abb2bf' } })    -- One Dark 前景灰
   table.insert(items, { Text = wezterm.strftime '%H:%M:%S' .. '  ' })
