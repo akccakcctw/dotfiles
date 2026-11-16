@@ -215,7 +215,7 @@ esac
 # pnpm end
 
 {{- if eq .chezmoi.os "darwin" }}
-# Android SDK (work-android-member dev env)
+# Android SDK
 export ANDROID_HOME="/opt/homebrew/share/android-commandlinetools"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
