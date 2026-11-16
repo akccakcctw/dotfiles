@@ -83,9 +83,6 @@ M.config = function()
 						port = 9003,
 						log = true,
 						program = "${file}",
-						pathMappings = {
-							['/var/www/work-member-ci'] = vim.fn.getcwd() .. '/',
-						},
 						hostname = '0.0.0.0',
 					}
 				}
