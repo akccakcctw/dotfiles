@@ -140,6 +140,9 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+# zplug load 內部會 `setopt nomonitor` 且不還原，導致互動 shell 失去 job control：
+# 前景程式（如 claude）和 shell 共用同一個 process group，Herdr 等 terminal 會誤判 shell 回到 prompt 而清掉 agent 狀態
+[[ -o interactive ]] && setopt monitor
 # }}}
 
 # }}}
