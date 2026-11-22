@@ -178,12 +178,17 @@ fi
 
 # ssh {{ "{{{" }}
 # passphrase single time
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add
+ssh-add -l > /dev/null 2>&1
+_ssh_add_status=$?
+if [ $_ssh_add_status -eq 2 ]; then
+  rm -f ~/.ssh/ssh_auth_sock
+  eval "$(ssh-agent -s -a ~/.ssh/ssh_auth_sock)" > /dev/null
+  ssh-add
+elif [ $_ssh_add_status -eq 1 ]; then
+  ssh-add
+fi
+unset _ssh_add_status
 # }}}
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
