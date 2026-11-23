@@ -87,7 +87,7 @@
               "id": "tabs",
               "type": "block",
               "content": {
-                "mod": "tabs"
+                "mod": "rex-tabs"
               },
               "size": {
                 "weight": 1
@@ -160,6 +160,13 @@
                       "type": "block",
                       "content": {
                         "mod": "changes"
+                      }
+                    },
+                    {
+                      "id": "todos",
+                      "type": "block",
+                      "content": {
+                        "mod": "todos"
                       }
                     }
                   ],

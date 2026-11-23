@@ -1,0 +1,1 @@
+{ "place": "none", "title": "Board", "overlay": { "kind": "window", "key": "board", "width": 0.85, "height": 0.8 } }
